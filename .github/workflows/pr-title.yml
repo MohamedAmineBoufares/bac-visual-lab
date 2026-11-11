@@ -9,6 +9,8 @@ permissions: {}
 
 jobs:
   pr-title:
+    # Dependabot's security fixes are titled "Bump …"; a skipped job still passes the required check.
+    if: github.actor != 'dependabot[bot]'
     runs-on: ubuntu-latest
     steps:
       # The title goes through env, never into the script, so it cannot inject shell code.
