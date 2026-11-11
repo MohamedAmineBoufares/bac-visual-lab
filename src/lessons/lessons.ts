@@ -1,8 +1,7 @@
-import type { ComponentType } from "react";
+import { type ComponentType, lazy } from "react";
 import type { MessageKey } from "@/i18n/messages";
-import type { Section } from "@/screens/screens";
+import type { Section } from "@/screens/sections";
 import { rcQuiz } from "@/sims/rc-charging/quiz";
-import { RcCharging } from "@/sims/rc-charging/rc-charging";
 
 export type Question = { prompt: MessageKey; options: MessageKey[]; answer: MessageKey; explain: MessageKey };
 
@@ -51,7 +50,11 @@ export const lessons: Lesson[] = [
     title: "rcTitle",
     chapter: "rcChapter",
     level: "level4",
-    ready: { thumb: "M0 70 C 40 20 90 8 200 4", Sim: RcCharging, quiz: rcQuiz },
+    ready: {
+      thumb: "M0 70 C 40 20 90 8 200 4",
+      Sim: lazy(() => import("@/sims/rc-charging/rc-charging").then((m) => ({ default: m.RcCharging }))),
+      quiz: rcQuiz,
+    },
   },
   soon("rl-circuit", "physics", [E, M, T], "tRl", "thElec"),
   soon("rlc-free", "physics", [E, M, T], "tRlcFree", "thElec"),

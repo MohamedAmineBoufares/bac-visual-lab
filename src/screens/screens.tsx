@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
-import { ArrowLeft, ArrowRight, Atom, Binary, Cog, FlaskConical, Search, Sigma, TestTubes } from "lucide-react";
-import { type ComponentType, type ReactNode, useEffect, useState } from "react";
+import { ArrowLeft, ArrowRight, Atom, Search, Sigma, TestTubes } from "lucide-react";
+import { type ComponentType, type ReactNode, Suspense, useEffect, useState } from "react";
+import { type Section, sections } from "@/screens/sections";
 import { Formula } from "@/components/formula";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -9,21 +10,6 @@ import { isReady, type Lesson as LessonData, lessons, type ReadyLesson } from "@
 import { useProgress } from "@/lessons/progress";
 import { cn } from "@/lib/utils";
 import { useSettings } from "@/settings/settings";
-
-export const sections = [
-  { slug: "sciences-experimentales", key: "secExp", short: "secExpS", icon: FlaskConical },
-  { slug: "mathematiques", key: "secMath", short: "secMathS", icon: Sigma },
-  { slug: "sciences-techniques", key: "secTech", short: "secTechS", icon: Cog },
-  { slug: "informatique", key: "secInfo", short: "secInfoS", icon: Binary },
-] as const satisfies readonly {
-  slug: string;
-  key: MessageKey;
-  short: MessageKey;
-  icon: ComponentType<{ className?: string }>;
-}[];
-
-export type Section = (typeof sections)[number];
-export const findSection = (slug: string): Section | undefined => sections.find((s) => s.slug === slug);
 
 const cardLink =
   "flex border-2 border-foreground bg-card text-start transition-shadow hover:shadow-hard focus-visible:shadow-hard focus-visible:outline-none";
@@ -318,7 +304,9 @@ export function Lesson({ lesson }: { lesson: ReadyLesson }) {
           <h1 className="text-2xl font-bold">{t(lesson.title)}</h1>
         </div>
       </div>
-      <lesson.ready.Sim />
+      <Suspense fallback={<div aria-busy="true" className="min-h-96 border-2 border-dashed border-foreground/30" />}>
+        <lesson.ready.Sim />
+      </Suspense>
     </Page>
   );
 }

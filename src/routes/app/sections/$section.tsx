@@ -1,5 +1,6 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
-import { Chapters, findSection } from "@/screens/screens";
+import { Chapters } from "@/screens/screens";
+import { findSection } from "@/screens/sections";
 
 export const Route = createFileRoute("/app/sections/$section")({
   loader: ({ params }) => {
