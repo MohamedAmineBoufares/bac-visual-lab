@@ -1,0 +1,192 @@
+@import "tailwindcss";
+@import "@fontsource-variable/readex-pro";
+@import "@fontsource-variable/noto-sans-arabic";
+@import "@fontsource/atkinson-hyperlegible-next/400.css";
+@import "@fontsource/atkinson-hyperlegible-next/600.css";
+@import "katex/dist/katex.min.css";
+
+/*
+ * Design tokens. Source of truth mirrors the Figma file (collections "Color · Light",
+ * "Color · Dark", "Sim · *"). Display settings are attributes on <html>:
+ *   data-theme="light|dark"   data-cb="on"   data-font="default|readable"   data-size="s|m|l|xl"
+ */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+:root {
+  /* Primitives: Méditerranée */
+  --blue-300: #6faed9;
+  --blue-400: #3f8fc6;
+  --blue-500: #1c6ea4;
+  --blue-800: #0b3c5d;
+  --blue-900: #072841;
+  --terracotta-300: #e58661;
+  --terracotta-500: #bf5129;
+  --saffron-300: #f2c14e;
+  --saffron-400: #e0a92a;
+  --sand-100: #f7f4ee;
+  --sand-200: #ece6da;
+  --sand-500: #8a8170;
+  --sand-600: #645c4e;
+  --ink-950: #0b1520;
+  --ink-900: #0f1c2a;
+  --ink-800: #172838;
+  --ink-600: #34506a;
+  --ink-300: #9fb3c6;
+  --ink-100: #e3ebf2;
+  --green-600: #2f7148;
+  --green-300: #7cc49a;
+  --red-500: #c8372d;
+  --red-300: #ee8a80;
+  --teal-300: #4fd1c5;
+  --amber-300: #f6ad55;
+
+  /* Semantic (shadcn names) */
+  --background: #ffffff;
+  --foreground: var(--blue-900);
+  --card: #ffffff;
+  --card-foreground: var(--blue-900);
+  --popover: #ffffff;
+  --popover-foreground: var(--blue-900);
+  --primary: var(--blue-500);
+  --primary-foreground: #ffffff;
+  --secondary: var(--sand-100);
+  --secondary-foreground: var(--blue-800);
+  --muted: var(--sand-100);
+  --muted-foreground: var(--sand-600);
+  --accent: var(--terracotta-500);
+  --accent-foreground: #ffffff;
+  --destructive: var(--red-500);
+  --success: var(--green-600);
+  --border: var(--blue-900);
+  --input: var(--blue-900);
+  --ring: var(--blue-400);
+  --radius: 0px;
+  --shadow-color: var(--blue-900);
+
+  /* Simulation palette */
+  --sim-curve-1: var(--blue-500);
+  --sim-curve-2: var(--terracotta-500);
+  --sim-curve-3: var(--green-600);
+  --sim-point: var(--terracotta-500);
+  --sim-highlight: var(--saffron-300);
+  --sim-grid: var(--sand-200);
+  --sim-axis: var(--sand-500);
+  --sim-canvas: #ffffff;
+
+  /* Typography + text size (rem scales everything, incl. touch targets) */
+  --font-ui: "Readex Pro Variable", "Noto Sans Arabic Variable", system-ui, sans-serif;
+  font-size: 100%;
+}
+
+[data-theme="dark"] {
+  --background: var(--ink-950);
+  --foreground: var(--ink-100);
+  --card: var(--ink-900);
+  --card-foreground: var(--ink-100);
+  --popover: var(--ink-800);
+  --popover-foreground: var(--ink-100);
+  --primary: var(--blue-300);
+  --primary-foreground: var(--ink-950);
+  --secondary: var(--ink-800);
+  --secondary-foreground: var(--ink-100);
+  --muted: var(--ink-800);
+  --muted-foreground: var(--ink-300);
+  --accent: var(--terracotta-300);
+  --accent-foreground: var(--ink-950);
+  --destructive: var(--red-300);
+  --success: var(--green-300);
+  --border: var(--ink-300);
+  --input: var(--ink-300);
+  --ring: var(--blue-300);
+  --shadow-color: var(--ink-300);
+
+  --sim-curve-1: var(--blue-300);
+  --sim-curve-2: var(--amber-300);
+  --sim-curve-3: var(--teal-300);
+  --sim-point: var(--amber-300);
+  --sim-highlight: var(--saffron-400);
+  --sim-grid: var(--ink-800);
+  --sim-axis: var(--ink-600);
+  --sim-canvas: var(--ink-900);
+}
+
+/* Colour-blind safe (Okabe-Ito), contrast-checked against each canvas */
+[data-cb="on"] {
+  --sim-curve-1: #0072b2;
+  --sim-curve-2: #9a6700;
+  --sim-curve-3: #a04f84;
+  --sim-point: #d55e00;
+  --sim-highlight: #f0e442;
+}
+[data-theme="dark"][data-cb="on"] {
+  --sim-curve-1: #56b4e9;
+  --sim-curve-2: #e69f00;
+  --sim-curve-3: #cc79a7;
+  --sim-point: #f0e442;
+  --sim-highlight: #f0e442;
+}
+
+[data-font="readable"] {
+  --font-ui: "Atkinson Hyperlegible Next", "Noto Sans Arabic Variable", system-ui, sans-serif;
+}
+[data-size="s"] {
+  font-size: 87.5%;
+}
+[data-size="l"] {
+  font-size: 112.5%;
+}
+[data-size="xl"] {
+  font-size: 125%;
+}
+
+@theme inline {
+  --font-sans: var(--font-ui);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-success: var(--success);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-sim-curve-1: var(--sim-curve-1);
+  --color-sim-curve-2: var(--sim-curve-2);
+  --color-sim-curve-3: var(--sim-curve-3);
+  --color-sim-point: var(--sim-point);
+  --color-sim-highlight: var(--sim-highlight);
+  --color-sim-grid: var(--sim-grid);
+  --color-sim-axis: var(--sim-axis);
+  --color-sim-canvas: var(--sim-canvas);
+  --radius-sm: var(--radius);
+  --radius-md: var(--radius);
+  --radius-lg: var(--radius);
+  --radius-xl: var(--radius);
+  /* Hard offset shadows, no blur */
+  --shadow-hard-sm: 4px 4px 0 0 var(--shadow-color);
+  --shadow-hard: 6px 6px 0 0 var(--shadow-color);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+  /* Formulas stay LTR inside RTL text */
+  .katex {
+    direction: ltr;
+    unicode-bidi: isolate;
+  }
+}

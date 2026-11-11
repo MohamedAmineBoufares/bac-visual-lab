@@ -1,0 +1,50 @@
+{
+  "name": "bac-visual-lab",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc -b",
+    "lint": "oxlint",
+    "format": "oxfmt",
+    "format:check": "oxfmt --check",
+    "check": "pnpm typecheck && pnpm lint && pnpm format:check && pnpm test",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@fontsource-variable/noto-sans-arabic": "^5.3.0",
+    "@fontsource-variable/readex-pro": "^5.3.0",
+    "@fontsource/atkinson-hyperlegible-next": "^5.3.0",
+    "@tailwindcss/vite": "^4.3.5",
+    "@tanstack/react-router": "^1.170.46",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "cn": "^0.5.2",
+    "katex": "^0.19.1",
+    "lucide-react": "^1.72.0",
+    "radix-ui": "^1.8.1",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "tailwind-merge": "^3.7.0",
+    "tailwindcss": "^4.3.5"
+  },
+  "devDependencies": {
+    "@tanstack/router-plugin": "^1.169.0",
+    "@types/node": "^26.6.6",
+    "@types/react": "^19.1.2",
+    "@types/react-dom": "^19.1.2",
+    "@vitejs/plugin-react": "^4.4.1",
+    "oxfmt": "^0.78.0",
+    "oxlint": "^1.93.0",
+    "typescript": "~5.8.3",
+    "vite": "^6.3.5",
+    "vitest": "^5.1.0"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "packageManager": "pnpm@10.30.1"
+}
