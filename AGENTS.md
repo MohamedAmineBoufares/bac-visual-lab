@@ -10,6 +10,7 @@ Read [README.md](README.md) and [docs/design.md](docs/design.md) before larger c
 
 ## Commands
 
+- Node 22.12+ and pnpm 12 (pinned in `packageManager`). Keep dependencies on their latest releases.
 - `pnpm install` (pnpm only; never commit `package-lock.json` or `yarn.lock`)
 - `pnpm dev` / `pnpm build`
 - `pnpm check` must pass before you call work done (types, oxlint, oxfmt, Vitest)
@@ -23,7 +24,7 @@ Read [README.md](README.md) and [docs/design.md](docs/design.md) before larger c
 - `/design` must stay dev-only (`import.meta.env.DEV` guard), never linked from the app.
 - No database. Content is typed TS modules (code-split per route); progress/settings live in
   `localStorage`. Reconsider IndexedDB only if local data outgrows that.
-- The React Compiler is on (see `vite.config.ts`): don't add `useMemo`/`useCallback`/`memo` for speed.
+- The React Compiler runs through `@rolldown/plugin-babel` + `reactCompilerPreset` (see `vite.config.ts`): don't add `useMemo`/`useCallback`/`memo` for speed.
 - TypeScript strict, no `any`, no `as` casts to silence errors. `noUncheckedIndexedAccess` is on.
 - Simulation physics/maths live in `src/sims/<name>/model.ts` as pure functions with unit tests against a
   known solution (e.g. RC: u_C(τ) = 63.2 % of E). No React in models.

@@ -17,7 +17,8 @@ Move a slider, watch the curve change, and see which term of the formula did it.
 
 ## Getting started
 
-Requires Node 20+ and [pnpm](https://pnpm.io) (`corepack enable` installs the pinned version).
+Requires Node 22.12+ (developed on Node 26) and [pnpm](https://pnpm.io) 12 (`corepack enable` installs the pinned version).
+pnpm refuses packages published less than a day ago (`minimumReleaseAge`); if an install fails on a brand-new release, wait a day rather than turning the check off.
 
 ```bash
 pnpm install
@@ -38,7 +39,7 @@ phone (390px), tablet (834px) and projector (1440px) widths side by side.
 
 ## Stack
 
-Vite · React 19 · TypeScript (strict) · [TanStack Router](https://tanstack.com/router) (file-based) · Tailwind CSS v4 · [shadcn/ui](https://ui.shadcn.com) (Radix) ·
+Vite 8 (Rolldown) · React 19.3 (stable `<ViewTransition>`) with the [React Compiler](https://react.dev/learn/react-compiler) · TypeScript 7 (strict) · [TanStack Router](https://tanstack.com/router) (file-based) · Tailwind CSS v4 · [shadcn/ui](https://ui.shadcn.com) (Radix) ·
 KaTeX · lucide icons · self-hosted fonts (Readex Pro, Noto Sans Arabic, Atkinson Hyperlegible Next).
 
 ## Project layout
