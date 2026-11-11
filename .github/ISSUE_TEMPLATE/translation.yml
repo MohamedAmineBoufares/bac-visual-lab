@@ -1,0 +1,49 @@
+name: Traduction · Translation · ترجمة
+description: Un texte mal traduit, peu clair ou manquant (français, anglais ou arabe).
+title: "Traduction : "
+labels: ["translation"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Merci ! Les textes de l'application sont dans `src/i18n/messages.ts`. Pas besoin de le modifier :
+        décrivez simplement le texte à corriger. Les relectures de l'arabe par des locuteurs natifs sont très bienvenues.
+  - type: dropdown
+    id: locale
+    attributes:
+      label: Langue · Language · اللغة
+      options:
+        - Français
+        - English
+        - العربية
+    validations:
+      required: true
+  - type: input
+    id: where
+    attributes:
+      label: Où ? · Where?
+      description: La page et l'endroit (ex. Dipôle RC, curseur de la résistance) ou le lien de la page.
+    validations:
+      required: true
+  - type: textarea
+    id: current
+    attributes:
+      label: Texte actuel · Current text
+    validations:
+      required: true
+  - type: textarea
+    id: suggested
+    attributes:
+      label: Proposition · Suggestion
+      description: Le texte corrigé.
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: Pourquoi ? · Why?
+      description: Faute, terme différent de celui du programme tunisien, phrase peu claire, texte coupé à l'écran…
+  - type: input
+    id: author
+    attributes:
+      label: Votre nom (facultatif) · Your name (optional)

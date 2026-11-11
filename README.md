@@ -46,15 +46,15 @@ pnpm dev            # app at http://localhost:3000
 Open `http://localhost:3000/design` for the design review board (development only): the same page at
 phone (390px), tablet (834px) and projector (1440px) widths side by side.
 
-| Script         | What it does                                                             |
-| -------------- | ------------------------------------------------------------------------ |
-| `pnpm dev`     | Vite dev server                                                          |
-| `pnpm build`   | Type-check, production build to `dist/`, then the bundle-size budget     |
-| `pnpm preview` | Serve the production build (use it to test offline mode)                 |
-| `pnpm test`    | Unit and accessibility tests (Vitest, axe-core in jsdom)                 |
-| `pnpm lint`    | [oxlint](https://oxc.rs/docs/guide/usage/linter)                         |
-| `pnpm format`  | [oxfmt](https://oxc.rs/docs/guide/usage/formatter) (Prettier-compatible) |
-| `pnpm check`   | Everything CI should run: types, lint, format check, tests               |
+| Script         | What it does                                                              |
+| -------------- | ------------------------------------------------------------------------- |
+| `pnpm dev`     | Vite dev server                                                           |
+| `pnpm build`   | Type-check, production build to `dist/`, then the bundle-size budget      |
+| `pnpm preview` | Serve the production build (use it to test offline mode)                  |
+| `pnpm test`    | Unit and accessibility tests (Vitest, axe-core in jsdom)                  |
+| `pnpm lint`    | [oxlint](https://oxc.rs/docs/guide/usage/linter)                          |
+| `pnpm format`  | [oxfmt](https://oxc.rs/docs/guide/usage/formatter) (Prettier-compatible)  |
+| `pnpm check`   | Everything CI runs on each pull request: types, lint, format check, tests |
 
 ## Stack
 

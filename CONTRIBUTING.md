@@ -7,7 +7,8 @@ Thanks for helping. Teachers, students and developers are all welcome.
 - **Teachers:** propose or improve a lesson with a lesson doc, no code needed: see
   [content/README.md](content/README.md). You can also review a simulation for correctness, suggest exam-style questions, flag chapters that
   matter most for the Bac.
-- **Translators:** review Arabic and French UI strings in `src/i18n/messages.ts`.
+- **Translators:** review Arabic and French UI strings in `src/i18n/messages.ts`, or report a wrong text with the
+  [translation form](https://github.com/MohamedAmineBoufares/bac-visual-lab/issues/new?template=translation.yml).
 - **Developers:** build a simulation for one of the chapters marked "coming soon", or fix a bug. See
   [AGENTS.md](AGENTS.md) for conventions; they apply to humans too.
 

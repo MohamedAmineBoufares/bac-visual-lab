@@ -167,6 +167,7 @@ function Landing() {
             )}
             . {t("rights")}
           </p>
+          <p className="text-muted-foreground">v{site.version}</p>
           <nav className="flex items-center gap-4 font-semibold">
             {site.repoUrl && (
               <a href={site.repoUrl} target="_blank" rel="noreferrer" className="underline underline-offset-4">

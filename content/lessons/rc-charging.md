@@ -6,7 +6,7 @@ sections: sciences-experimentales, mathematiques, sciences-techniques
 chapter: Dipôle RC
 status: built
 version: 1.1.0
-target-version: 0.1.0
+app-version: 1.0.0
 author: Mohamed Amine Boufares
 updated: 2026-11-11
 language: fr
@@ -16,10 +16,10 @@ language: fr
 
 La ligne la plus récente en premier. Elle est affichée sur la page de la leçon.
 
-| Version | Date       | Auteur                 | Version cible | Modifications                                        |
-| ------- | ---------- | ---------------------- | ------------- | ---------------------------------------------------- |
-| 1.1.0   | 2026-11-11 | Mohamed Amine Boufares | 0.1.0         | Ajout de la vue 3D et du schéma vu de dessus         |
-| 1.0.0   | 2026-11-11 | Mohamed Amine Boufares | 0.1.0         | Fiche écrite à partir de la simulation déjà en ligne |
+| Version | Date       | Auteur                 | Version de l’app | Modifications                                        |
+| ------- | ---------- | ---------------------- | ---------------- | ---------------------------------------------------- |
+| 1.1.0   | 2026-11-11 | Mohamed Amine Boufares | 1.0.0            | Ajout de la vue 3D et du schéma vu de dessus         |
+| 1.0.0   | 2026-11-11 | Mohamed Amine Boufares | 1.0.0            | Fiche écrite à partir de la simulation déjà en ligne |
 
 ## Objectif
 

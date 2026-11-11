@@ -16,14 +16,14 @@ describe("parseDoc", () => {
       "id: x",
       "version: 1.1.0",
       "---",
-      "| Version | Date | Auteur | Version cible | Modifications |",
+      "| Version | Date | Auteur | Version de l’app | Modifications |",
       "| --- | --- | --- | --- | --- |",
       "| 1.1.0 | 2026-02-01 | B | 0.3.0 | Ajout du quiz |",
       "| 1.0.0 | 2026-01-01 | A | 0.2.0 | Première version |",
     ].join("\r\n");
     expect(parseDoc(md)).toEqual({
       meta: { id: "x", version: "1.1.0" },
-      latest: { version: "1.1.0", date: "2026-02-01", author: "B", target: "0.3.0", changes: "Ajout du quiz" },
+      latest: { version: "1.1.0", date: "2026-02-01", author: "B", appVersion: "0.3.0", changes: "Ajout du quiz" },
     });
   });
   it("rejects a doc without a History row", () => expect(parseDoc("---\nid: x\n---\n")).toBeUndefined());
@@ -45,12 +45,19 @@ describe.each(docs)("content/lessons/$id.md", ({ id, doc }) => {
       version: doc?.latest.version,
       updated: doc?.latest.date,
       author: doc?.latest.author,
-      "target-version": doc?.latest.target,
+      "app-version": doc?.latest.appVersion,
     });
   });
 });
 
-it("every built lesson has a doc", () => {
+it("the lesson proposal form lists every chapter", async () => {
+  const { default: form } = await import("/.github/ISSUE_TEMPLATE/lesson-proposal.yml?raw");
+  expect(lessons.filter((l) => !form.includes(`(${l.id})"`)).map((l) => l.id)).toEqual([]);
+});
+
+it("every chapter has a doc, and built ones are filled in", () => {
   const ids = docs.map((d) => d.id);
-  expect(lessons.filter(isReady).filter((l) => !ids.includes(l.id))).toEqual([]);
+  expect(lessons.filter((l) => !ids.includes(l.id)).map((l) => l.id)).toEqual([]);
+  const empty = docs.filter((d) => d.doc?.meta.status === "todo").map((d) => d.id);
+  expect(lessons.filter(isReady).filter((l) => empty.includes(l.id))).toEqual([]);
 });

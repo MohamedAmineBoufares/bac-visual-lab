@@ -1,0 +1,32 @@
+name: Problème · Bug
+description: Quelque chose ne marche pas, s'affiche mal ou donne un résultat faux.
+title: "Bug : "
+labels: ["bug"]
+body:
+  - type: input
+    id: where
+    attributes:
+      label: Où ? · Where?
+      description: Le lien de la page ou le nom de la leçon.
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: Que se passe-t-il ? · What happens?
+      description: Ce que vous avez fait, ce que vous attendiez et ce qui s'est passé. Une capture d'écran aide beaucoup.
+    validations:
+      required: true
+  - type: input
+    id: device
+    attributes:
+      label: Appareil et navigateur · Device and browser
+      placeholder: ex. Android, Chrome · iPad, Safari · PC, Firefox
+  - type: dropdown
+    id: locale
+    attributes:
+      label: Langue de l'application · App language
+      options:
+        - Français
+        - English
+        - العربية

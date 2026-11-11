@@ -1,7 +1,7 @@
 import { site } from "@/site";
 
 /** One row of a lesson doc's History table. */
-export type DocRevision = { version: string; date: string; author: string; target: string; changes: string };
+export type DocRevision = { version: string; date: string; author: string; appVersion: string; changes: string };
 
 export type LessonDoc = {
   /** Front matter as plain strings (`sections` stays comma-separated). */
@@ -34,9 +34,9 @@ export const parseDoc = (md: string): Omit<LessonDoc, "url"> | undefined => {
   const head = lines.findIndex((l) => /^\|\s*Version\s*\|/.test(l));
   const row = head < 0 ? undefined : lines[head + 2];
   if (!row?.startsWith("|")) return undefined;
-  const [version, date, author, target, changes] = cells(row);
-  if (!version || !date || !author || !target || !changes) return undefined;
-  return { meta, latest: { version, date, author, target, changes } };
+  const [version, date, author, appVersion, changes] = cells(row);
+  if (!version || !date || !author || !appVersion || !changes) return undefined;
+  return { meta, latest: { version, date, author, appVersion, changes } };
 };
 
 const files = import.meta.glob<string>("/content/lessons/*.md", { query: "?raw", import: "default" });

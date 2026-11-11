@@ -8,22 +8,52 @@ body:
       value: |
         Merci ! Ce formulaire suit [le modèle de fiche](https://github.com/MohamedAmineBoufares/bac-visual-lab/blob/main/content/TEMPLATE.md).
         Voir [l'exemple du dipôle RC](https://github.com/MohamedAmineBoufares/bac-visual-lab/blob/main/content/lessons/rc-charging.md).
-  - type: input
+  - type: dropdown
     id: chapter
     attributes:
       label: Chapitre
-      description: Nom ou identifiant du chapitre (ex. Dipôle RL, rl-circuit).
+      description: Les sections du Bac et l’identifiant sont déjà fixés pour chaque chapitre (fichier content/lessons/<identifiant>.md).
+      options:
+        - "Charge d’un condensateur (rc-charging)"
+        - "Dipôle RL (rl-circuit)"
+        - "Oscillations électriques libres (rlc-free)"
+        - "Oscillations électriques forcées (rlc-forced)"
+        - "Filtres électriques (filters)"
+        - "Oscillations mécaniques libres (mech-free)"
+        - "Oscillations mécaniques forcées (mech-forced)"
+        - "Ondes mécaniques progressives (mechanical-waves)"
+        - "Diffraction de la lumière (light-diffraction)"
+        - "Spectre atomique (atomic-spectrum)"
+        - "Réactions nucléaires (nuclear-reactions)"
+        - "Cinétique chimique (reaction-kinetics)"
+        - "Équilibre chimique (chemical-equilibrium)"
+        - "Loi d’action de masse (mass-action)"
+        - "pH des solutions aqueuses (ph)"
+        - "Dosage acide-base (acid-base-titration)"
+        - "Piles électrochimiques (electrochemical-cells)"
+        - "Électrolyse (electrolysis)"
+        - "Estérification et hydrolyse (esterification)"
+        - "Les amides (amides)"
+        - "Limites et continuité (limits-continuity)"
+        - "Dérivabilité (differentiability)"
+        - "Suites réelles (sequences)"
+        - "Fonctions réciproques (inverse-functions)"
+        - "Primitives (antiderivatives)"
+        - "Calcul intégral (integration)"
+        - "Fonction logarithme népérien (logarithm)"
+        - "Fonction exponentielle (exponential)"
+        - "Équations différentielles (differential-equations)"
+        - "Nombres complexes (complex-numbers)"
+        - "Arithmétique (arithmetic)"
+        - "Géométrie dans l’espace (solid-geometry)"
+        - "Isométries et déplacements (isometries)"
+        - "Similitudes (similarities)"
+        - "Coniques (conics)"
+        - "Probabilités (probability)"
+        - "Séries statistiques à deux variables (bivariate-statistics)"
+        - "Autre chapitre (nommez-le dans l’objectif)"
     validations:
       required: true
-  - type: checkboxes
-    id: sections
-    attributes:
-      label: Sections concernées
-      options:
-        - label: Sciences expérimentales
-        - label: Mathématiques
-        - label: Sciences techniques
-        - label: Informatique
   - type: textarea
     id: goal
     attributes:

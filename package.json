@@ -1,6 +1,6 @@
 {
   "name": "bac-visual-lab",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "description": "Interactive maths and physics simulations for Tunisian Bac students, in French, English and Arabic.",
   "keywords": [
