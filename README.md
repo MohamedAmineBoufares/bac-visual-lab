@@ -5,16 +5,31 @@ Move a slider, watch the curve change, and see which term of the formula did it.
 
 > Status: **early**. The full 4th-year maths, physics and chemistry catalogue (37 chapters) is listed in
 > `src/lessons/lessons.ts`. One chapter has its simulation (charging a capacitor, RC circuit); the others
-> show as "coming soon" until theirs is built.
+> show as "coming soon" until theirs is built. Building them is where help is most welcome.
 
 ## Goals
 
 - Intuition first: every lesson is one simulation with sliders, a live formula and 2–3 exam-style questions.
 - Built for phones on slow data, and for teachers projecting in class.
 - French, English and Arabic (right-to-left) interface. Formulas always read left to right.
-- Accessible: keyboard-operable sliders, WCAG AA contrast, light/dark theme, readable font option,
-  text size S–XL, colour-blind mode, `prefers-reduced-motion` respected.
+- Accessible to everyone who uses it.
 - Frontend only. No accounts, no backend; progress stays on the device.
+
+## What works today
+
+- **Lesson catalogue.** Every 4th-year chapter, tagged with the Bac sections that study it
+  (Sciences expérimentales, Mathématiques, Sciences techniques, Informatique). Pick a section to see its
+  chapters grouped by subject, with search that ignores accents and case.
+- **RC circuit lesson.** Sliders for E, R and C, the charging curves of u<sub>C</sub> and u<sub>R</sub>,
+  a live formula whose highlighted terms follow the sliders, and a 3-question quiz with explanations.
+- **Progress.** Correct quiz answers are saved in `localStorage` and shown on the home page under
+  "Reprendre". Nothing leaves the device.
+- **Fast and offline.** KaTeX and each simulation load only on the pages that use them (entry chunk
+  ~105 kB gzip); `pnpm build` fails if a chunk goes over its size budget. Installable as a PWA, and once
+  visited the app works with no connection.
+- **Accessibility.** Keyboard-operable sliders, a skip link, a text alternative for every chart, WCAG AA
+  contrast in both themes, light/dark theme, readable font option, text size S–XL, colour-blind mode and
+  `prefers-reduced-motion`. Automated axe checks run on the main pages with the tests.
 
 ## Getting started
 
@@ -29,19 +44,20 @@ pnpm dev            # app at http://localhost:3000
 Open `http://localhost:3000/design` for the design review board (development only): the same page at
 phone (390px), tablet (834px) and projector (1440px) widths side by side.
 
-| Script        | What it does                                                             |
-| ------------- | ------------------------------------------------------------------------ |
-| `pnpm dev`    | Vite dev server                                                          |
-| `pnpm build`  | Type-check and production build to `dist/`                               |
-| `pnpm test`   | Unit tests (Vitest)                                                      |
-| `pnpm lint`   | [oxlint](https://oxc.rs/docs/guide/usage/linter)                         |
-| `pnpm format` | [oxfmt](https://oxc.rs/docs/guide/usage/formatter) (Prettier-compatible) |
-| `pnpm check`  | Everything CI should run: types, lint, format, tests                     |
+| Script         | What it does                                                             |
+| -------------- | ------------------------------------------------------------------------ |
+| `pnpm dev`     | Vite dev server                                                          |
+| `pnpm build`   | Type-check, production build to `dist/`, then the bundle-size budget     |
+| `pnpm preview` | Serve the production build (use it to test offline mode)                 |
+| `pnpm test`    | Unit and accessibility tests (Vitest, axe-core in jsdom)                 |
+| `pnpm lint`    | [oxlint](https://oxc.rs/docs/guide/usage/linter)                         |
+| `pnpm format`  | [oxfmt](https://oxc.rs/docs/guide/usage/formatter) (Prettier-compatible) |
+| `pnpm check`   | Everything CI should run: types, lint, format check, tests               |
 
 ## Stack
 
 Vite 8 (Rolldown) · React 19.3 (stable `<ViewTransition>`) with the [React Compiler](https://react.dev/learn/react-compiler) · TypeScript 7 (strict) · [TanStack Router](https://tanstack.com/router) (file-based) · Tailwind CSS v4 · [shadcn/ui](https://ui.shadcn.com) (Radix) ·
-KaTeX · lucide icons · self-hosted fonts (Readex Pro, Noto Sans Arabic, Atkinson Hyperlegible Next).
+KaTeX · lucide icons · vite-plugin-pwa · self-hosted fonts (Readex Pro, Noto Sans Arabic, Atkinson Hyperlegible Next).
 
 ## Project layout
 
@@ -55,9 +71,11 @@ src/
   settings/              display settings (locale, theme, font, size, colour-blind) → <html> attributes
   components/ui/         shadcn components (restyled: square corners, hard shadows)
   components/            app components: Formula, ParamSlider, SimStage, FormulaPanel, Quiz, AppBar
-  lessons/               lessons.ts (every published lesson) + progress.ts (quiz progress in localStorage)
+  lessons/               lessons.ts (the chapter catalogue) + progress.ts (quiz progress in localStorage)
   sims/<simulation>/     one folder per simulation: model.ts (pure, unit-tested), view, quiz.ts
-  screens/               Home, Chapters, Lesson
+  screens/               Home, Chapters, Lesson; sections.ts (Bac sections, kept small for route loaders)
+  a11y.test.tsx          axe checks on the main pages
+scripts/bundle-budget.mjs  gzip size limits per chunk, run by `pnpm build`
 docs/                    design notes and decisions
 ```
 
@@ -67,12 +85,15 @@ solutions), a **renderer**, and a **formula panel**. See [docs/design.md](docs/d
 ## Deploying
 
 The build in `dist/` is a static single-page app. Configure the host to serve `index.html` for unknown
-paths (SPA fallback) so deep links like `/app/lessons/rc-charging` work on reload.
+paths (SPA fallback) so deep links like `/app/lessons/rc-charging` work on reload. Serve it over HTTPS so
+the service worker (offline mode) registers.
 
 ## Contributing
 
-Contributions are welcome, especially from teachers. Repository: <https://github.com/MohamedAmineBoufares/bac-visual-lab>. Read [CONTRIBUTING.md](CONTRIBUTING.md) first.
-Physics and maths must be correct; every model needs tests against a known result.
+Contributions are welcome, especially from teachers. Repository: <https://github.com/MohamedAmineBoufares/bac-visual-lab>.
+Read [CONTRIBUTING.md](CONTRIBUTING.md) first: it covers branch names, checks, and how pull requests are
+reviewed (by the maintainer and by an AI agent). Physics and maths must be correct; every model needs
+tests against a known result.
 
 ## Content and copyright
 
@@ -82,5 +103,3 @@ original. Do not copy text or figures from CNP textbooks or other copyrighted so
 ## License
 
 [MIT](LICENSE) © 2026 Mohamed Amine Boufares.
-
-© Mohamed Amine Boufares
