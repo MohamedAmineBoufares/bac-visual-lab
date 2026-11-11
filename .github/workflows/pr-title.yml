@@ -1,0 +1,21 @@
+name: PR title
+
+# Squash merges use the PR title as the commit message on main, so it follows the branch prefixes.
+on:
+  pull_request:
+    types: [opened, edited, reopened, synchronize]
+
+permissions: {}
+
+jobs:
+  pr-title:
+    runs-on: ubuntu-latest
+    steps:
+      # The title goes through env, never into the script, so it cannot inject shell code.
+      - env:
+          TITLE: ${{ github.event.pull_request.title }}
+        run: |
+          if [[ ! "$TITLE" =~ ^(feat|fix|docs|chore)(\([a-z0-9-]+\))?!?:\ [^[:space:]] ]]; then
+            echo "::error::Start the title with feat:, fix:, docs: or chore: and a summary, e.g. \"fix: keep slider direction in Arabic\"."
+            exit 1
+          fi

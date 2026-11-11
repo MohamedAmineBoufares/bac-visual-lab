@@ -47,6 +47,10 @@ Start commit messages with the same word, followed by a short summary in the imp
 
 ## Pull requests
 
+Start the title with `feat:`, `fix:`, `docs:` or `chore:` and a short summary, like a commit message
+(`fix: keep slider direction in Arabic`); a check fails otherwise. Pull requests are squash-merged and the
+title becomes the commit on `main`.
+
 Describe what changed and how you checked it. For UI changes add screenshots, including Arabic (RTL)
 and phone width. List any new Arabic strings so a native speaker can review them.
 
