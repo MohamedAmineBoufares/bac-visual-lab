@@ -107,8 +107,9 @@ describe("RcCharging", () => {
     expect(schematics.some((s) => s.getAttribute("aria-label")?.startsWith(fr.schematic))).toBe(true);
     await press(byText(root, fr.view3d)[0]);
     expect(byText(root, fr.loading)).not.toEqual([]);
-    await act(() => new Promise((r) => setTimeout(r, 200))); // lazy chunk
     const scene3d = () => root.querySelector(`[aria-label^="${fr.rc3dLabel}"]`);
+    // Wait for the lazy chunk; slow CI runners need more than a fixed delay.
+    for (let i = 0; i < 100 && !scene3d(); i++) await act(() => new Promise((r) => setTimeout(r, 50)));
     expect(scene3d()?.getAttribute("aria-label")).toContain("t = 2,20 ms");
     await press(byText(root, fr.topView)[0]);
     expect(scene3d()).toBeNull();
