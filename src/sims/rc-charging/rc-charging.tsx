@@ -4,17 +4,28 @@ import { FormulaPanel, ParamSlider, SimStage, useFormat } from "@/components/sim
 import { Quiz } from "@/components/quiz";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+import type { MessageKey } from "@/i18n/messages";
+import { localeDir } from "@/i18n/messages";
 import { useSettings } from "@/settings/settings";
-import { tau, uC, uR } from "./model";
+import { phase, type RcPhase, tau, uC, uR } from "./model";
+
+const notes: Record<RcPhase, { title: MessageKey; body: MessageKey; step: number }> = {
+  start: { title: "rcStartT", body: "rcStartB", step: 1 },
+  rising: { title: "rcRisingT", body: "rcRisingB", step: 2 },
+  tau: { title: "rcTauT", body: "rcTauB", step: 3 },
+  slowing: { title: "rcSlowingT", body: "rcSlowingB", step: 4 },
+  steady: { title: "rcSteadyT", body: "rcSteadyB", step: 5 },
+};
 
 const T_MAX = 20; // ms shown on the time axis
 const PLAY_SECONDS = 4; // wall-clock seconds to sweep T_MAX at ×1
 
-const prefersReducedMotion = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
 export function RcCharging() {
-  const { t: tr } = useSettings();
+  const { settings, t: tr } = useSettings();
+  const [guided, setGuided] = useState(false);
   const format = useFormat();
   const [E, setE] = useState(5);
   const [R, setR] = useState(2.2);
@@ -24,29 +35,36 @@ export function RcCharging() {
   const [speed, setSpeed] = useState("1");
   const raf = useRef(0);
 
+  // The loop owns the clock locally so a stop lands exactly on the frame that crossed a boundary.
+  const timeRef = useRef(time);
+  useEffect(() => {
+    timeRef.current = time;
+  }, [time]);
+
   useEffect(() => {
     if (!playing) return;
+    const p = { E, R, C };
+    let t = timeRef.current;
     let last = performance.now();
     const step = (now: number) => {
-      const dt = ((now - last) / 1000) * (T_MAX / PLAY_SECONDS) * Number(speed);
+      // Cap a frame at 50 ms so a stalled or background tab cannot jump over a whole phase.
+      // rAF timestamps can predate the performance.now() taken at start, so clamp at 0 too.
+      const wall = Math.min(Math.max(now - last, 0), 50) / 1000;
+      const next = Math.min(T_MAX, t + wall * (T_MAX / PLAY_SECONDS) * Number(speed));
       last = now;
-      setTime((t) => {
-        const next = t + dt;
-        if (next >= T_MAX) {
-          setPlaying(false);
-          return T_MAX;
-        }
-        return next;
-      });
+      // Guided mode works like a debugger: stop at each new phase until the student clicks Next.
+      const halt = next >= T_MAX || (guided && phase(p, next) !== phase(p, t));
+      t = next;
+      setTime(next);
+      if (halt) return setPlaying(false);
       raf.current = requestAnimationFrame(step);
     };
     raf.current = requestAnimationFrame(step);
     return () => cancelAnimationFrame(raf.current);
-  }, [playing, speed]);
+  }, [playing, speed, guided, E, R, C]);
 
-  // Reduced motion: jump to the final state instead of animating.
+  // Plays even with prefers-reduced-motion: the user asked for it and the motion is the lesson.
   const togglePlay = () => {
-    if (prefersReducedMotion()) return setTime(T_MAX);
     if (time >= T_MAX) setTime(0);
     setPlaying((v) => time >= T_MAX || !v);
   };
@@ -57,12 +75,30 @@ export function RcCharging() {
     { label: "u_R", color: "var(--sim-curve-2)", dash: "10 6", fn: (t: number) => uR(p, t) },
   ];
 
+  const note = notes[phase(p, time)];
+  const callout = guided && !playing && (
+    <div dir={localeDir[settings.locale]} role="status" className="flex flex-col gap-1">
+      <p className="flex items-center justify-between gap-2 font-semibold">
+        {tr(note.title)}
+        <span className="text-xs text-muted-foreground tabular-nums">{note.step}/5</span>
+      </p>
+      <p className="text-muted-foreground">{tr(note.body)}</p>
+      {time < T_MAX && (
+        <Button size="sm" className="mt-1 self-end" onClick={() => setPlaying(true)}>
+          {tr("next")}
+          <Play />
+        </Button>
+      )}
+    </div>
+  );
+
   const stage = (
     <SimStage
       series={series.map((s) => ({ ...s, label: s.label.replace("_", "") }))}
       tMax={T_MAX}
       yMax={12}
       t={time}
+      callout={callout}
       markers={tau(p) <= T_MAX ? [{ t: tau(p), label: "τ" }] : []}
       refLine={{ y: E, label: `E = ${format(E, 1)} V` }}
       xLabel="t (ms)"
@@ -93,6 +129,10 @@ export function RcCharging() {
             <ToggleGroupItem value="1">×1</ToggleGroupItem>
             <ToggleGroupItem value="4">×4</ToggleGroupItem>
           </ToggleGroup>
+          <Label className="cursor-pointer">
+            <Switch checked={guided} onCheckedChange={setGuided} />
+            {tr("withInterp")}
+          </Label>
           <span className="ms-auto text-sm font-semibold tabular-nums" dir="ltr">
             t = {format(time, 1)} ms
           </span>

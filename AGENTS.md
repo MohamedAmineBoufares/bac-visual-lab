@@ -34,7 +34,7 @@ Read [README.md](README.md) and [docs/design.md](docs/design.md) before larger c
 - Colours only via tokens (`bg-primary`, `text-muted-foreground`, `stroke-sim-curve-1`, …) defined in
   `src/index.css`. Never raw hex in components, except `text-[#072841]` on the always-light highlight.
 - Curves/states never rely on colour alone: add a dash pattern, marker, or text label.
-- Respect `prefers-reduced-motion`: no autoplay; jump to final state instead.
+- Respect `prefers-reduced-motion`: no autoplay and no decorative motion. A simulation the user starts with Play still animates (the motion is the content).
 - Layout responds to its container (`@container`, `@3xl:` …), so screens work inside the design board.
 - House look: white background, square corners (`--radius: 0`), 2px `border-foreground`, hard offset
   shadows (`shadow-hard`, `shadow-hard-sm`).
