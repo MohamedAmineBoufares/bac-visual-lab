@@ -2,7 +2,7 @@
 import { readdirSync, readFileSync } from "node:fs";
 import { gzipSync } from "node:zlib";
 
-const budgets = { index: 120, formula: 85 }; // entry chunk, KaTeX
+const budgets = { index: 120, formula: 85, scene: 260 }; // entry chunk, KaTeX, three.js (only loaded by a 3D tab)
 const fallback = 40; // any other chunk
 const dir = "dist/assets";
 let failed = false;

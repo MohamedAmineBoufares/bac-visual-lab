@@ -53,6 +53,21 @@ Un curseur par grandeur.
 
 Les courbes, l'animation ou le schéma, et ce qui change quand on bouge un curseur.
 
+## Vue 3D
+
+Facultatif. Le montage en 3D que l'élève peut faire tourner, à côté de la formule, et le même montage vu
+de dessus en schéma, où chaque objet se remplit avec sa grandeur. Un objet par ligne, son nom sert d'étiquette :
+sa forme, ce qui le fait changer (un curseur ou le temps) et ce que l'élève doit comprendre en le voyant.
+Ne comptez pas sur la couleur seule : forme, taille ou mouvement doivent suffire.
+
+| Objet | Forme | Change avec | Ce que ça montre |
+| ----- | ----- | ----------- | ---------------- |
+|       |       |             |                  |
+
+Pendant l'animation :
+
+-
+
 ## Formules (obligatoire)
 
 En TeX, entre `$$`. Indiquez quels termes dépendent d'un curseur.

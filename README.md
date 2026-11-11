@@ -21,11 +21,13 @@ Move a slider, watch the curve change, and see which term of the formula did it.
   (Sciences expérimentales, Mathématiques, Sciences techniques, Informatique). Pick a section to see its
   chapters grouped by subject, with search that ignores accents and case.
 - **RC circuit lesson.** Sliders for E, R and C, the charging curves of u<sub>C</sub> and u<sub>R</sub>,
-  a live formula whose highlighted terms follow the sliders, and a 3-question quiz with explanations.
+  a live formula whose highlighted terms follow the sliders, a top-view schematic and a labelled 3D view of the circuit you can turn and enlarge next to the chart (the
+  capacitor fills like a tank, charges flow in the wires and slow down, the resistor glows with u<sub>R</sub>),
+  and a 3-question quiz with explanations.
 - **Progress.** Correct quiz answers are saved in `localStorage` and shown on the home page under
   "Reprendre". Nothing leaves the device.
 - **Fast and offline.** KaTeX and each simulation load only on the pages that use them (entry chunk
-  ~105 kB gzip); `pnpm build` fails if a chunk goes over its size budget. Installable as a PWA, and once
+  ~105 kB gzip), and three.js (~240 kB gzip) only when a 3D tab is opened; `pnpm build` fails if a chunk goes over its size budget. Installable as a PWA, and once
   visited the app works with no connection.
 - **Accessibility.** Keyboard-operable sliders, a skip link, a text alternative for every chart, WCAG AA
   contrast in both themes, light/dark theme, readable font option, text size S–XL, colour-blind mode and
@@ -57,7 +59,7 @@ phone (390px), tablet (834px) and projector (1440px) widths side by side.
 ## Stack
 
 Vite 8 (Rolldown) · React 19.3 (stable `<ViewTransition>`) with the [React Compiler](https://react.dev/learn/react-compiler) · TypeScript 7 (strict) · [TanStack Router](https://tanstack.com/router) (file-based) · Tailwind CSS v4 · [shadcn/ui](https://ui.shadcn.com) (Radix) ·
-KaTeX · lucide icons · vite-plugin-pwa · self-hosted fonts (Readex Pro, Noto Sans Arabic, Atkinson Hyperlegible Next).
+KaTeX · three.js with React Three Fiber · lucide icons · vite-plugin-pwa · self-hosted fonts (Readex Pro, Noto Sans Arabic, Atkinson Hyperlegible Next).
 
 ## Project layout
 
@@ -70,9 +72,9 @@ src/
   i18n/messages.ts       UI strings for fr / en / ar
   settings/              display settings (locale, theme, font, size, colour-blind) → <html> attributes
   components/ui/         shadcn components (restyled: square corners, hard shadows)
-  components/            app components: Formula, ParamSlider, SimStage, FormulaPanel, Quiz, AppBar
+  components/            app components: Formula, ParamSlider, SimStage, FormulaPanel, Scene3D, Quiz, AppBar
   lessons/               lessons.ts (the chapter catalogue) + progress.ts (quiz progress in localStorage)
-  sims/<simulation>/     one folder per simulation: model.ts (pure, unit-tested), view, quiz.ts
+  sims/<simulation>/     one folder per simulation: model.ts (pure, unit-tested), view, scene-3d.tsx, quiz.ts
   screens/               Home, Chapters, Lesson; sections.ts (Bac sections, kept small for route loaders)
   a11y.test.tsx          axe checks on the main pages
 scripts/bundle-budget.mjs  gzip size limits per chunk, run by `pnpm build`
@@ -80,7 +82,7 @@ docs/                    design notes and decisions
 ```
 
 Each simulation is split into a **pure model** (numbers in, numbers out, unit-tested against known
-solutions), a **renderer**, and a **formula panel**. See [docs/design.md](docs/design.md).
+solutions), a **renderer**, a **formula panel** and, optionally, a **3D view** driven by the same model. See [docs/design.md](docs/design.md).
 
 ## Deploying
 

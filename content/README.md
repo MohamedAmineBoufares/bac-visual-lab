@@ -16,7 +16,8 @@ Pas besoin de savoir programmer.
 
 L'`id` est celui du chapitre dans [`src/lessons/lessons.ts`](../src/lessons/lessons.ts), par exemple
 `rl-circuit`. La liste des chapitres prévus s'y trouve. [`lessons/rc-charging.md`](lessons/rc-charging.md)
-est un exemple complet.
+est un exemple complet, y compris la section facultative « Vue 3D » qui décrit le montage que l'élève fait
+tourner en 3D.
 
 À chaque modification :
 

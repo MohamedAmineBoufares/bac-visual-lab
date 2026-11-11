@@ -32,6 +32,10 @@ Read [README.md](README.md) and [docs/design.md](docs/design.md) before larger c
   hard-code lesson cards or fake progress. Quiz progress is stored by `src/lessons/progress.ts`.
 - Simulation physics/maths live in `src/sims/<name>/model.ts` as pure functions with unit tests against a
   known solution (e.g. RC: u_C(τ) = 63.2 % of E). No React in models.
+- 3D views use three.js through `@react-three/fiber`, wrapped in `<Scene3D>` (`src/components/scene-3d.tsx`:
+  orbit controls, render on demand, text alternative). Load them lazily from the "Circuit" tab's 3D toggle so three.js never
+  reaches other pages; its chunk has its own budget. Drive them from the model, not a second clock, and
+  read colours with `useTokenColors()`. No drei or other three.js add-ons without asking.
 - Formulas are TeX rendered by `<Formula>` (KaTeX). Mark slider-bound terms with `\htmlClass{live}{…}`.
   Formulas and plots are always LTR, even in Arabic.
 - All UI text goes through `t(key)` from `useSettings()`; add the key to **all three** locales in

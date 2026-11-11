@@ -20,8 +20,17 @@ instead of guessing.
 5. **Simulation** (`src/sims/<id>/<id>.tsx`): one `ParamSlider` per row of "Ce que l'élève règle" (same
    min, max, step and initial value), `SimStage`/`Series` for the curves, `FormulaPanel` with the
    slider-bound terms wrapped in `\htmlClass{live}{…}`, and the `Quiz`.
-6. **Catalogue** (`src/lessons/lessons.ts`): replace the `soon(...)` entry with a full one with `ready`
+6. **Circuit views**, if the doc has a "Vue 3D" section. Both live in a "Circuit" tab next to "Formule", with a
+   "Vue de dessus / 3D" toggle and the enlarge button (see `src/sims/rc-charging/rc-charging.tsx`):
+   - **Top view** (`schematic.tsx`, the default): an SVG schematic of the same objects. Each one fills with
+     the quantity in its "Change avec" column, with the value and percentage written beside it.
+   - **3D** (`scene-3d.tsx`): one object per row of the table, inside `<Scene3D summary=… labels=…>` from
+     `@/components/scene-3d`, with a label per object, lazy-loaded so three.js only downloads when the
+     student picks 3D. Sizes and motion come from the model functions, never a separate
+     clock; put the layout maths in a pure `scene-layout.ts` with a test. Colours come from
+     `useTokenColors()`, and shape or size must tell objects apart without colour.
+7. **Catalogue** (`src/lessons/lessons.ts`): replace the `soon(...)` entry with a full one with `ready`
    (lazy `Sim`, `quiz`, `thumb`). Its `sections` must equal the doc's `sections`.
-7. **Doc**: set `status: built`, bump `version`, add a History row (newest first) and copy it to the front
+8. **Doc**: set `status: built`, bump `version`, add a History row (newest first) and copy it to the front
    matter.
-8. `pnpm check` must pass. It also checks every doc against the catalogue (`src/lessons/docs.test.ts`).
+9. `pnpm check` must pass. It also checks every doc against the catalogue (`src/lessons/docs.test.ts`).

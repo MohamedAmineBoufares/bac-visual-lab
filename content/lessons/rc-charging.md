@@ -5,7 +5,7 @@ subject: physics
 sections: sciences-experimentales, mathematiques, sciences-techniques
 chapter: Dipôle RC
 status: built
-version: 1.0.0
+version: 1.1.0
 target-version: 0.1.0
 author: Mohamed Amine Boufares
 updated: 2026-11-11
@@ -18,6 +18,7 @@ La ligne la plus récente en premier. Elle est affichée sur la page de la leço
 
 | Version | Date       | Auteur                 | Version cible | Modifications                                        |
 | ------- | ---------- | ---------------------- | ------------- | ---------------------------------------------------- |
+| 1.1.0   | 2026-11-11 | Mohamed Amine Boufares | 0.1.0         | Ajout de la vue 3D et du schéma vu de dessus         |
 | 1.0.0   | 2026-11-11 | Mohamed Amine Boufares | 0.1.0         | Fiche écrite à partir de la simulation déjà en ligne |
 
 ## Objectif
@@ -42,6 +43,27 @@ curseur du temps à la main.
 - Un repère à t = τ et la valeur de u_C à l'instant courant.
 - La formule de u_C, où E et RC s'allument quand on bouge leur curseur.
 - En mode « avec interprétation », l'animation s'arrête à chaque étape ci-dessous et affiche l'explication.
+
+## Vue 3D
+
+Le circuit en boucle, que l'élève fait tourner au doigt ou à la souris, chaque objet étiqueté. Vu de dessus,
+le même circuit en schéma : la résistance se remplit avec u_R / E, le condensateur avec u_C / E, et une flèche
+indique le courant i = u_R / R, de plus en plus pâle.
+
+| Objet                     | Forme                                                                   | Change avec                                              | Ce que ça montre                                                 |
+| ------------------------- | ----------------------------------------------------------------------- | -------------------------------------------------------- | ---------------------------------------------------------------- |
+| Générateur                | Cylindre, borne + en haut (petit plot)                                  | E : plus haut quand E augmente                           | La « hauteur » de tension disponible                             |
+| Résistance                | Cylindre couché sur le fil du haut                                      | R : plus longue quand R augmente ; brille avec u_R       | Elle freine le courant ; elle brille fort au début puis s'éteint |
+| Condensateur              | Deux armatures horizontales, + en haut, − en bas                        | C : armatures plus profondes quand C augmente (C = εS/d) | Une plus grande capacité stocke plus de charge                   |
+| Réservoir                 | Boîte transparente entre les armatures, qui se remplit                  | u_C / E : plein quand u_C = E                            | La charge du condensateur, comme une bouteille qui se remplit    |
+| Charges sur les armatures | Sphères (+) sur l'armature du haut, petits carrés (−) sous celle du bas | q = C·u_C (20 au plus)                                   | Les charges s'accumulent, autant de + que de −                   |
+| Charges dans les fils     | Petites sphères le long du fil                                          | Avancent proportionnellement à la charge déjà passée     | Le courant : rapide au début, puis de plus en plus lent          |
+
+Pendant l'animation :
+
+- Les charges des fils avancent vite puis ralentissent et s'arrêtent (i → 0).
+- Le réservoir se remplit à 63 % à t = τ et presque entièrement à 5τ.
+- La résistance brille de moins en moins.
 
 ## Formules
 

@@ -54,11 +54,13 @@ model.ts      pure functions, unit-tested against known solutions
   SimStage      SVG plot, always LTR, transport bar (play, reset, speed, time)
   ParamSlider   symbol, label, value badge, min/max; keyboard-operable (Radix Slider)
   FormulaPanel  KaTeX formula with live terms, substituted numbers, legend readout
+  Scene3D       optional three.js view of the setup, lazy-loaded; sizes and motion follow the model
   Quiz          exam-style question with checked feedback (text + colour)
 ```
 
-Layout uses container queries: narrow = stage + tabs (Paramètres / Formule / Quiz); wide = stage and
-formula side by side, sliders and quiz below.
+Layout uses container queries: narrow = stage + tabs (Paramètres / Formule / Circuit / Quiz); wide = stage and
+a Formule / Circuit tab panel side by side, sliders and quiz below. The enlarge button makes the two columns
+equal. Circuit switches between a top-view SVG schematic (default) and the 3D view.
 
 ## Open decisions
 

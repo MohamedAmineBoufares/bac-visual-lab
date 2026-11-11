@@ -1,9 +1,10 @@
-import { Pause, Play, RotateCcw } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { Maximize2, Minimize2, Pause, Play, RotateCcw } from "lucide-react";
+import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import { FormulaPanel, ParamSlider, SimStage, useFormat } from "@/components/sim";
 import { Quiz } from "@/components/quiz";
 import { rcQuiz } from "@/sims/rc-charging/quiz";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
@@ -12,6 +13,7 @@ import type { MessageKey } from "@/i18n/messages";
 import { localeDir } from "@/i18n/messages";
 import { useSettings } from "@/settings/settings";
 import { phase, type RcPhase, tau, uC, uR } from "./model";
+import { RcSchematic } from "./schematic";
 
 const notes: Record<RcPhase, { title: MessageKey; body: MessageKey; step: number }> = {
   start: { title: "rcStartT", body: "rcStartB", step: 1 },
@@ -20,6 +22,9 @@ const notes: Record<RcPhase, { title: MessageKey; body: MessageKey; step: number
   slowing: { title: "rcSlowingT", body: "rcSlowingB", step: 4 },
   steady: { title: "rcSteadyT", body: "rcSteadyB", step: 5 },
 };
+
+// three.js loads only when a student opens the 3D tab.
+const RcScene3D = lazy(() => import("./scene-3d").then((m) => ({ default: m.RcScene3D })));
 
 const T_MAX = 20; // ms shown on the time axis
 const PLAY_SECONDS = 4; // wall-clock seconds to sweep T_MAX at ×1
@@ -35,6 +40,8 @@ export function RcCharging() {
   const [playing, setPlaying] = useState(false);
   const [speed, setSpeed] = useState("1");
   const raf = useRef(0);
+  const [view, setView] = useState("top");
+  const [expanded, setExpanded] = useState(false);
 
   // The loop owns the clock locally so a stop lands exactly on the frame that crossed a boundary.
   const timeRef = useRef(time);
@@ -156,6 +163,30 @@ export function RcCharging() {
     />
   );
 
+  const view3d = (
+    <Suspense fallback={<p className="p-4 text-sm text-muted-foreground">{tr("loading")}</p>}>
+      <RcScene3D p={p} t={time} />
+    </Suspense>
+  );
+
+  // The 2D view is the default so three.js only downloads when a student asks for 3D.
+  const circuit = (
+    <div className="flex flex-col gap-3">
+      <ToggleGroup
+        type="single"
+        value={view}
+        onValueChange={(v) => v && setView(v)}
+        aria-label={tr("circuit")}
+        variant="outline"
+        size="sm"
+      >
+        <ToggleGroupItem value="top">{tr("topView")}</ToggleGroupItem>
+        <ToggleGroupItem value="3d">{tr("view3d")}</ToggleGroupItem>
+      </ToggleGroup>
+      {view === "3d" ? view3d : <RcSchematic p={p} t={time} />}
+    </div>
+  );
+
   const params = (
     <div className="flex flex-col gap-6 border-2 border-foreground bg-card p-4">
       <ParamSlider
@@ -196,29 +227,56 @@ export function RcCharging() {
 
   return (
     <div className="@container">
-      {/* Phone: stage then tabs. Wide (tablet/projector): stage + formula side by side, sliders and quiz below. */}
+      {/* Phone: stage then tabs. Wide (tablet/projector): stage + formula/circuit side by side, sliders and quiz below. */}
       <div className="flex flex-col gap-5 @3xl:hidden">
         {stage}
         <Tabs defaultValue="params">
           <TabsList className="w-full">
             <TabsTrigger value="params">{tr("parameters")}</TabsTrigger>
             <TabsTrigger value="formula">{tr("formula")}</TabsTrigger>
+            <TabsTrigger value="circuit">{tr("circuit")}</TabsTrigger>
             <TabsTrigger value="quiz">{tr("quiz")}</TabsTrigger>
           </TabsList>
           <TabsContent value="params">{params}</TabsContent>
           <TabsContent value="formula">{formula}</TabsContent>
+          <TabsContent value="circuit">{circuit}</TabsContent>
           <TabsContent value="quiz">
             <Quiz lessonId="rc-charging" questions={rcQuiz} />
           </TabsContent>
         </Tabs>
       </div>
-      <div className="hidden gap-6 @3xl:grid @3xl:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]">
+      {/* Enlarged, the chart and the right-hand panel share the width equally. */}
+      <div
+        className={cn(
+          "hidden gap-6 @3xl:grid",
+          expanded ? "@3xl:grid-cols-2" : "@3xl:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]",
+        )}
+      >
         <div className="flex flex-col gap-6">
           {stage}
           {params}
         </div>
         <div className="flex flex-col gap-6">
-          {formula}
+          <Tabs defaultValue="formula">
+            <div className="flex gap-2">
+              <TabsList className="flex-1">
+                <TabsTrigger value="formula">{tr("formula")}</TabsTrigger>
+                <TabsTrigger value="circuit">{tr("circuit")}</TabsTrigger>
+              </TabsList>
+              <Button
+                variant="outline"
+                size="icon"
+                aria-pressed={expanded}
+                aria-label={tr(expanded ? "viewShrink" : "viewExpand")}
+                title={tr(expanded ? "viewShrink" : "viewExpand")}
+                onClick={() => setExpanded(!expanded)}
+              >
+                {expanded ? <Minimize2 /> : <Maximize2 />}
+              </Button>
+            </div>
+            <TabsContent value="formula">{formula}</TabsContent>
+            <TabsContent value="circuit">{circuit}</TabsContent>
+          </Tabs>
           <Quiz lessonId="rc-charging" questions={rcQuiz} />
         </div>
       </div>

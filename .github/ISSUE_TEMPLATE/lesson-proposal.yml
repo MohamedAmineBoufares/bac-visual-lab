@@ -44,6 +44,14 @@ body:
     attributes:
       label: Ce que l'élève voit
   - type: textarea
+    id: view3d
+    attributes:
+      label: Vue 3D (facultatif)
+      description: >-
+        Le montage en 3D que l'élève peut faire tourner. Pour chaque objet : sa forme, ce qui le fait changer
+        (un curseur ou le temps) et ce qu'il montre. Exemple : « Condensateur : un réservoir entre les armatures
+        qui se remplit avec u_C ».
+  - type: textarea
     id: formulas
     attributes:
       label: Formules
