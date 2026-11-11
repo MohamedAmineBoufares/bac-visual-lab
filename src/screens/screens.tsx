@@ -18,6 +18,7 @@ function Page({ children }: { children: ReactNode }) {
   return (
     <main
       id="main"
+      style={{ viewTransitionName: "page" }}
       tabIndex={-1}
       className="mx-auto flex w-full max-w-6xl flex-col gap-8 outline-none px-4 py-6 @3xl:px-8 @3xl:py-10"
     >
@@ -56,7 +57,9 @@ export function Home() {
               <span className="grid size-12 shrink-0 place-items-center border-2 border-foreground bg-secondary">
                 <Icon className="size-6" />
               </span>
-              <span className="flex-1 font-semibold">{t(key)}</span>
+              <span className="flex-1 font-semibold" style={{ viewTransitionName: `section-${slug}` }}>
+                {t(key)}
+              </span>
               <ArrowRight className="size-5 rtl:rotate-180" />
             </Link>
           ))}
@@ -91,7 +94,9 @@ function LessonCard({ lesson }: { lesson: LessonData }) {
             </Badge>
           ))}
       </div>
-      <h3 className="font-semibold">{t(lesson.title)}</h3>
+      <h3 className="font-semibold" style={{ viewTransitionName: `lesson-${lesson.id}` }}>
+        {t(lesson.title)}
+      </h3>
       <p className="text-sm text-muted-foreground">
         {t(lesson.chapter)} · {t(lesson.level)}
       </p>
@@ -194,7 +199,9 @@ export function Chapters({ section }: { section: Section }) {
       <div className="flex flex-wrap items-center gap-x-6 gap-y-4">
         <div className="flex items-center gap-3">
           <BackButton />
-          <h1 className="text-2xl font-bold">{t(section.key)}</h1>
+          <h1 className="text-2xl font-bold" style={{ viewTransitionName: `section-${section.slug}` }}>
+            {t(section.key)}
+          </h1>
         </div>
         {inSection.length > 0 && (
           <div className="relative w-full @3xl:ms-auto @3xl:w-80">
@@ -307,7 +314,9 @@ export function Lesson({ lesson }: { lesson: ReadyLesson }) {
           <p className="text-sm text-muted-foreground">
             {t(lesson.chapter)} · {t(lesson.level)}
           </p>
-          <h1 className="text-2xl font-bold">{t(lesson.title)}</h1>
+          <h1 className="text-2xl font-bold" style={{ viewTransitionName: `lesson-${lesson.id}` }}>
+            {t(lesson.title)}
+          </h1>
         </div>
       </div>
       <Suspense fallback={<div aria-busy="true" className="min-h-96 border-2 border-dashed border-foreground/30" />}>

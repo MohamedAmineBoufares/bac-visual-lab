@@ -5,7 +5,13 @@ import "./index.css";
 import { routeTree } from "./routeTree.gen";
 import { SettingsProvider } from "./settings/settings";
 
-const router = createRouter({ routeTree, defaultPreload: "intent", scrollRestoration: true });
+const router = createRouter({
+  routeTree,
+  defaultPreload: "intent",
+  scrollRestoration: true,
+  // Only page changes animate: in-page jumps (#subject-*) would lift the named titles above the sticky bar.
+  defaultViewTransition: { types: ({ pathChanged }) => (pathChanged ? [] : false) },
+});
 
 declare module "@tanstack/react-router" {
   interface Register {

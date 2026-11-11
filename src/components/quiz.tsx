@@ -30,12 +30,12 @@ export function Quiz({ lessonId, questions }: { lessonId: string; questions: Que
   return (
     <section className="flex flex-col gap-3 border-2 border-foreground bg-card p-4 shadow-hard">
       <header className="flex items-center justify-between gap-2">
-        <h3 className="font-semibold">
+        <h2 className="font-semibold">
           {t("quiz")} ·{" "}
           <span className="tabular-nums">
             {index + 1}/{questions.length}
           </span>
-        </h3>
+        </h2>
       </header>
       <p>{t(question.prompt)}</p>
       <RadioGroup
