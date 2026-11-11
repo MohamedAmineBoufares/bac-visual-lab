@@ -5,7 +5,7 @@ Guidance for AI coding assistants (and humans) working in this repo. Keep it sho
 ## Project
 
 Bac Visual Lab: interactive maths/physics simulations for Tunisian Bac students. Frontend only, PWA
-later, FR/EN/AR with RTL. Currently a **design prototype**: UI is validated as live code at `/design` (dev only).
+later, FR/EN/AR with RTL. UI is reviewed at phone/tablet/projector widths on `/design` (dev only).
 Read [README.md](README.md) and [docs/design.md](docs/design.md) before larger changes.
 
 ## Commands
@@ -26,6 +26,8 @@ Read [README.md](README.md) and [docs/design.md](docs/design.md) before larger c
   `localStorage`. Reconsider IndexedDB only if local data outgrows that.
 - The React Compiler runs through `@rolldown/plugin-babel` + `reactCompilerPreset` (see `vite.config.ts`): don't add `useMemo`/`useCallback`/`memo` for speed.
 - TypeScript strict, no `any`, no `as` casts to silence errors. `noUncheckedIndexedAccess` is on.
+- Lessons are listed in `src/lessons/lessons.ts`; home, section and lesson pages are built from it. Never
+  hard-code lesson cards or fake progress. Quiz progress is stored by `src/lessons/progress.ts`.
 - Simulation physics/maths live in `src/sims/<name>/model.ts` as pure functions with unit tests against a
   known solution (e.g. RC: u_C(τ) = 63.2 % of E). No React in models.
 - Formulas are TeX rendered by `<Formula>` (KaTeX). Mark slider-bound terms with `\htmlClass{live}{…}`.

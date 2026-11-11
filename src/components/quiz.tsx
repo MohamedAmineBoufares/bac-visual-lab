@@ -2,37 +2,58 @@ import { Check, X } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import type { Question } from "@/lessons/lessons";
+import { recordCorrect } from "@/lessons/progress";
 import { cn } from "@/lib/utils";
-import type { MessageKey } from "@/i18n/messages";
 import { useSettings } from "@/settings/settings";
 
-// shortcut: one hard-coded question for the design prototype; real quizzes come from simulation metadata.
-const question = { prompt: "q1", options: ["q1a", "q1b", "q1c"], answer: "q1b" } satisfies {
-  prompt: MessageKey;
-  options: MessageKey[];
-  answer: MessageKey;
-};
-
-export function Quiz() {
+/** One question at a time; a correct answer is saved to the lesson's progress. */
+export function Quiz({ lessonId, questions }: { lessonId: string; questions: Question[] }) {
   const { t } = useSettings();
-  const [choice, setChoice] = useState<string>("");
+  const [index, setIndex] = useState(0);
+  const [choice, setChoice] = useState("");
   const [checked, setChecked] = useState(false);
+  const question = questions[index];
+  if (!question) return null;
+  const last = index === questions.length - 1;
+
+  const check = () => {
+    setChecked(true);
+    if (choice === question.answer) recordCorrect(lessonId, index);
+  };
+  const goTo = (i: number) => {
+    setIndex(i);
+    setChoice("");
+    setChecked(false);
+  };
+
   return (
     <section className="flex flex-col gap-3 border-2 border-foreground bg-card p-4 shadow-hard">
       <header className="flex items-center justify-between gap-2">
-        <h3 className="font-semibold">{t("quiz")} · 1/3</h3>
+        <h3 className="font-semibold">
+          {t("quiz")} ·{" "}
+          <span className="tabular-nums">
+            {index + 1}/{questions.length}
+          </span>
+        </h3>
       </header>
       <p>{t(question.prompt)}</p>
-      <RadioGroup value={choice} onValueChange={(v) => (setChoice(v), setChecked(false))} className="gap-2">
+      <RadioGroup
+        value={choice}
+        onValueChange={(v) => (setChoice(v), setChecked(false))}
+        className="gap-2"
+        aria-label={t(question.prompt)}
+      >
         {question.options.map((key) => {
-          const state =
-            !checked || choice !== key
-              ? choice === key
-                ? "selected"
-                : "idle"
-              : key === question.answer
-                ? "correct"
-                : "wrong";
+          const state = !checked
+            ? choice === key
+              ? "selected"
+              : "idle"
+            : key === question.answer
+              ? "correct"
+              : choice === key
+                ? "wrong"
+                : "idle";
           return (
             <label
               key={key}
@@ -62,9 +83,18 @@ export function Quiz() {
           );
         })}
       </RadioGroup>
-      <Button className="self-start" disabled={!choice} onClick={() => setChecked(true)}>
-        {t("check")}
-      </Button>
+      <p role="status" className="text-sm text-muted-foreground empty:hidden">
+        {checked && t(question.explain)}
+      </p>
+      {checked ? (
+        <Button className="self-start" onClick={() => goTo(last ? 0 : index + 1)}>
+          {t(last ? "reset" : "next")}
+        </Button>
+      ) : (
+        <Button className="self-start" disabled={!choice} onClick={check}>
+          {t("check")}
+        </Button>
+      )}
     </section>
   );
 }

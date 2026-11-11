@@ -3,8 +3,9 @@
 Interactive simulations that help Tunisian baccalauréat students **see** maths and physics.
 Move a slider, watch the curve change, and see which term of the formula did it.
 
-> Status: **design prototype**. The UI is being designed and validated as live code before the
-> real lesson set is built. Content shown in the app is sample content.
+> Status: **early**. The full 4th-year maths, physics and chemistry catalogue (37 chapters) is listed in
+> `src/lessons/lessons.ts`. One chapter has its simulation (charging a capacitor, RC circuit); the others
+> show as "coming soon" until theirs is built.
 
 ## Goals
 
@@ -54,7 +55,8 @@ src/
   settings/              display settings (locale, theme, font, size, colour-blind) → <html> attributes
   components/ui/         shadcn components (restyled: square corners, hard shadows)
   components/            app components: Formula, ParamSlider, SimStage, FormulaPanel, Quiz, AppBar
-  sims/<simulation>/     one folder per simulation: model.ts (pure, unit-tested) + view
+  lessons/               lessons.ts (every published lesson) + progress.ts (quiz progress in localStorage)
+  sims/<simulation>/     one folder per simulation: model.ts (pure, unit-tested), view, quiz.ts
   screens/               Home, Chapters, Lesson
 docs/                    design notes and decisions
 ```

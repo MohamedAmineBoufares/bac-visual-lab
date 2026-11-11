@@ -2,6 +2,7 @@ import { Pause, Play, RotateCcw } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { FormulaPanel, ParamSlider, SimStage, useFormat } from "@/components/sim";
 import { Quiz } from "@/components/quiz";
+import { rcQuiz } from "@/sims/rc-charging/quiz";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Label } from "@/components/ui/label";
@@ -207,7 +208,7 @@ export function RcCharging() {
           <TabsContent value="params">{params}</TabsContent>
           <TabsContent value="formula">{formula}</TabsContent>
           <TabsContent value="quiz">
-            <Quiz />
+            <Quiz lessonId="rc-charging" questions={rcQuiz} />
           </TabsContent>
         </Tabs>
       </div>
@@ -218,7 +219,7 @@ export function RcCharging() {
         </div>
         <div className="flex flex-col gap-6">
           {formula}
-          <Quiz />
+          <Quiz lessonId="rc-charging" questions={rcQuiz} />
         </div>
       </div>
     </div>

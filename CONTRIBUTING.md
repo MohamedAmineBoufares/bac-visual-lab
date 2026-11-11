@@ -19,6 +19,17 @@ Thanks for helping. Teachers, students and developers are all welcome.
 5. Open a pull request describing what changed and how you checked it (screenshots for UI changes,
    including Arabic/RTL and phone width).
 
+## Adding a lesson
+
+1. Create `src/sims/<name>/` with `model.ts` (+ tests), the view component and `quiz.ts`.
+2. Add the strings (title, chapter, questions, explanations) to all three locales in
+   `src/i18n/messages.ts`.
+3. In `src/lessons/lessons.ts`, turn the chapter's `soon(...)` entry into a full entry with `ready`
+   (card thumbnail, view, quiz). It then opens from the home and section pages.
+
+**Teachers:** the chapter list and which sections study each chapter were written from the 4th-year
+programmes as we know them. Corrections are very welcome.
+
 ## Content rules
 
 - All explanations, wording and figures must be original. Don't copy from textbooks or exam sites.

@@ -219,3 +219,10 @@
     animation-name: fade;
   }
 }
+
+/* In-page jumps (subject nav, #contribute) glide, unless the user asked for less motion. */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
