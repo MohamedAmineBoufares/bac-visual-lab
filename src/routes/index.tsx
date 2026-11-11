@@ -59,7 +59,11 @@ function Landing() {
         </Button>
       </AppBar>
 
-      <main className="mx-auto flex w-full max-w-6xl flex-col gap-16 px-4 py-10 @3xl:gap-24 @3xl:px-8 @3xl:py-16">
+      <main
+        id="main"
+        tabIndex={-1}
+        className="mx-auto flex w-full max-w-6xl flex-col gap-16 outline-none px-4 py-10 @3xl:gap-24 @3xl:px-8 @3xl:py-16"
+      >
         <section className="grid items-center gap-8 @4xl:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)]">
           <div className="flex flex-col items-start gap-6">
             <h1 className="enter text-4xl leading-tight font-bold @3xl:text-6xl">{t("landTitle")}</h1>

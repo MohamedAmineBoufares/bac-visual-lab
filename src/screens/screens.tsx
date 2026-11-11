@@ -16,7 +16,13 @@ const cardLink =
 
 function Page({ children }: { children: ReactNode }) {
   return (
-    <main className="mx-auto flex w-full max-w-6xl flex-col gap-8 px-4 py-6 @3xl:px-8 @3xl:py-10">{children}</main>
+    <main
+      id="main"
+      tabIndex={-1}
+      className="mx-auto flex w-full max-w-6xl flex-col gap-8 outline-none px-4 py-6 @3xl:px-8 @3xl:py-10"
+    >
+      {children}
+    </main>
   );
 }
 

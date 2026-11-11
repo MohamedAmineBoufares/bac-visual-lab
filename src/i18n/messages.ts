@@ -124,6 +124,7 @@ const fr = {
   landLead:
     "Bouge un curseur, regarde la courbe changer et vois quel terme de la formule en est responsable. Gratuit, sans compte, pensé pour le téléphone.",
   openApp: "Ouvrir l’app",
+  skipToContent: "Aller au contenu",
   contribute: "Contribuer",
   howTitle: "Comment ça marche",
   how1Title: "Choisis un chapitre",
@@ -294,6 +295,7 @@ const en: Messages = {
   landLead:
     "Move a slider, watch the curve change and see which term of the formula caused it. Free, no account, built for phones.",
   openApp: "Open the app",
+  skipToContent: "Skip to content",
   contribute: "Contribute",
   howTitle: "How it works",
   how1Title: "Pick a chapter",
@@ -461,6 +463,7 @@ const ar: Messages = {
   landTitle: "رياضيات وفيزياء الباكالوريا، في حركة",
   landLead: "حرّك المؤشر، شاهد المنحنى يتغير واكتشف أي حد في الصيغة هو السبب. مجاني، بدون حساب، ومصمم للهاتف.",
   openApp: "افتح التطبيق",
+  skipToContent: "انتقل إلى المحتوى",
   contribute: "ساهم",
   howTitle: "كيف يعمل",
   how1Title: "اختر فصلاً",

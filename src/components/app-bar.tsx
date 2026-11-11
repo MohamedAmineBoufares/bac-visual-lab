@@ -94,6 +94,12 @@ export function AppBar({ home = "/", children }: { home?: "/" | "/app"; children
   const { settings, update, t } = useSettings();
   return (
     <header className="sticky top-0 z-10 flex items-center gap-3 border-b-2 border-foreground bg-card px-4 py-2.5">
+      <a
+        href="#main"
+        className="sr-only border-2 border-foreground bg-sim-highlight px-3 py-1.5 font-semibold text-[#072841] focus:not-sr-only focus:absolute focus:start-4 focus:top-2 focus:z-20"
+      >
+        {t("skipToContent")}
+      </a>
       <Link to={home} className="flex items-center gap-2 font-semibold">
         <Logo />
         <span className="hidden @sm:inline">{t("appName")}</span>

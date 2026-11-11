@@ -98,6 +98,9 @@ export function SimStage(props: {
       .map((t, i) => `${i ? "L" : "M"}${x(t).toFixed(1)} ${y(fn(t)).toFixed(1)}`)
       .join(" ");
   const clipId = useId();
+  const format = useFormat();
+  // Text alternative: axes plus each curve's value at the current t.
+  const summary = `${props.yLabel} / ${props.xLabel}, t = ${format(props.t)}: ${props.series.map((s) => `${s.label} = ${format(s.fn(props.t))}`).join(", ")}`;
   const px = x(props.t);
   const first = props.series[0];
   const py = first ? y(first.fn(props.t)) : H / 2;
@@ -106,13 +109,7 @@ export function SimStage(props: {
   return (
     <figure className="border-2 border-foreground bg-sim-canvas shadow-hard">
       <div className="relative" dir="ltr">
-        <svg
-          viewBox={`0 0 ${W} ${H}`}
-          className="block h-auto w-full"
-          direction="ltr"
-          role="img"
-          aria-label={props.series.map((s) => s.label).join(", ")}
-        >
+        <svg viewBox={`0 0 ${W} ${H}`} className="block h-auto w-full" direction="ltr" role="img" aria-label={summary}>
           {Array.from({ length: 11 }, (_, i) => (
             <line
               key={`v${i}`}
