@@ -273,7 +273,8 @@ export function FormulaPanel(props: {
               <line x1="0" x2="20" y1="3" y2="3" stroke={r.color} strokeWidth="3.5" strokeDasharray={r.dash} />
             </svg>
             <Formula tex={r.label} />
-            <span className="font-semibold tabular-nums">{r.value}</span>
+            {/* Fixed width so changing digits never reflow the row. */}
+            <span className="inline-block min-w-[8ch] font-semibold tabular-nums">{r.value}</span>
           </li>
         ))}
       </ul>

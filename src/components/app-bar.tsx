@@ -89,8 +89,8 @@ function Field({ label, children }: { label: string; children: React.ReactNode }
   );
 }
 
-/** Top bar shared by the landing page (home="/") and the app (home="/app"). Extra nav goes in children. */
-export function AppBar({ home = "/app", children }: { home?: "/" | "/app"; children?: ReactNode }) {
+/** Top bar shared by the landing page and the app; the logo always leads to the landing page. */
+export function AppBar({ home = "/", children }: { home?: "/" | "/app"; children?: ReactNode }) {
   const { settings, update, t } = useSettings();
   return (
     <header className="sticky top-0 z-10 flex items-center gap-3 border-b-2 border-foreground bg-card px-4 py-2.5">
