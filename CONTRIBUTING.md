@@ -18,7 +18,7 @@ Thanks for helping. Teachers, students and developers are all welcome.
 2. Fork the repository (or clone it if you have write access) and create a branch from an up-to-date
    `main` (see [Branches](#branches)). Never commit to `main` directly.
 3. Keep each branch to one change: one feature or one fix.
-4. Run `pnpm check` (types, lint, format, unit and accessibility tests). It must pass. For changes that
+4. Run `pnpm check` (types, lint, format, unit and accessibility tests, coverage floors). It must pass. For changes that
    affect loading or bundle size, also run `pnpm build`; it fails if a chunk goes over its size budget.
 5. For a new or changed simulation model, include unit tests against a known solution and say where the
    reference result comes from.

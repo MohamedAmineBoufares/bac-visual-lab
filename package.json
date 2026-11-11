@@ -35,7 +35,7 @@
     "format": "oxfmt",
     "format:check": "oxfmt --check",
     "check": "pnpm typecheck && pnpm lint && pnpm format:check && pnpm test",
-    "test": "vitest run"
+    "test": "vitest run --coverage"
   },
   "dependencies": {
     "@fontsource-variable/noto-sans-arabic": "^5.3.0",
@@ -64,6 +64,7 @@
     "@types/react-dom": "^19.3.0",
     "@types/three": "^0.187.0",
     "@vitejs/plugin-react": "^6.3.0",
+    "@vitest/coverage-v8": "^5.1.0",
     "axe-core": "^4.14.0",
     "babel-plugin-react-compiler": "^1.0.0",
     "jsdom": "^31.0.0",

@@ -1,3 +1,4 @@
+/// <reference types="vitest/config" />
 import { fileURLToPath, URL } from "node:url";
 import tailwindcss from "@tailwindcss/vite";
 import { tanstackRouter } from "@tanstack/router-plugin/vite";
@@ -36,5 +37,33 @@ export default defineConfig({
   preview: { port: 3000, open: true },
   resolve: {
     alias: { "@": fileURLToPath(new URL("./src", import.meta.url)) },
+  },
+  test: {
+    coverage: {
+      provider: "v8",
+      include: ["src/**"],
+      // Generated, boot-only, dev-only, or shadcn primitives restyled from upstream.
+      exclude: [
+        "src/routeTree.gen.ts",
+        "src/main.tsx",
+        "src/routes/design.tsx",
+        "src/components/ui/**",
+        "src/**/*.test.*",
+        "src/test/**",
+        // WebGL: jsdom cannot draw the canvas. Their text alternative is tested in scene-3d.test.tsx.
+        "src/**/scene-3d.tsx",
+      ],
+      reporter: ["text-summary", "html"],
+      // Floors, not goals: a PR may not lower them. Raise them when coverage grows.
+      thresholds: {
+        lines: 80,
+        statements: 80,
+        functions: 80,
+        branches: 70,
+        // Simulation models are pure physics/maths: every line is tested against a known solution.
+        "src/sims/**/model.ts": { lines: 100, statements: 100, functions: 100, branches: 90 },
+        "src/lessons/*.ts": { lines: 75, statements: 75, functions: 75, branches: 70 },
+      },
+    },
   },
 });

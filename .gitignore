@@ -28,3 +28,6 @@ dist-ssr
 
 # TanStack Router plugin cache
 .tanstack/
+
+# Vitest coverage report
+coverage

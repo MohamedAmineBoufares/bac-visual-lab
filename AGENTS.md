@@ -13,7 +13,7 @@ Read [README.md](README.md) and [docs/design.md](docs/design.md) before larger c
 - Node 22.12+ and pnpm 12 (pinned in `packageManager`). Keep dependencies on their latest releases.
 - `pnpm install` (pnpm only; never commit `package-lock.json` or `yarn.lock`)
 - `pnpm dev` / `pnpm build`
-- `pnpm check` must pass before you call work done (types, oxlint, oxfmt, Vitest)
+- `pnpm check` must pass before you call work done (types, oxlint, oxfmt, Vitest with coverage floors in `vite.config.ts`; new logic needs tests, and never lower a floor)
 - `pnpm dlx shadcn@latest add <name>` to add shadcn components. After adding, fix any `from "cn"` import
   to `from "@/lib/utils"` and restyle to the house look (see below).
 
