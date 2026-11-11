@@ -26,6 +26,8 @@ Read [README.md](README.md) and [docs/design.md](docs/design.md) before larger c
   `localStorage`. Reconsider IndexedDB only if local data outgrows that.
 - The React Compiler runs through `@rolldown/plugin-babel` + `reactCompilerPreset` (see `vite.config.ts`): don't add `useMemo`/`useCallback`/`memo` for speed.
 - TypeScript strict, no `any`, no `as` casts to silence errors. `noUncheckedIndexedAccess` is on.
+- Each lesson has a doc in `content/lessons/<id>.md` (see `content/README.md`). To build one, follow
+  `content/BUILD.md`. Keep its sections in step with `lessons.ts`; `src/lessons/docs.test.ts` checks it.
 - Lessons are listed in `src/lessons/lessons.ts`; home, section and lesson pages are built from it. Never
   hard-code lesson cards or fake progress. Quiz progress is stored by `src/lessons/progress.ts`.
 - Simulation physics/maths live in `src/sims/<name>/model.ts` as pure functions with unit tests against a

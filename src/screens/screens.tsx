@@ -1,11 +1,12 @@
 import { Link } from "@tanstack/react-router";
-import { ArrowLeft, ArrowRight, Atom, Search, Sigma, TestTubes } from "lucide-react";
+import { ArrowLeft, ArrowRight, Atom, ExternalLink, Search, Sigma, TestTubes } from "lucide-react";
 import { type ComponentType, type ReactNode, Suspense, useEffect, useState } from "react";
 import { type Section, sections } from "@/screens/sections";
 import { Formula } from "@/components/formula";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import type { MessageKey } from "@/i18n/messages";
+import type { LessonDoc } from "@/lessons/docs";
 import { isReady, type Lesson as LessonData, lessons, type ReadyLesson } from "@/lessons/lessons";
 import { useProgress } from "@/lessons/progress";
 import { cn } from "@/lib/utils";
@@ -304,7 +305,37 @@ export function Chapters({ section }: { section: Section }) {
   );
 }
 
-export function Lesson({ lesson }: { lesson: ReadyLesson }) {
+/** Where the lesson's content comes from: its doc's version and newest History row. */
+function DocInfo({ doc: { latest, meta, url } }: { doc: LessonDoc }) {
+  const { settings, t } = useSettings();
+  const date = new Intl.DateTimeFormat(settings.locale, { dateStyle: "medium" }).format(new Date(latest.date));
+  return (
+    <aside
+      aria-labelledby="doc-title"
+      className="flex flex-wrap items-center gap-x-4 gap-y-2 border-2 border-foreground bg-card p-4 text-sm"
+    >
+      <div className="flex min-w-0 flex-1 flex-col gap-1">
+        <h2 id="doc-title" className="font-semibold">
+          {t("docTitle")} · v{latest.version}
+        </h2>
+        <p className="text-muted-foreground">
+          {t("docUpdated")} <time dateTime={latest.date}>{date}</time> · {latest.author}
+        </p>
+        <p lang={meta.language}>{latest.changes}</p>
+      </div>
+      {url && (
+        <Button asChild variant="outline" size="sm">
+          <a href={url} target="_blank" rel="noreferrer">
+            <ExternalLink />
+            {t("docOpen")}
+          </a>
+        </Button>
+      )}
+    </aside>
+  );
+}
+
+export function Lesson({ lesson, doc }: { lesson: ReadyLesson; doc?: LessonDoc | undefined }) {
   const { t } = useSettings();
   return (
     <Page>
@@ -322,6 +353,7 @@ export function Lesson({ lesson }: { lesson: ReadyLesson }) {
       <Suspense fallback={<div aria-busy="true" className="min-h-96 border-2 border-dashed border-foreground/30" />}>
         <lesson.ready.Sim />
       </Suspense>
+      {doc && <DocInfo doc={doc} />}
     </Page>
   );
 }

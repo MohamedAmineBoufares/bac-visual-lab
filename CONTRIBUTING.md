@@ -4,7 +4,8 @@ Thanks for helping. Teachers, students and developers are all welcome.
 
 ## Ways to help
 
-- **Teachers:** review a simulation for correctness, suggest exam-style questions, flag chapters that
+- **Teachers:** propose or improve a lesson with a lesson doc, no code needed: see
+  [content/README.md](content/README.md). You can also review a simulation for correctness, suggest exam-style questions, flag chapters that
   matter most for the Bac.
 - **Translators:** review Arabic and French UI strings in `src/i18n/messages.ts`.
 - **Developers:** build a simulation for one of the chapters marked "coming soon", or fix a bug. See

@@ -1,0 +1,83 @@
+name: Proposition de leçon · Lesson proposal
+description: Proposez ou améliorez une leçon. Pas besoin de savoir programmer.
+title: "Leçon : "
+labels: ["lesson"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Merci ! Ce formulaire suit [le modèle de fiche](https://github.com/MohamedAmineBoufares/bac-visual-lab/blob/main/content/TEMPLATE.md).
+        Voir [l'exemple du dipôle RC](https://github.com/MohamedAmineBoufares/bac-visual-lab/blob/main/content/lessons/rc-charging.md).
+  - type: input
+    id: chapter
+    attributes:
+      label: Chapitre
+      description: Nom ou identifiant du chapitre (ex. Dipôle RL, rl-circuit).
+    validations:
+      required: true
+  - type: checkboxes
+    id: sections
+    attributes:
+      label: Sections concernées
+      options:
+        - label: Sciences expérimentales
+        - label: Mathématiques
+        - label: Sciences techniques
+        - label: Informatique
+  - type: textarea
+    id: goal
+    attributes:
+      label: Objectif
+      description: L'idée principale que l'élève doit retenir.
+    validations:
+      required: true
+  - type: textarea
+    id: controls
+    attributes:
+      label: Ce que l'élève règle
+      description: Pour chaque curseur, symbole, grandeur, unité, min, max, valeur initiale.
+      placeholder: "L, inductance, mH, 10, 500, 100"
+    validations:
+      required: true
+  - type: textarea
+    id: view
+    attributes:
+      label: Ce que l'élève voit
+  - type: textarea
+    id: formulas
+    attributes:
+      label: Formules
+      description: En TeX si possible.
+    validations:
+      required: true
+  - type: textarea
+    id: reference
+    attributes:
+      label: Valeurs de référence
+      description: Des résultats exacts et vérifiables (ex. « à t = τ, i = 63 % de I₀ »).
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Étapes commentées
+  - type: textarea
+    id: mistakes
+    attributes:
+      label: Erreurs fréquentes des élèves
+  - type: textarea
+    id: quiz
+    attributes:
+      label: Quiz
+      description: 3 à 5 questions avec la bonne réponse et l'explication.
+  - type: input
+    id: author
+    attributes:
+      label: Nom à afficher comme auteur
+  - type: checkboxes
+    id: consent
+    attributes:
+      label: Droits
+      options:
+        - label: Ce contenu est original (rien de copié des manuels du CNP) et peut être publié sous licence MIT.
+          required: true
