@@ -28,7 +28,7 @@ export function Quiz({ lessonId, questions }: { lessonId: string; questions: Que
   };
 
   return (
-    <section className="flex flex-col gap-3 border-2 border-foreground bg-card p-4 shadow-hard">
+    <section className="flex flex-col gap-3 border-2 border-edge bg-card p-4 shadow-hard">
       <header className="flex items-center justify-between gap-2">
         <h2 className="font-semibold">
           {t("quiz")} ·{" "}
@@ -59,7 +59,7 @@ export function Quiz({ lessonId, questions }: { lessonId: string; questions: Que
               key={key}
               className={cn(
                 "flex cursor-pointer items-center gap-3 border-2 p-3",
-                state === "idle" && "border-foreground/30",
+                state === "idle" && "border-edge/30",
                 state === "selected" && "border-primary shadow-hard-sm",
                 state === "correct" && "border-success bg-success/10",
                 state === "wrong" && "border-destructive bg-destructive/10",

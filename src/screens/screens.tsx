@@ -13,7 +13,7 @@ import { cn } from "@/lib/utils";
 import { useSettings } from "@/settings/settings";
 
 const cardLink =
-  "flex border-2 border-foreground bg-card text-start transition-shadow hover:shadow-hard focus-visible:shadow-hard focus-visible:outline-none";
+  "flex border-2 border-edge bg-card text-start transition-shadow hover:shadow-hard focus-visible:shadow-hard focus-visible:outline-none";
 
 function Page({ children }: { children: ReactNode }) {
   return (
@@ -38,7 +38,7 @@ export function Home() {
   });
   return (
     <Page>
-      <section className="flex flex-col gap-4 border-2 border-foreground bg-sim-highlight p-6 text-[#072841] shadow-hard @3xl:p-10">
+      <section className="flex flex-col gap-4 border-2 border-edge bg-sim-highlight p-6 text-[#072841] shadow-hard @3xl:p-10">
         <h1 className="text-3xl font-bold @3xl:text-5xl">{t("homeTitle")}</h1>
         <p className="max-w-xl text-lg">{t("homeLead")}</p>
         <div className="text-2xl" dir="ltr">
@@ -55,7 +55,7 @@ export function Home() {
               params={{ section: slug }}
               className={`${cardLink} items-center gap-4 p-5`}
             >
-              <span className="grid size-12 shrink-0 place-items-center border-2 border-foreground bg-secondary">
+              <span className="grid size-12 shrink-0 place-items-center border-2 border-edge bg-secondary">
                 <Icon className="size-6" />
               </span>
               <span className="flex-1 font-semibold" style={{ viewTransitionName: `section-${slug}` }}>
@@ -84,7 +84,7 @@ function LessonCard({ lesson }: { lesson: LessonData }) {
   const info = (
     <>
       <div className="flex flex-wrap gap-1.5">
-        <Badge className="rounded-none border-2 border-foreground bg-secondary text-secondary-foreground">
+        <Badge className="rounded-none border-2 border-edge bg-secondary text-secondary-foreground">
           {t(lesson.subject)}
         </Badge>
         {sections
@@ -107,9 +107,9 @@ function LessonCard({ lesson }: { lesson: LessonData }) {
   if (!isReady(lesson)) {
     // Not a link: no simulation yet. The dashed border and label mark it without relying on colour.
     return (
-      <article className="flex flex-col border-2 border-dashed border-foreground/50 bg-card text-start">
-        <div className="grid h-28 place-items-center border-b-2 border-dashed border-foreground/50 bg-secondary">
-          <span className="border-2 border-foreground bg-card px-2 py-0.5 text-sm font-semibold">{t("soon")}</span>
+      <article className="flex flex-col border-2 border-dashed border-edge/50 bg-card text-start">
+        <div className="grid h-28 place-items-center border-b-2 border-dashed border-edge/50 bg-secondary">
+          <span className="border-2 border-edge bg-card px-2 py-0.5 text-sm font-semibold">{t("soon")}</span>
         </div>
         <div className="flex flex-col gap-2.5 p-4">{info}</div>
       </article>
@@ -119,17 +119,13 @@ function LessonCard({ lesson }: { lesson: LessonData }) {
   const total = lesson.ready.quiz.length;
   return (
     <Link to="/app/lessons/$lessonId" params={{ lessonId: lesson.id }} className={`${cardLink} flex-col`}>
-      <svg
-        viewBox="-10 -6 220 90"
-        className="h-28 w-full border-b-2 border-foreground bg-sim-canvas"
-        aria-hidden="true"
-      >
+      <svg viewBox="-10 -6 220 90" className="h-28 w-full border-b-2 border-edge bg-sim-canvas" aria-hidden="true">
         <path d={lesson.ready.thumb} fill="none" stroke="var(--sim-curve-1)" strokeWidth="3.5" />
       </svg>
       <div className="flex flex-col gap-2.5 p-4">
         {info}
         <div className="flex items-center gap-2">
-          <div className="h-3 flex-1 border-2 border-foreground bg-background">
+          <div className="h-3 flex-1 border-2 border-edge bg-background">
             <div className="h-full bg-success" style={{ width: `${(done / total) * 100}%` }} />
           </div>
           <span className="text-xs font-medium text-muted-foreground tabular-nums">
@@ -216,7 +212,7 @@ export function Chapters({ section }: { section: Section }) {
               onChange={(e) => setQuery(e.target.value)}
               placeholder={t("search")}
               aria-label={t("search")}
-              className="h-11 w-full border-2 border-foreground bg-card ps-10 pe-3 shadow-hard-sm placeholder:text-muted-foreground focus-visible:shadow-hard focus-visible:outline-none"
+              className="h-11 w-full border-2 border-edge bg-card ps-10 pe-3 shadow-hard-sm placeholder:text-muted-foreground focus-visible:shadow-hard focus-visible:outline-none"
             />
           </div>
         )}
@@ -242,7 +238,7 @@ export function Chapters({ section }: { section: Section }) {
                   href={`#subject-${key}`}
                   aria-current={active ? "location" : undefined}
                   className={cn(
-                    "flex h-10 min-w-0 items-center justify-center gap-1.5 border-2 border-foreground px-1.5 text-sm font-semibold whitespace-nowrap focus-visible:shadow-hard focus-visible:outline-none",
+                    "flex h-10 min-w-0 items-center justify-center gap-1.5 border-2 border-edge px-1.5 text-sm font-semibold whitespace-nowrap focus-visible:shadow-hard focus-visible:outline-none",
                     active ? "bg-sim-highlight text-[#072841] shadow-hard-sm" : "bg-card hover:bg-secondary",
                   )}
                 >
@@ -269,7 +265,7 @@ export function Chapters({ section }: { section: Section }) {
                 >
                   <span
                     className={cn(
-                      "border-2 border-foreground bg-card px-2 py-0.5 text-sm font-semibold whitespace-nowrap shadow-hard-sm transition-opacity",
+                      "border-2 border-edge bg-card px-2 py-0.5 text-sm font-semibold whitespace-nowrap shadow-hard-sm transition-opacity",
                       active ? "opacity-100" : "opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100",
                     )}
                   >
@@ -278,7 +274,7 @@ export function Chapters({ section }: { section: Section }) {
                   <span
                     aria-hidden="true"
                     className={cn(
-                      "block border-2 border-foreground transition-[width,height]",
+                      "block border-2 border-edge transition-[width,height]",
                       active ? "size-4 bg-sim-highlight shadow-hard-sm" : "size-3 bg-card group-hover:bg-secondary",
                     )}
                   />
@@ -312,7 +308,7 @@ function DocInfo({ doc: { latest, meta, url } }: { doc: LessonDoc }) {
   return (
     <aside
       aria-labelledby="doc-title"
-      className="flex flex-wrap items-center gap-x-4 gap-y-2 border-2 border-foreground bg-card p-4 text-sm"
+      className="flex flex-wrap items-center gap-x-4 gap-y-2 border-2 border-edge bg-card p-4 text-sm"
     >
       <div className="flex min-w-0 flex-1 flex-col gap-1">
         <h2 id="doc-title" className="font-semibold">
@@ -350,7 +346,7 @@ export function Lesson({ lesson, doc }: { lesson: ReadyLesson; doc?: LessonDoc |
           </h1>
         </div>
       </div>
-      <Suspense fallback={<div aria-busy="true" className="min-h-96 border-2 border-dashed border-foreground/30" />}>
+      <Suspense fallback={<div aria-busy="true" className="min-h-96 border-2 border-dashed border-edge/30" />}>
         <lesson.ready.Sim />
       </Suspense>
       {doc && <DocInfo doc={doc} />}

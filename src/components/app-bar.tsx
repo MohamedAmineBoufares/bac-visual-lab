@@ -11,9 +11,9 @@ import { type Settings, useSettings } from "@/settings/settings";
 export function Logo() {
   return (
     <svg viewBox="0 0 32 32" className="size-8 shrink-0" aria-hidden="true">
-      <rect x="1" y="1" width="30" height="30" className="fill-primary stroke-foreground" strokeWidth="2" />
-      <path d="M6 25 C 10 12, 16 8, 26 7" fill="none" className="stroke-primary-foreground" strokeWidth="3" />
-      <rect x="13" y="10" width="5" height="5" className="fill-sim-highlight stroke-foreground" strokeWidth="1.5" />
+      <rect x="1" y="1" width="30" height="30" className="fill-brand stroke-edge" strokeWidth="2" />
+      <path d="M6 25 C 10 12, 16 8, 26 7" fill="none" className="stroke-brand-foreground" strokeWidth="3" />
+      <rect x="13" y="10" width="5" height="5" className="fill-sim-highlight stroke-edge" strokeWidth="1.5" />
     </svg>
   );
 }
@@ -28,10 +28,7 @@ export function DisplaySettings() {
           <span className="hidden @md:inline">{t("display")}</span>
         </Button>
       </PopoverTrigger>
-      <PopoverContent
-        align="end"
-        className="flex w-72 flex-col gap-4 rounded-none border-2 border-foreground shadow-hard"
-      >
+      <PopoverContent align="end" className="flex w-72 flex-col gap-4 rounded-none border-2 border-edge shadow-hard">
         <Field label={t("theme")}>
           <ToggleGroup
             type="single"
@@ -93,10 +90,10 @@ function Field({ label, children }: { label: string; children: React.ReactNode }
 export function AppBar({ home = "/", children }: { home?: "/" | "/app"; children?: ReactNode }) {
   const { settings, update, t } = useSettings();
   return (
-    <header className="sticky top-0 z-10 flex items-center gap-3 border-b-2 border-foreground bg-card px-4 py-2.5">
+    <header className="sticky top-0 z-10 flex items-center gap-3 border-b-2 border-edge bg-card px-4 py-2.5">
       <a
         href="#main"
-        className="sr-only border-2 border-foreground bg-sim-highlight px-3 py-1.5 font-semibold text-[#072841] focus:not-sr-only focus:absolute focus:start-4 focus:top-2 focus:z-20"
+        className="sr-only border-2 border-edge bg-sim-highlight px-3 py-1.5 font-semibold text-[#072841] focus:not-sr-only focus:absolute focus:start-4 focus:top-2 focus:z-20"
       >
         {t("skipToContent")}
       </a>

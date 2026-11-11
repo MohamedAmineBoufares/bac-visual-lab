@@ -39,7 +39,7 @@ export function ParamSlider(props: {
         </label>
         <output
           htmlFor={id}
-          className="ms-auto border-2 border-foreground bg-sim-highlight px-2 py-0.5 text-sm font-semibold text-[#072841] tabular-nums"
+          className="ms-auto border-2 border-edge bg-sim-highlight px-2 py-0.5 text-sm font-semibold text-[#072841] tabular-nums"
         >
           {format(props.value, props.digits)} {props.unit}
         </output>
@@ -107,7 +107,7 @@ export function SimStage(props: {
   const right = px < W / 2;
   const below = py < H / 2;
   return (
-    <figure className="border-2 border-foreground bg-sim-canvas shadow-hard">
+    <figure className="border-2 border-edge bg-sim-canvas shadow-hard">
       <div className="relative" dir="ltr">
         <svg viewBox={`0 0 ${W} ${H}`} className="block h-auto w-full" direction="ltr" role="img" aria-label={summary}>
           {Array.from({ length: 11 }, (_, i) => (
@@ -219,13 +219,13 @@ export function SimStage(props: {
         {props.callout && (
           <>
             <span
-              className="pointer-events-none absolute size-7 -translate-1/2 border-2 border-foreground motion-safe:animate-ping"
+              className="pointer-events-none absolute size-7 -translate-1/2 border-2 border-edge motion-safe:animate-ping"
               style={{ left: `${(px / W) * 100}%`, top: `${(py / H) * 100}%` }}
               aria-hidden="true"
             />
             <div
               className={cn(
-                "absolute w-[min(16rem,45%)] border-2 border-foreground bg-card p-2.5 text-sm shadow-hard-sm transition-[left,top] duration-300 ease-out",
+                "absolute w-[min(16rem,45%)] border-2 border-edge bg-card p-2.5 text-sm shadow-hard-sm transition-[left,top] duration-300 ease-out",
                 right ? "ms-4" : "-translate-x-full -ms-4",
                 below ? "mt-4" : "-translate-y-full -mt-4",
               )}
@@ -236,7 +236,7 @@ export function SimStage(props: {
           </>
         )}
       </div>
-      {props.footer && <figcaption className="border-t-2 border-foreground bg-card">{props.footer}</figcaption>}
+      {props.footer && <figcaption className="border-t-2 border-edge bg-card">{props.footer}</figcaption>}
     </figure>
   );
 }
@@ -251,9 +251,9 @@ export function FormulaPanel(props: {
   className?: string;
 }) {
   return (
-    <section className={cn("flex flex-col gap-3 border-2 border-foreground bg-card p-4 shadow-hard", props.className)}>
+    <section className={cn("flex flex-col gap-3 border-2 border-edge bg-card p-4 shadow-hard", props.className)}>
       <header className="flex flex-wrap items-center gap-2">
-        <span className="border-2 border-foreground bg-secondary px-2 py-0.5 text-xs font-semibold">{props.badge}</span>
+        <span className="border-2 border-edge bg-secondary px-2 py-0.5 text-xs font-semibold">{props.badge}</span>
         <span className="text-sm text-muted-foreground">{props.caption}</span>
       </header>
       <div className="overflow-x-auto py-1 text-xl" dir="ltr">
@@ -262,7 +262,7 @@ export function FormulaPanel(props: {
       <div className="overflow-x-auto text-muted-foreground" dir="ltr">
         <Formula tex={props.substitutedTex} />
       </div>
-      <hr className="border-t-2 border-foreground" />
+      <hr className="border-t-2 border-edge" />
       <ul className="flex flex-wrap gap-x-5 gap-y-1 text-sm">
         {props.readouts.map((r) => (
           <li key={r.label} className="flex items-center gap-2">

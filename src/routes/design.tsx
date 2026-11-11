@@ -27,14 +27,14 @@ function DesignBoard() {
   const [path, setPath] = useState("/app/lessons/rc-charging");
   return (
     <div className="min-h-screen bg-secondary" dir="ltr">
-      <div className="sticky top-0 z-20 flex flex-wrap items-center gap-2 border-b-2 border-foreground bg-card px-4 py-3">
+      <div className="sticky top-0 z-20 flex flex-wrap items-center gap-2 border-b-2 border-edge bg-card px-4 py-3">
         <strong className="me-4">Design review</strong>
         {pages.map((p) => (
           <button
             key={p.path}
             type="button"
             onClick={() => setPath(p.path)}
-            className={`border-2 border-foreground px-3 py-1 text-sm font-semibold ${path === p.path ? "bg-sim-highlight text-[#072841] shadow-hard-sm" : "bg-card"}`}
+            className={`border-2 border-edge px-3 py-1 text-sm font-semibold ${path === p.path ? "bg-sim-highlight text-[#072841] shadow-hard-sm" : "bg-card"}`}
           >
             {p.label}
           </button>
@@ -50,7 +50,7 @@ function DesignBoard() {
             <iframe
               title={`${d.name} preview`}
               src={path}
-              className="border-2 border-foreground bg-background shadow-hard"
+              className="border-2 border-edge bg-background shadow-hard"
               style={{ width: d.width, height: d.height, zoom: d.zoom }}
             />
           </figure>

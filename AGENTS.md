@@ -46,7 +46,7 @@ Read [README.md](README.md) and [docs/design.md](docs/design.md) before larger c
 - Curves/states never rely on colour alone: add a dash pattern, marker, or text label.
 - Respect `prefers-reduced-motion`: no autoplay and no decorative motion. A simulation the user starts with Play still animates (the motion is the content).
 - Layout responds to its container (`@container`, `@3xl:` …), so screens work inside the design board.
-- House look: white background, square corners (`--radius: 0`), 2px `border-foreground`, hard offset
+- House look: white background, square corners (`--radius: 0`), 2px `border-edge`, hard offset
   shadows (`shadow-hard`, `shadow-hard-sm`).
 - Don't copy text or figures from CNP textbooks; all content is original.
 - Don't add dependencies for a few lines of code. Ask before adding anything heavy (charts, 3D, physics engines).

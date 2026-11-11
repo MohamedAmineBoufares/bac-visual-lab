@@ -44,7 +44,7 @@ const features: { title: MessageKey; body: MessageKey; icon: typeof BookOpen }[]
 ];
 
 const lift =
-  "border-2 border-foreground bg-card shadow-hard-sm transition-[translate,box-shadow] motion-safe:hover:-translate-y-1 hover:shadow-hard";
+  "border-2 border-edge bg-card shadow-hard-sm transition-[translate,box-shadow] motion-safe:hover:-translate-y-1 hover:shadow-hard";
 
 const forAll: MessageKey[] = ["forAll1", "forAll2", "forAll3", "forAll4"];
 const contribs: MessageKey[] = ["contribTeachers", "contribTranslators", "contribDevs"];
@@ -88,7 +88,7 @@ function Landing() {
           <ul className="grid gap-4 @xl:grid-cols-2 @4xl:grid-cols-3">
             {features.map(({ title, body, icon: Icon }) => (
               <li key={title} className={`reveal flex flex-col gap-3 p-5 ${lift}`}>
-                <span className="grid size-11 place-items-center border-2 border-foreground bg-secondary">
+                <span className="grid size-11 place-items-center border-2 border-edge bg-secondary">
                   <Icon className="size-5" aria-hidden="true" />
                 </span>
                 <h3 className="text-lg font-semibold">{t(title)}</h3>
@@ -104,7 +104,7 @@ function Landing() {
             {steps.map(({ title, body, icon: Icon }, i) => (
               <li key={title} className={`reveal flex flex-col gap-3 p-5 ${lift}`}>
                 <div className="flex items-center gap-3">
-                  <span className="grid size-10 place-items-center border-2 border-foreground bg-sim-highlight font-bold text-[#072841]">
+                  <span className="grid size-10 place-items-center border-2 border-edge bg-sim-highlight font-bold text-[#072841]">
                     {i + 1}
                   </span>
                   <Icon className="size-5" aria-hidden="true" />
@@ -116,7 +116,7 @@ function Landing() {
           </ol>
         </section>
 
-        <section className="reveal grid gap-6 border-2 border-foreground bg-secondary p-6 @3xl:grid-cols-[1fr_2fr] @3xl:p-10">
+        <section className="reveal grid gap-6 border-2 border-edge bg-secondary p-6 @3xl:grid-cols-[1fr_2fr] @3xl:p-10">
           <div className="flex items-start gap-3">
             <Smartphone className="mt-1 size-6 shrink-0" aria-hidden="true" />
             <h2 className="text-2xl font-bold">{t("forAllTitle")}</h2>
@@ -154,7 +154,7 @@ function Landing() {
         </section>
       </main>
 
-      <footer className="border-t-2 border-foreground bg-card">
+      <footer className="border-t-2 border-edge bg-card">
         <div className="mx-auto flex w-full max-w-6xl flex-wrap items-center justify-between gap-3 px-4 py-6 text-sm @3xl:px-8">
           <p>
             © {year}{" "}
@@ -208,7 +208,7 @@ function HeroVisual() {
           </div>
         }
       />
-      <div className="flex flex-col gap-4 border-2 border-foreground bg-card p-4">
+      <div className="flex flex-col gap-4 border-2 border-edge bg-card p-4">
         <p className="text-sm font-semibold">{t("tryIt")}</p>
         <ParamSlider
           symbolTex="E"

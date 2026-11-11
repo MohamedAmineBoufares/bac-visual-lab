@@ -78,7 +78,7 @@ export function Scene3D({ summary, labels, children }: { summary: string; labels
     tag.style.visibility = visible ? "visible" : "hidden";
   };
   return (
-    <figure className="flex flex-col gap-2 border-2 border-foreground bg-sim-canvas shadow-hard-sm">
+    <figure className="flex flex-col gap-2 border-2 border-edge bg-sim-canvas shadow-hard-sm">
       <div className="relative aspect-[4/3] w-full touch-none" role="img" aria-label={summary}>
         <Canvas frameloop="demand" dpr={[1, 2]} camera={{ position: [3.4, 2.8, 7.4], fov: 45 }}>
           <ambientLight intensity={0.8} />
@@ -95,7 +95,7 @@ export function Scene3D({ summary, labels, children }: { summary: string; labels
               ref={(el) => {
                 tags.current[i] = el;
               }}
-              className="invisible absolute top-0 left-0 border border-foreground bg-background px-1 text-xs whitespace-nowrap"
+              className="invisible absolute top-0 left-0 border border-edge bg-background px-1 text-xs whitespace-nowrap"
             >
               {label.text}
             </span>

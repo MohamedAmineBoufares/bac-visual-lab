@@ -15,7 +15,7 @@ Decisions agreed so far (November 2026). The design is reviewed as live code at 
 - White background, deep navy (`#072841`) text and 2px borders, square corners, hard offset shadows.
 - Sidi Bou Said blue (`--primary`), terracotta (`--accent`), saffron highlight (`--sim-highlight`).
 - The saffron highlight links a slider's value badge to the matching term in the formula.
-- Dark theme uses an ink-navy palette. All text pairs meet WCAG AA (≥ 4.5:1); curves and points ≥ 3:1
+- Dark theme uses a warm charcoal palette with soft `border-edge` lines and black shadows; the logo keeps its `brand` colours in both themes. All text pairs meet WCAG AA (≥ 4.5:1); curves and points ≥ 3:1
   against the canvas, in every theme, including colour-blind mode.
 
 ## Display settings (stored on the device)

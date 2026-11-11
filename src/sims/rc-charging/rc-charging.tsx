@@ -188,7 +188,7 @@ export function RcCharging() {
   );
 
   const params = (
-    <div className="flex flex-col gap-6 border-2 border-foreground bg-card p-4">
+    <div className="flex flex-col gap-6 border-2 border-edge bg-card p-4">
       <ParamSlider
         symbolTex="E"
         label={tr("emf")}

@@ -27,12 +27,12 @@
   --sand-200: #ece6da;
   --sand-500: #8a8170;
   --sand-600: #645c4e;
-  --ink-950: #0b1520;
-  --ink-900: #0f1c2a;
-  --ink-800: #172838;
-  --ink-600: #34506a;
-  --ink-300: #9fb3c6;
-  --ink-100: #e3ebf2;
+  --ink-950: #0f0e0c;
+  --ink-900: #1a1917;
+  --ink-800: #262420;
+  --ink-600: #57524a;
+  --ink-300: #a8a196;
+  --ink-100: #f2efe9;
   --green-600: #2f7148;
   --green-300: #7cc49a;
   --red-500: #c8372d;
@@ -62,6 +62,9 @@
   --ring: var(--blue-400);
   --radius: 0px;
   --shadow-color: var(--blue-900);
+  --edge: var(--blue-900);
+  --brand: var(--blue-500);
+  --brand-foreground: #ffffff;
 
   /* Simulation palette */
   --sim-curve-1: var(--blue-500);
@@ -85,7 +88,7 @@
   --card-foreground: var(--ink-100);
   --popover: var(--ink-800);
   --popover-foreground: var(--ink-100);
-  --primary: var(--blue-300);
+  --primary: var(--saffron-300);
   --primary-foreground: var(--ink-950);
   --secondary: var(--ink-800);
   --secondary-foreground: var(--ink-100);
@@ -98,7 +101,8 @@
   --border: var(--ink-300);
   --input: var(--ink-300);
   --ring: var(--blue-300);
-  --shadow-color: var(--ink-300);
+  --shadow-color: var(--ink-600);
+  --edge: #6e675c; /* ≥ 3:1 on cards */
 
   --sim-curve-1: var(--blue-300);
   --sim-curve-2: var(--amber-300);
@@ -160,6 +164,9 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
+  --color-edge: var(--edge);
+  --color-brand: var(--brand);
+  --color-brand-foreground: var(--brand-foreground);
   --color-sim-curve-1: var(--sim-curve-1);
   --color-sim-curve-2: var(--sim-curve-2);
   --color-sim-curve-3: var(--sim-curve-3);

@@ -25,7 +25,7 @@ export function RcSchematic({ p, t }: { p: RcParams; t: number }) {
   const wire = { stroke: "var(--sim-axis)", strokeWidth: 3, fill: "none" };
 
   return (
-    <figure className="border-2 border-foreground bg-sim-canvas shadow-hard-sm">
+    <figure className="border-2 border-edge bg-sim-canvas shadow-hard-sm">
       <svg
         viewBox="-30 0 430 250"
         className="block h-auto w-full"
