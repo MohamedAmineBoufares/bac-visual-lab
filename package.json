@@ -1,7 +1,30 @@
 {
   "name": "bac-visual-lab",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "private": true,
+  "description": "Interactive maths and physics simulations for Tunisian Bac students, in French, English and Arabic.",
+  "keywords": [
+    "bac",
+    "education",
+    "maths",
+    "physics",
+    "react",
+    "simulation",
+    "tunisia"
+  ],
+  "homepage": "https://github.com/MohamedAmineBoufares/bac-visual-lab#readme",
+  "bugs": {
+    "url": "https://github.com/MohamedAmineBoufares/bac-visual-lab/issues"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Mohamed Amine Boufares",
+    "url": "https://www.linkedin.com/in/mohamed-amine-boufares/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MohamedAmineBoufares/bac-visual-lab.git"
+  },
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -22,7 +45,6 @@
     "@tanstack/react-router": "^1.170.46",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "cn": "^0.5.2",
     "katex": "^0.19.1",
     "lucide-react": "^1.72.0",
     "radix-ui": "^1.8.1",
@@ -37,6 +59,7 @@
     "@types/react": "^19.1.2",
     "@types/react-dom": "^19.1.2",
     "@vitejs/plugin-react": "^4.4.1",
+    "babel-plugin-react-compiler": "^1.0.0",
     "oxfmt": "^0.78.0",
     "oxlint": "^1.93.0",
     "typescript": "~5.8.3",

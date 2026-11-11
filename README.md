@@ -21,10 +21,10 @@ Requires Node 20+ and [pnpm](https://pnpm.io) (`corepack enable` installs the pi
 
 ```bash
 pnpm install
-pnpm dev            # app at http://localhost:5173
+pnpm dev            # app at http://localhost:3000
 ```
 
-Open `http://localhost:5173/design` for the design review board (development only): the same page at
+Open `http://localhost:3000/design` for the design review board (development only): the same page at
 phone (390px), tablet (834px) and projector (1440px) widths side by side.
 
 | Script        | What it does                                                             |
@@ -78,6 +78,6 @@ original. Do not copy text or figures from CNP textbooks or other copyrighted so
 
 ## License
 
-Not chosen yet. Until a license is added, all rights are reserved.
+[MIT](LICENSE) © 2026 Mohamed Amine Boufares.
 
 © Mohamed Amine Boufares
