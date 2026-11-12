@@ -1,7 +1,8 @@
 # Contributing
 
 Thanks for helping. Teachers, students and developers are all welcome.
-nBy taking part you agree to the [Code of Conduct](CODE_OF_CONDUCT.md). Report security problems privately, see [SECURITY.md](SECURITY.md).
+
+By taking part you agree to the [Code of Conduct](CODE_OF_CONDUCT.md). Report security problems privately, see [SECURITY.md](SECURITY.md).
 
 ## Ways to help
 
