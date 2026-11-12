@@ -12,19 +12,34 @@ concurrency:
 permissions:
   contents: read
 
+# Jobs run on separate machines, so each one sets up via the shared local action
+# (.github/actions/setup); the pnpm store cache keeps the install fast.
 jobs:
-  check:
+  static:
+    name: Types, lint, format
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
-      # Reads the pnpm version from packageManager in package.json.
-      - uses: pnpm/action-setup@v6
-      - uses: actions/setup-node@v7
-        with:
-          node-version: lts/*
-          cache: pnpm
-      - run: pnpm install --frozen-lockfile
-      # Types, oxlint, oxfmt --check and Vitest.
-      - run: pnpm check
+      - uses: ./.github/actions/setup
+      - run: pnpm typecheck
+      - run: pnpm lint
+      - run: pnpm format:check
+
+  test:
+    name: Unit tests + coverage
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: ./.github/actions/setup
+      # Fails below the coverage floors in vite.config.ts.
+      - run: pnpm test
+
+  build:
+    name: Build
+    needs: [static, test]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: ./.github/actions/setup
       # Also enforces the bundle budget.
       - run: pnpm build

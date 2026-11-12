@@ -10,6 +10,9 @@ const html = document.documentElement;
 const stored = () => JSON.parse(localStorage.getItem("bvl.settings") ?? "{}");
 beforeEach(() => localStorage.clear());
 
+// Used outside any provider, to check useSettings throws.
+const Bare = () => (useSettings(), null);
+
 describe("display settings", () => {
   it("each choice applies to the page and is saved", async () => {
     const root = await render(<DisplaySettings />);
@@ -50,7 +53,6 @@ describe("display settings", () => {
   });
 
   it("useSettings outside the provider is a programming error", async () => {
-    const Bare = () => (useSettings(), null);
     const root = createRoot(document.createElement("div"));
     await expect(act(async () => root.render(<Bare />))).rejects.toThrow(/inside SettingsProvider/);
   });

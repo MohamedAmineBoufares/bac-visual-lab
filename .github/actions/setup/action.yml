@@ -1,0 +1,13 @@
+name: Setup
+description: pnpm, Node and cached dependencies, shared by the CI jobs.
+runs:
+  using: composite
+  steps:
+    # Reads the pnpm version from packageManager in package.json.
+    - uses: pnpm/action-setup@v6
+    - uses: actions/setup-node@v7
+      with:
+        node-version: lts/*
+        cache: pnpm
+    - run: pnpm install --frozen-lockfile
+      shell: bash
