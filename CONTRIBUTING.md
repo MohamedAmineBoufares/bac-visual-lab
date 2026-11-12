@@ -2,6 +2,8 @@
 
 Thanks for helping. Teachers, students and developers are all welcome.
 
+By taking part you agree to the [Code of Conduct](CODE_OF_CONDUCT.md). Report security problems privately, see [SECURITY.md](SECURITY.md).
+
 ## Ways to help
 
 - **Teachers:** propose or improve a lesson with a lesson doc, no code needed: see
