@@ -1,0 +1,20 @@
+// Cloudflare Workers static-assets deploy. Committing this stops `wrangler deploy` from trying to
+// `pnpm add wrangler` into the project, which pnpm refuses (ERR_PNPM_IGNORED_BUILDS).
+{
+  "name": "bac-visual-lab",
+  "compatibility_date": "2026-11-10",
+  // Mirrors the dashboard setting; a deploy without it would turn logs off again.
+  "observability": {
+    "logs": {
+      "enabled": true,
+      "invocation_logs": true,
+      "persist": true
+    }
+  },
+  "assets": {
+    "directory": "dist",
+    // Prerendered pages are app.html, en/app.html…; unknown paths get dist/404.html with a 404 status.
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "404-page"
+  }
+}
