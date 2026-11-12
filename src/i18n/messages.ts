@@ -16,7 +16,8 @@ const fr = {
   textSize: "Taille du texte",
   colorBlind: "Mode daltonien",
   homeTitle: "Comprendre en voyant",
-  homeLead: "Change les paramètres, regarde la formule agir. Choisis ta section.",
+  homeLead:
+    "Maths, physique, sciences : chaque notion devient plus claire quand on la voit bouger. Explore à ton rythme, tu vas y arriver. Choisis ta section pour commencer.",
   continue: "Reprendre",
   sections: "Sections",
   secExp: "Sciences expérimentales",
@@ -204,7 +205,8 @@ const en: Messages = {
   textSize: "Text size",
   colorBlind: "Colour-blind mode",
   homeTitle: "Understand by seeing",
-  homeLead: "Change the parameters, watch the formula at work. Pick your section.",
+  homeLead:
+    "Maths, physics, science: every idea gets clearer once you see it move. Explore at your own pace, you can do this. Pick your section to get started.",
   continue: "Continue",
   sections: "Sections",
   secExp: "Experimental sciences",
@@ -390,7 +392,8 @@ const ar: Messages = {
   textSize: "حجم النص",
   colorBlind: "وضع عمى الألوان",
   homeTitle: "افهم بالمشاهدة",
-  homeLead: "غيّر المقادير وشاهد الصيغة وهي تعمل. اختر شعبتك.",
+  homeLead:
+    "رياضيات، فيزياء، علوم: كل مفهوم يصبح أوضح عندما تراه يتحرك. استكشف على مهلك، أنت قادر على النجاح. اختر شعبتك لتبدأ.",
   continue: "واصل",
   sections: "الشعب",
   secExp: "علوم تجريبية",

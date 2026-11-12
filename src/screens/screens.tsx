@@ -41,8 +41,10 @@ export function Home() {
       <section className="flex flex-col gap-4 border-2 border-edge bg-sim-highlight p-6 text-[#072841] shadow-hard @3xl:p-10">
         <h1 className="text-3xl font-bold @3xl:text-5xl">{t("homeTitle")}</h1>
         <p className="max-w-xl text-lg">{t("homeLead")}</p>
-        <div className="text-2xl" dir="ltr">
-          <Formula tex={String.raw`u_C(t) = E\left(1 - e^{-t/RC}\right)`} />
+        <div className="flex flex-wrap gap-x-8 gap-y-2 text-xl @3xl:text-2xl" dir="ltr">
+          <Formula tex={String.raw`f'(x) = \lim_{h \to 0} \frac{f(x+h) - f(x)}{h}`} />
+          <Formula tex={String.raw`\sum \vec{F} = m\,\vec{a}`} />
+          <Formula tex={String.raw`z = r\,e^{i\theta}`} />
         </div>
       </section>
       <section className="flex flex-col gap-4">
