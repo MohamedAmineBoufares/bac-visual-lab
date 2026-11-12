@@ -58,9 +58,15 @@ describe("sitemap", () => {
   it("lists the landing, the app, every section and only lessons that exist", () => {
     const paths = pagePaths();
     expect(paths).toEqual(
-      expect.arrayContaining(["/", "/app", "/app/sections/mathematiques", "/app/lessons/rc-charging"]),
+      expect.arrayContaining([
+        "/",
+        "/app",
+        "/app/sections/mathematiques",
+        "/app/lessons/rc-charging",
+        "/app/lessons/rl-circuit",
+      ]),
     );
-    expect(paths).not.toContain("/app/lessons/rl-circuit"); // coming soon: no page yet
+    expect(paths).not.toContain("/app/lessons/rlc-free"); // coming soon: no page yet
   });
 
   it("has each page once per locale, each with its alternates", () => {

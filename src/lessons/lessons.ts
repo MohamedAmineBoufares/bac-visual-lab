@@ -2,6 +2,7 @@ import { type ComponentType, lazy } from "react";
 import type { MessageKey } from "@/i18n/messages";
 import type { Section } from "@/screens/sections";
 import { rcQuiz } from "@/sims/rc-charging/quiz";
+import { rlQuiz } from "@/sims/rl-circuit/quiz";
 
 export type Question = { prompt: MessageKey; options: MessageKey[]; answer: MessageKey; explain: MessageKey };
 
@@ -56,7 +57,19 @@ export const lessons: Lesson[] = [
       quiz: rcQuiz,
     },
   },
-  soon("rl-circuit", "physics", [E, M, T], "tRl", "thElec"),
+  {
+    id: "rl-circuit",
+    subject: "physics",
+    sections: [E, M, T],
+    title: "tRl",
+    chapter: "thElec",
+    level: "level4",
+    ready: {
+      thumb: "M0 4 C 40 54 90 66 200 70",
+      Sim: lazy(() => import("@/sims/rl-circuit/rl-circuit").then((m) => ({ default: m.RlCircuit }))),
+      quiz: rlQuiz,
+    },
+  },
   soon("rlc-free", "physics", [E, M, T], "tRlcFree", "thElec"),
   soon("rlc-forced", "physics", [E, M, T], "tRlcForced", "thElec"),
   soon("filters", "physics", [M, T], "tFilters", "thElec"),
