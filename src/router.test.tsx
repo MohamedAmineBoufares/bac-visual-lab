@@ -25,7 +25,7 @@ describe("page head", () => {
   });
 
   it("treats /fr, unknown languages and unknown lessons as a 404 kept out of the index", async () => {
-    for (const path of ["/fr/app", "/zz", "/app/lessons/rl-circuit"])
+    for (const path of ["/fr/app", "/zz", "/app/lessons/rlc-free"])
       expect(await page(path)).toMatchObject({ title: `404 · ${site.name}`, noindex: true });
   });
 });

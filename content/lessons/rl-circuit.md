@@ -4,8 +4,8 @@ title: Dipôle RL
 subject: physics
 sections: sciences-experimentales, mathematiques, sciences-techniques
 chapter: Électricité
-status: draft
-version: 0.2.0
+status: built
+version: 1.0.0
 app-version: 1.0.0
 author: Mohamed Amine Boufares
 updated: 2026-11-12
@@ -16,9 +16,10 @@ language: fr
 
 La ligne la plus récente en premier. Elle est affichée sur la page de la leçon.
 
-| Version | Date       | Auteur                 | Version de l’app | Modifications                                    |
-| ------- | ---------- | ---------------------- | ---------------- | ------------------------------------------------ |
-| 0.2.0   | 2026-11-12 | Mohamed Amine Boufares | 1.0.0            | Fiche remplie : formules, curseurs, vue 3D, quiz |
+| Version | Date       | Auteur                 | Version de l’app | Modifications                                          |
+| ------- | ---------- | ---------------------- | ---------------- | ------------------------------------------------------ |
+| 1.0.0   | 2026-11-12 | Mohamed Amine Boufares | 1.0.0            | Simulation en ligne : courbes, vue de dessus, 3D, quiz |
+| 0.2.0   | 2026-11-12 | Mohamed Amine Boufares | 1.0.0            | Fiche remplie : formules, curseurs, vue 3D, quiz       |
 
 ## Objectif
 
@@ -33,15 +34,15 @@ s'établit progressivement, avec une constante de temps τ = L/R que l'on lit su
 | R       | Résistance totale du circuit | Ω     | 10  | 100 | 5    | 50              |
 | L       | Inductance de la bobine      | H     | 0,1 | 1   | 0,05 | 0,5             |
 
-Le temps va de 0 à 100 ms. Comme pour le RC : lancer, pause, ralenti (×0,25, ×0,5, ×1) et curseur du temps.
-Un interrupteur « Établissement / Rupture » choisit la phase étudiée (la rupture part de i = E/R).
+Le temps va de 0 à 100 ms. Comme pour le RC : lancer, pause, vitesse (×0,25, ×1, ×4), réinitialiser.
 
 ## Ce que l'élève voit
 
-- Les courbes i(t) (trait plein, axe de droite en mA) et u_L(t) (pointillés, axe de gauche en V).
-- Un repère à t = τ, la tangente à l'origine de i(t) qui coupe l'asymptote I₀ = E/R en t = τ.
-- La formule de i(t), où E, R et L/R s'allument quand on bouge leur curseur.
-- L'énergie stockée dans la bobine, ½Li², sous forme de barre.
+- Les courbes u_L(t) (trait plein) et u_R(t) = Ri (pointillés) sur le même graphique, avec la droite E.
+- Un repère à t = τ.
+- La formule de i(t), où E, R et τ s'allument quand on bouge leur curseur, et les valeurs de i (mA), u_L,
+  u_R, τ et de l'énergie ½Li² (mJ) à l'instant courant.
+- En mode « avec interprétation », l'animation s'arrête à chaque étape ci-dessous et affiche l'explication.
 
 ## Vue 3D
 
@@ -60,8 +61,7 @@ Pendant l'animation :
 
 - Les charges des fils partent de l'arrêt et accélèrent jusqu'à une vitesse constante (i → E/R).
 - Les anneaux de champ apparaissent un à un ; à t = τ il y en a 63 % du nombre final.
-- À la rupture, les charges ralentissent et les anneaux disparaissent : l'énergie de la bobine est rendue au
-  circuit.
+- La résistance brille de plus en plus, comme u_R = Ri.
 
 ## Formules
 
@@ -141,3 +141,6 @@ Les étapes dépendent de t/τ (phase d'établissement).
 Même structure que `rc-charging` : la comparaison τ = RC / τ = L/R est un bon fil conducteur. La bobine est
 idéale (r incluse dans R). Le phénomène d'auto-induction et la loi u = L·di/dt sont connus partout ; ici on
 reste sur l'échelon de tension.
+
+Code : `src/sims/rl-circuit/`. La rupture (i = I₀e^(−t/τ)) est dans le modèle et testée (`iOff`), mais pas
+encore dans l'interface : elle pourra devenir un bouton « Établissement / Rupture ».
