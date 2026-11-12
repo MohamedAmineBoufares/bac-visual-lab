@@ -11,7 +11,7 @@ export const site: {
 } = {
   name: "Bac Visual Lab",
   // Canonical origin for <link rel=canonical>, hreflang, Open Graph and the sitemap. No trailing slash.
-  url: "https://bac-visual-lab.pages.dev",
+  url: "https://bac-visual-lab.medamineboufares.workers.dev",
   version,
   author: "Mohamed Amine Boufares",
   repoUrl: "https://github.com/MohamedAmineBoufares/bac-visual-lab",
