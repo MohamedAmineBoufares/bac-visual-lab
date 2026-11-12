@@ -12,8 +12,11 @@ concurrency:
 permissions:
   contents: read
 
+# Each job gets a fresh runner; the pnpm store cache makes each install fast,
+# so jobs install on their own instead of passing node_modules around.
 jobs:
-  check:
+  static:
+    name: Types, lint, format
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
@@ -24,7 +27,35 @@ jobs:
           node-version: lts/*
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      # Types, oxlint, oxfmt --check and Vitest.
-      - run: pnpm check
+      - run: pnpm typecheck
+      - run: pnpm lint
+      - run: pnpm format:check
+
+  test:
+    name: Unit tests + coverage
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version: lts/*
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      # Fails below the coverage floors in vite.config.ts.
+      - run: pnpm test
+
+  build:
+    name: Build
+    needs: [static, test]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version: lts/*
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
       # Also enforces the bundle budget.
       - run: pnpm build
