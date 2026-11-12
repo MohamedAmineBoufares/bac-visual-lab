@@ -17,7 +17,8 @@ export default defineConfig(({ isSsrBuild }) => ({
     babel({ presets: [reactCompilerPreset()] }),
     tailwindcss(),
     prerender(),
-    // Offline: precaches the app shell and every lesson chunk; updates install silently on next visit.
+    // Offline: precaches the app shell and every lesson chunk. A new deploy takes over open tabs at once
+    // and src/sw-update.ts reloads them into it.
     VitePWA({
       // The SSR build only feeds the prerender; the manifest and service worker belong to the client build.
       disable: !!isSsrBuild,
@@ -34,11 +35,24 @@ export default defineConfig(({ isSsrBuild }) => ({
         background_color: "#ffffff",
         display: "standalone",
         start_url: "/",
-        icons: [{ src: "/favicon.svg", sizes: "any", type: "image/svg+xml", purpose: "any" }],
+        // The PNGs (and public/favicon.ico, apple-touch-icon.png) are favicon.svg rasterised on white.
+        icons: [
+          { src: "/favicon.svg", sizes: "any", type: "image/svg+xml", purpose: "any" },
+          { src: "/pwa-192x192.png", sizes: "192x192", type: "image/png", purpose: "any" },
+          { src: "/pwa-512x512.png", sizes: "512x512", type: "image/png", purpose: "any" },
+        ],
       },
       // woff2 only: every current browser picks it, so the KaTeX .woff/.ttf fallbacks are not precached.
       // No navigation fallback: every page is its own precached .html; a single shell would show the wrong page.
-      workbox: { globPatterns: ["**/*.{js,css,html,svg,woff2}"], navigateFallback: null },
+      workbox: {
+        // Manifest icons are added by the plugin; apple-touch-icon.png is only fetched when installing.
+        globPatterns: ["**/*.{js,css,html,svg,ico,woff2}"],
+        navigateFallback: null,
+        // The plugin only sets these for injectRegister "auto"; without them a new worker waits for every tab to close.
+        skipWaiting: true,
+        clientsClaim: true,
+        cleanupOutdatedCaches: true,
+      },
     }),
   ],
   // Starts at 3000; if it is busy Vite tries 3001, 3002… Opens the browser on start.
