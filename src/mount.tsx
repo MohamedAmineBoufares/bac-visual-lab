@@ -4,6 +4,7 @@ import { createRoot, hydrateRoot } from "react-dom/client";
 import { createAppRouter, currentPage } from "./router";
 import { headTags, localeOfPath } from "./seo";
 import { SettingsProvider } from "./settings/settings";
+import { reloadOnUpdate } from "./sw-update";
 
 /** Starts the app in `root`: hydrates a prerendered page, or renders from scratch (dev server). */
 export const mount = async (root: HTMLElement) => {
@@ -16,6 +17,7 @@ export const mount = async (root: HTMLElement) => {
     for (const el of document.head.querySelectorAll("[data-seo]")) el.remove();
     document.head.insertAdjacentHTML("beforeend", headTags(currentPage(router)));
   });
+  reloadOnUpdate((reload) => router.subscribe("onResolved", reload));
   // The prerendered HTML was rendered from resolved routes, so resolve them (and load their chunks) first.
   await router.load();
 
