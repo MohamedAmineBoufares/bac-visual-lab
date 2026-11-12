@@ -57,6 +57,7 @@ describe("RcCharging", () => {
     const root = await render(<RcCharging />);
     await press(byText(root, "×4")[0]);
     await press(button(root, fr.play));
+    // oxlint-disable-next-line no-unmodified-loop-condition -- frame() runs the queued callback, which clears `pending`
     for (let i = 0; i < 30 && pending; i++) await frame();
     expect(clock(root)).toBe("t = 20,0 ms");
     expect(button(root, fr.play)).toBeDefined();
@@ -79,6 +80,7 @@ describe("RcCharging", () => {
     expect(before).toMatch(/\d\/5/);
     await press(button(root, fr.next));
     expect(status()).toBe(""); // hidden while playing
+    // oxlint-disable-next-line no-unmodified-loop-condition -- frame() runs the queued callback, which clears `pending`
     for (let i = 0; i < 400 && pending; i++) await frame();
     expect(pending).toBeUndefined(); // halted by itself, before the end of the axis
     expect(clock(root)).not.toBe("t = 20,0 ms");
