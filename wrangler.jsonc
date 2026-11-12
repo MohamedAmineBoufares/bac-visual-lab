@@ -11,6 +11,8 @@
       "persist": true,
     },
   },
+  // Branch builds run `wrangler preview`, which refuses to start without this block (empty is fine).
+  "previews": {},
   "assets": {
     "directory": "dist",
     // Prerendered pages are app.html, en/app.html…; unknown paths get dist/404.html with a 404 status.
