@@ -40,6 +40,11 @@ Curves are never distinguished by colour alone: each has a dash pattern and a di
 | `/app/lessons/$lessonId` | One simulation lesson                                 |
 | `/design`                | Design review board, development only                 |
 
+Every page except `/design` also exists in English and Arabic under `/en` and `/ar` (`/en/app`,
+`/ar/app/lessons/rc-charging`); French, the language of the Bac, keeps the bare paths. The URL decides
+the language, so search engines can index all three (hreflang links tie them together), and the language
+switch navigates to the same page in the other language.
+
 ## Data
 
 No database. Lesson content and metadata are TypeScript modules, so they are type-checked, tree-shaken

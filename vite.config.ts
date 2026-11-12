@@ -6,8 +6,9 @@ import babel from "@rolldown/plugin-babel";
 import react, { reactCompilerPreset } from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
 import { VitePWA } from "vite-plugin-pwa";
+import { prerender } from "./scripts/prerender.ts";
 
-export default defineConfig({
+export default defineConfig(({ isSsrBuild }) => ({
   // Router plugin must run before React: it generates src/routeTree.gen.ts and code-splits each route.
   // React Compiler memoises components and hooks at build time, so we skip hand-written useMemo/useCallback.
   plugins: [
@@ -15,9 +16,16 @@ export default defineConfig({
     react(),
     babel({ presets: [reactCompilerPreset()] }),
     tailwindcss(),
+    prerender(),
     // Offline: precaches the app shell and every lesson chunk; updates install silently on next visit.
     VitePWA({
+      // The SSR build only feeds the prerender; the manifest and service worker belong to the client build.
+      disable: !!isSsrBuild,
       registerType: "autoUpdate",
+      // Deferred: a plain <script> in <head> would hold up the first paint of every prerendered page.
+      injectRegister: "script-defer",
+      // After the prerender plugin, so the precache holds the prerendered pages.
+      integration: { closeBundleOrder: "post" },
       manifest: {
         name: "Bac Visual Lab",
         short_name: "Bac Lab",
@@ -29,10 +37,13 @@ export default defineConfig({
         icons: [{ src: "/favicon.svg", sizes: "any", type: "image/svg+xml", purpose: "any" }],
       },
       // woff2 only: every current browser picks it, so the KaTeX .woff/.ttf fallbacks are not precached.
-      workbox: { globPatterns: ["**/*.{js,css,html,svg,woff2}"] },
+      // No navigation fallback: every page is its own precached .html; a single shell would show the wrong page.
+      workbox: { globPatterns: ["**/*.{js,css,html,svg,woff2}"], navigateFallback: null },
     }),
   ],
   // Starts at 3000; if it is busy Vite tries 3001, 3002… Opens the browser on start.
+  // Size limits are gzip budgets per chunk in scripts/bundle-budget.mjs; Vite's raw-size warning only repeats them.
+  build: { chunkSizeWarningLimit: Number.POSITIVE_INFINITY },
   server: { port: 3000, open: true },
   preview: { port: 3000, open: true },
   resolve: {
@@ -66,4 +77,4 @@ export default defineConfig({
       },
     },
   },
-});
+}));

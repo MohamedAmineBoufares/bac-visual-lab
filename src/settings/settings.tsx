@@ -13,6 +13,8 @@ const defaults: Settings = { locale: "fr", theme: "light", colorBlind: false, fo
 const storageKey = "bvl.settings";
 
 function load(): Settings {
+  // Prerendering in Node: no saved settings (and Node 26+ warns on any touch of its global localStorage).
+  if (typeof window === "undefined") return defaults;
   try {
     const raw = localStorage.getItem(storageKey);
     return raw ? { ...defaults, ...(JSON.parse(raw) as Partial<Settings>) } : defaults;
@@ -29,8 +31,9 @@ type Ctx = {
 
 const SettingsContext = createContext<Ctx | null>(null);
 
-export function SettingsProvider({ children }: { children: ReactNode }) {
-  const [settings, setSettings] = useState<Settings>(load);
+/** `locale` overrides the saved one at start, so <html lang dir> matches the URL from the first frame. */
+export function SettingsProvider({ locale, children }: { locale?: Locale; children: ReactNode }) {
+  const [settings, setSettings] = useState<Settings>(() => (locale ? { ...load(), locale } : load()));
 
   // Keep tabs and design-board iframes in sync when settings change elsewhere.
   useEffect(() => {
@@ -58,6 +61,35 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
     settings,
     update: (patch) => setSettings((s) => ({ ...s, ...patch })),
     t: (key) => messages[settings.locale][key],
+  };
+  return <SettingsContext value={value}>{children}</SettingsContext>;
+}
+
+/**
+ * Inside a localized route the URL decides the language: text follows `locale` at once, and choosing
+ * another one calls `onChange` (which navigates) instead of only saving it.
+ */
+export function LocaleProvider({
+  locale,
+  onChange,
+  children,
+}: {
+  locale: Locale;
+  onChange: (locale: Locale) => void;
+  children: ReactNode;
+}) {
+  const outer = useSettings();
+  // Keep the saved preference and <html lang dir> in step with the page being read.
+  useEffect(() => {
+    if (outer.settings.locale !== locale) outer.update({ locale });
+  }, [outer, locale]);
+  const value: Ctx = {
+    settings: { ...outer.settings, locale },
+    update: ({ locale: next, ...rest }) => {
+      outer.update(rest);
+      if (next && next !== locale) onChange(next);
+    },
+    t: (key) => messages[locale][key],
   };
   return <SettingsContext value={value}>{children}</SettingsContext>;
 }

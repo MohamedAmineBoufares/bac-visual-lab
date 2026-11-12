@@ -9,116 +9,116 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as IndexRouteImport } from './routes/index'
-import { Route as AppRouteImport } from './routes/app'
 import { Route as DesignRouteImport } from './routes/design'
-import { Route as AppIndexRouteImport } from './routes/app/index'
-import { Route as AppLessonsLessonIdRouteImport } from './routes/app/lessons/$lessonId'
-import { Route as AppSectionsSectionRouteImport } from './routes/app/sections/$section'
+import { Route as Char123LocaleChar125RouteRouteImport } from './routes/{-$locale}/route'
+import { Route as Char123LocaleChar125IndexRouteImport } from './routes/{-$locale}/index'
+import { Route as Char123LocaleChar125AppRouteImport } from './routes/{-$locale}/app'
+import { Route as Char123LocaleChar125AppIndexRouteImport } from './routes/{-$locale}/app/index'
+import { Route as Char123LocaleChar125AppLessonsLessonIdRouteImport } from './routes/{-$locale}/app/lessons/$lessonId'
+import { Route as Char123LocaleChar125AppSectionsSectionRouteImport } from './routes/{-$locale}/app/sections/$section'
 
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AppRoute = AppRouteImport.update({
-  id: '/app',
-  path: '/app',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const DesignRoute = DesignRouteImport.update({
   id: '/design',
   path: '/design',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AppIndexRoute = AppIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => AppRoute,
+const Char123LocaleChar125RouteRoute =
+  Char123LocaleChar125RouteRouteImport.update({
+    id: '/{-$locale}',
+    path: '/{-$locale}',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const Char123LocaleChar125IndexRoute =
+  Char123LocaleChar125IndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => Char123LocaleChar125RouteRoute,
+  } as any)
+const Char123LocaleChar125AppRoute = Char123LocaleChar125AppRouteImport.update({
+  id: '/app',
+  path: '/app',
+  getParentRoute: () => Char123LocaleChar125RouteRoute,
 } as any)
-const AppLessonsLessonIdRoute = AppLessonsLessonIdRouteImport.update({
-  id: '/lessons/$lessonId',
-  path: '/lessons/$lessonId',
-  getParentRoute: () => AppRoute,
-} as any)
-const AppSectionsSectionRoute = AppSectionsSectionRouteImport.update({
-  id: '/sections/$section',
-  path: '/sections/$section',
-  getParentRoute: () => AppRoute,
-} as any)
+const Char123LocaleChar125AppIndexRoute =
+  Char123LocaleChar125AppIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => Char123LocaleChar125AppRoute,
+  } as any)
+const Char123LocaleChar125AppLessonsLessonIdRoute =
+  Char123LocaleChar125AppLessonsLessonIdRouteImport.update({
+    id: '/lessons/$lessonId',
+    path: '/lessons/$lessonId',
+    getParentRoute: () => Char123LocaleChar125AppRoute,
+  } as any)
+const Char123LocaleChar125AppSectionsSectionRoute =
+  Char123LocaleChar125AppSectionsSectionRouteImport.update({
+    id: '/sections/$section',
+    path: '/sections/$section',
+    getParentRoute: () => Char123LocaleChar125AppRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/app': typeof AppRouteWithChildren
+  '/{-$locale}': typeof Char123LocaleChar125RouteRouteWithChildren
   '/design': typeof DesignRoute
-  '/app/': typeof AppIndexRoute
-  '/app/lessons/$lessonId': typeof AppLessonsLessonIdRoute
-  '/app/sections/$section': typeof AppSectionsSectionRoute
+  '/{-$locale}/app': typeof Char123LocaleChar125AppRouteWithChildren
+  '/{-$locale}/': typeof Char123LocaleChar125IndexRoute
+  '/{-$locale}/app/': typeof Char123LocaleChar125AppIndexRoute
+  '/{-$locale}/app/lessons/$lessonId': typeof Char123LocaleChar125AppLessonsLessonIdRoute
+  '/{-$locale}/app/sections/$section': typeof Char123LocaleChar125AppSectionsSectionRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
   '/design': typeof DesignRoute
-  '/app': typeof AppIndexRoute
-  '/app/lessons/$lessonId': typeof AppLessonsLessonIdRoute
-  '/app/sections/$section': typeof AppSectionsSectionRoute
+  '/{-$locale}': typeof Char123LocaleChar125IndexRoute
+  '/{-$locale}/app': typeof Char123LocaleChar125AppIndexRoute
+  '/{-$locale}/app/lessons/$lessonId': typeof Char123LocaleChar125AppLessonsLessonIdRoute
+  '/{-$locale}/app/sections/$section': typeof Char123LocaleChar125AppSectionsSectionRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
-  '/app': typeof AppRouteWithChildren
+  '/{-$locale}': typeof Char123LocaleChar125RouteRouteWithChildren
   '/design': typeof DesignRoute
-  '/app/': typeof AppIndexRoute
-  '/app/lessons/$lessonId': typeof AppLessonsLessonIdRoute
-  '/app/sections/$section': typeof AppSectionsSectionRoute
+  '/{-$locale}/app': typeof Char123LocaleChar125AppRouteWithChildren
+  '/{-$locale}/': typeof Char123LocaleChar125IndexRoute
+  '/{-$locale}/app/': typeof Char123LocaleChar125AppIndexRoute
+  '/{-$locale}/app/lessons/$lessonId': typeof Char123LocaleChar125AppLessonsLessonIdRoute
+  '/{-$locale}/app/sections/$section': typeof Char123LocaleChar125AppSectionsSectionRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    | '/'
-    | '/app'
+    | '/{-$locale}'
     | '/design'
-    | '/app/'
-    | '/app/lessons/$lessonId'
-    | '/app/sections/$section'
+    | '/{-$locale}/app'
+    | '/{-$locale}/'
+    | '/{-$locale}/app/'
+    | '/{-$locale}/app/lessons/$lessonId'
+    | '/{-$locale}/app/sections/$section'
   fileRoutesByTo: FileRoutesByTo
   to:
-    | '/'
     | '/design'
-    | '/app'
-    | '/app/lessons/$lessonId'
-    | '/app/sections/$section'
+    | '/{-$locale}'
+    | '/{-$locale}/app'
+    | '/{-$locale}/app/lessons/$lessonId'
+    | '/{-$locale}/app/sections/$section'
   id:
     | '__root__'
-    | '/'
-    | '/app'
+    | '/{-$locale}'
     | '/design'
-    | '/app/'
-    | '/app/lessons/$lessonId'
-    | '/app/sections/$section'
+    | '/{-$locale}/app'
+    | '/{-$locale}/'
+    | '/{-$locale}/app/'
+    | '/{-$locale}/app/lessons/$lessonId'
+    | '/{-$locale}/app/sections/$section'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  AppRoute: typeof AppRouteWithChildren
+  Char123LocaleChar125RouteRoute: typeof Char123LocaleChar125RouteRouteWithChildren
   DesignRoute: typeof DesignRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/app': {
-      id: '/app'
-      path: '/app'
-      fullPath: '/app'
-      preLoaderRoute: typeof AppRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/design': {
       id: '/design'
       path: '/design'
@@ -126,47 +126,89 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DesignRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/app/': {
-      id: '/app/'
+    '/{-$locale}': {
+      id: '/{-$locale}'
+      path: '/{-$locale}'
+      fullPath: '/{-$locale}'
+      preLoaderRoute: typeof Char123LocaleChar125RouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/{-$locale}/': {
+      id: '/{-$locale}/'
       path: '/'
-      fullPath: '/app/'
-      preLoaderRoute: typeof AppIndexRouteImport
-      parentRoute: typeof AppRoute
+      fullPath: '/{-$locale}/'
+      preLoaderRoute: typeof Char123LocaleChar125IndexRouteImport
+      parentRoute: typeof Char123LocaleChar125RouteRoute
     }
-    '/app/lessons/$lessonId': {
-      id: '/app/lessons/$lessonId'
+    '/{-$locale}/app': {
+      id: '/{-$locale}/app'
+      path: '/app'
+      fullPath: '/{-$locale}/app'
+      preLoaderRoute: typeof Char123LocaleChar125AppRouteImport
+      parentRoute: typeof Char123LocaleChar125RouteRoute
+    }
+    '/{-$locale}/app/': {
+      id: '/{-$locale}/app/'
+      path: '/'
+      fullPath: '/{-$locale}/app/'
+      preLoaderRoute: typeof Char123LocaleChar125AppIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125AppRoute
+    }
+    '/{-$locale}/app/lessons/$lessonId': {
+      id: '/{-$locale}/app/lessons/$lessonId'
       path: '/lessons/$lessonId'
-      fullPath: '/app/lessons/$lessonId'
-      preLoaderRoute: typeof AppLessonsLessonIdRouteImport
-      parentRoute: typeof AppRoute
+      fullPath: '/{-$locale}/app/lessons/$lessonId'
+      preLoaderRoute: typeof Char123LocaleChar125AppLessonsLessonIdRouteImport
+      parentRoute: typeof Char123LocaleChar125AppRoute
     }
-    '/app/sections/$section': {
-      id: '/app/sections/$section'
+    '/{-$locale}/app/sections/$section': {
+      id: '/{-$locale}/app/sections/$section'
       path: '/sections/$section'
-      fullPath: '/app/sections/$section'
-      preLoaderRoute: typeof AppSectionsSectionRouteImport
-      parentRoute: typeof AppRoute
+      fullPath: '/{-$locale}/app/sections/$section'
+      preLoaderRoute: typeof Char123LocaleChar125AppSectionsSectionRouteImport
+      parentRoute: typeof Char123LocaleChar125AppRoute
     }
   }
 }
 
-interface AppRouteChildren {
-  AppIndexRoute: typeof AppIndexRoute
-  AppLessonsLessonIdRoute: typeof AppLessonsLessonIdRoute
-  AppSectionsSectionRoute: typeof AppSectionsSectionRoute
+interface Char123LocaleChar125AppRouteChildren {
+  Char123LocaleChar125AppIndexRoute: typeof Char123LocaleChar125AppIndexRoute
+  Char123LocaleChar125AppLessonsLessonIdRoute: typeof Char123LocaleChar125AppLessonsLessonIdRoute
+  Char123LocaleChar125AppSectionsSectionRoute: typeof Char123LocaleChar125AppSectionsSectionRoute
 }
 
-const AppRouteChildren: AppRouteChildren = {
-  AppIndexRoute: AppIndexRoute,
-  AppLessonsLessonIdRoute: AppLessonsLessonIdRoute,
-  AppSectionsSectionRoute: AppSectionsSectionRoute,
+const Char123LocaleChar125AppRouteChildren: Char123LocaleChar125AppRouteChildren =
+  {
+    Char123LocaleChar125AppIndexRoute: Char123LocaleChar125AppIndexRoute,
+    Char123LocaleChar125AppLessonsLessonIdRoute:
+      Char123LocaleChar125AppLessonsLessonIdRoute,
+    Char123LocaleChar125AppSectionsSectionRoute:
+      Char123LocaleChar125AppSectionsSectionRoute,
+  }
+
+const Char123LocaleChar125AppRouteWithChildren =
+  Char123LocaleChar125AppRoute._addFileChildren(
+    Char123LocaleChar125AppRouteChildren,
+  )
+
+interface Char123LocaleChar125RouteRouteChildren {
+  Char123LocaleChar125AppRoute: typeof Char123LocaleChar125AppRouteWithChildren
+  Char123LocaleChar125IndexRoute: typeof Char123LocaleChar125IndexRoute
 }
 
-const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
+const Char123LocaleChar125RouteRouteChildren: Char123LocaleChar125RouteRouteChildren =
+  {
+    Char123LocaleChar125AppRoute: Char123LocaleChar125AppRouteWithChildren,
+    Char123LocaleChar125IndexRoute: Char123LocaleChar125IndexRoute,
+  }
+
+const Char123LocaleChar125RouteRouteWithChildren =
+  Char123LocaleChar125RouteRoute._addFileChildren(
+    Char123LocaleChar125RouteRouteChildren,
+  )
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
-  AppRoute: AppRouteWithChildren,
+  Char123LocaleChar125RouteRoute: Char123LocaleChar125RouteRouteWithChildren,
   DesignRoute: DesignRoute,
 }
 export const routeTree = rootRouteImport

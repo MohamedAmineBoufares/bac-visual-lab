@@ -21,6 +21,13 @@ Read [README.md](README.md) and [docs/design.md](docs/design.md) before larger c
 
 - Routing: TanStack Router, file-based, in `src/routes/`. Never edit `src/routeTree.gen.ts`. Use `<Link>`
   with typed `to`/`params`; validate params in `loader`/`beforeLoad` and `throw notFound()`.
+- Pages live under `src/routes/{-$locale}/`: French at bare paths (`/app`), English and Arabic at `/en/…`
+  and `/ar/…`. Links use `to="/{-$locale}/…"` and inherit the locale. Each route sets its title and
+  description with `head: () => pageMeta(…)` (`src/seo.ts`); a new indexable page also goes in
+  `pagePaths()` so the build prerenders it and lists it in `sitemap.xml`.
+- Every page is prerendered at build time (`src/entry-server.tsx`, `scripts/prerender.ts`) and hydrated, so
+  render code must run in Node and give the same HTML as the browser: `window`, `localStorage` and
+  `document` only in effects or event handlers, and `useSyncExternalStore` needs a server snapshot.
 - `/design` must stay dev-only (`import.meta.env.DEV` guard), never linked from the app.
 - No database. Content is typed TS modules (code-split per route); progress/settings live in
   `localStorage`. Reconsider IndexedDB only if local data outgrows that.

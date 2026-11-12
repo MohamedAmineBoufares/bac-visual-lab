@@ -28,7 +28,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build && node scripts/bundle-budget.mjs",
+    "build": "tsc -b && vite build --ssr src/entry-server.tsx --outDir dist-ssr && vite build && node scripts/bundle-budget.mjs",
     "preview": "vite preview",
     "typecheck": "tsc -b",
     "lint": "oxlint",

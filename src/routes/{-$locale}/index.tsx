@@ -19,11 +19,18 @@ import { Formula } from "@/components/formula";
 import { ParamSlider, SimStage } from "@/components/sim";
 import { Button } from "@/components/ui/button";
 import { localeDir, type MessageKey } from "@/i18n/messages";
+import { pageMeta, textFor } from "@/seo";
 import { useSettings } from "@/settings/settings";
 import { uC, uR } from "@/sims/rc-charging/model";
 import { site } from "@/site";
 
-export const Route = createFileRoute("/")({ component: Landing });
+export const Route = createFileRoute("/{-$locale}/")({
+  head: ({ params }) => {
+    const t = textFor(params.locale);
+    return pageMeta(t.landTitle, t.landLead);
+  },
+  component: Landing,
+});
 
 const steps: { title: MessageKey; body: MessageKey; icon: typeof BookOpen }[] = [
   { title: "how1Title", body: "how1Body", icon: BookOpen },
@@ -53,9 +60,9 @@ function Landing() {
   const { settings, t } = useSettings();
   return (
     <div dir={localeDir[settings.locale]} className="@container min-h-screen bg-background text-foreground">
-      <AppBar home="/">
+      <AppBar home="/{-$locale}">
         <Button size="sm" asChild className="hidden @md:inline-flex">
-          <Link to="/app">{t("openApp")}</Link>
+          <Link to="/{-$locale}/app">{t("openApp")}</Link>
         </Button>
       </AppBar>
 
@@ -66,11 +73,12 @@ function Landing() {
       >
         <section className="grid items-center gap-8 @4xl:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)]">
           <div className="flex flex-col items-start gap-6">
-            <h1 className="enter text-4xl leading-tight font-bold @3xl:text-6xl">{t("landTitle")}</h1>
+            {/* No entrance fade: the title is the LCP element, and it only counts as painted once visible. */}
+            <h1 className="text-4xl leading-tight font-bold @3xl:text-6xl">{t("landTitle")}</h1>
             <p className="enter max-w-xl text-lg text-muted-foreground [animation-delay:120ms]">{t("landLead")}</p>
             <div className="enter flex flex-wrap gap-3 [animation-delay:240ms]">
               <Button size="lg" asChild>
-                <Link to="/app">
+                <Link to="/{-$locale}/app">
                   {t("openApp")}
                   <ArrowRight className="rtl:rotate-180" />
                 </Link>
@@ -174,7 +182,7 @@ function Landing() {
                 GitHub
               </a>
             )}
-            <Link to="/app" className="underline underline-offset-4">
+            <Link to="/{-$locale}/app" className="underline underline-offset-4">
               {t("openApp")}
             </Link>
           </nav>

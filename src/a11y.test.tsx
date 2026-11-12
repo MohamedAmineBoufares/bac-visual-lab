@@ -38,7 +38,13 @@ const render = async (path: string) => {
 };
 
 describe("accessibility (axe)", () => {
-  for (const path of ["/", "/app", "/app/sections/mathematiques", "/app/lessons/rc-charging"]) {
+  for (const path of [
+    "/",
+    "/app",
+    "/app/sections/mathematiques",
+    "/app/lessons/rc-charging",
+    "/ar/app/lessons/rc-charging",
+  ]) {
     it(`has no violations on ${path}`, async () => {
       await render(path);
       // jsdom applies no CSS: contrast is checked on the tokens instead, and landmark-unique
