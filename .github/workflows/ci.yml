@@ -15,18 +15,50 @@ permissions:
 # Jobs run on separate machines, so each one sets up via the shared local action
 # (.github/actions/setup); the pnpm store cache keeps the install fast.
 jobs:
+  # On pull requests that only touch docs, skips tests, build, typecheck and lint. The workflow still
+  # starts, so required checks report as skipped (counts as passed) instead of waiting forever.
+  # Pushes to main always run everything.
+  changes:
+    name: Detect changes
+    runs-on: ubuntu-latest
+    outputs:
+      code: ${{ steps.diff.outputs.code }}
+    steps:
+      - uses: actions/checkout@v7
+        if: github.event_name == 'pull_request'
+        with:
+          fetch-depth: 0
+      - id: diff
+        env:
+          BASE: ${{ github.event.pull_request.base.sha }}
+          HEAD: ${{ github.event.pull_request.head.sha }}
+        run: |
+          if [[ "$GITHUB_EVENT_NAME" != pull_request ]]; then echo "code=true" >> "$GITHUB_OUTPUT"; exit 0; fi
+          git diff --name-only "$BASE...$HEAD" > files.txt
+          # Docs-only: Markdown and repo meta files, except content/, which the app bundles and tests.
+          grep -E '^content/' files.txt > code.txt || true
+          grep -vE '\.md$|^LICENSE$|^\.github/(ISSUE_TEMPLATE/|CODEOWNERS$)|^\.vscode/' files.txt >> code.txt || true
+          echo "Files that need the checks:"; cat code.txt
+          echo "code=$([[ -s code.txt ]] && echo true || echo false)" >> "$GITHUB_OUTPUT"
+
+  # Always runs: oxfmt also checks Markdown and YAML, so docs-only PRs still get the format check.
   static:
     name: Types, lint, format
+    needs: changes
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
       - uses: ./.github/actions/setup
       - run: pnpm typecheck
+        if: needs.changes.outputs.code == 'true'
       - run: pnpm lint
+        if: needs.changes.outputs.code == 'true'
       - run: pnpm format:check
 
   test:
     name: Unit tests + coverage
+    needs: changes
+    if: needs.changes.outputs.code == 'true'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
@@ -36,7 +68,8 @@ jobs:
 
   build:
     name: Build
-    needs: [static, test]
+    needs: [changes, static, test]
+    if: needs.changes.outputs.code == 'true'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
