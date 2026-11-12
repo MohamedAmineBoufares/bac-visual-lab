@@ -4,96 +4,129 @@ title: Oscillations mécaniques forcées
 subject: physics
 sections: mathematiques, sciences-techniques
 chapter: Mécanique
-status: todo
-version: 0.1.0
-app-version: 1.1.0
-author: Votre nom
-updated: AAAA-MM-JJ
+status: draft
+version: 0.2.0
+app-version: 1.0.0
+author: Mohamed Amine Boufares
+updated: 2026-11-12
 language: fr
 ---
-
-<!--
-Fiche à remplir. L'en-tête est déjà prêt : ne changez pas id, subject ni sections.
-Remplacez « Votre nom » et « AAAA-MM-JJ » ici et dans l'historique, passez status à draft,
-puis remplissez les parties (obligatoire). Le guide complet est dans content/TEMPLATE.md.
-
-Le contenu doit être original : ne copiez pas de texte ou de figures des manuels du CNP.
--->
 
 ## Historique
 
 La ligne la plus récente en premier. Elle est affichée sur la page de la leçon.
 
-| Version | Date       | Auteur    | Version de l’app | Modifications        |
-| ------- | ---------- | --------- | ---------------- | -------------------- |
-| 0.1.0   | AAAA-MM-JJ | Votre nom | 1.1.0            | Première proposition |
+| Version | Date       | Auteur                 | Version de l’app | Modifications                                    |
+| ------- | ---------- | ---------------------- | ---------------- | ------------------------------------------------ |
+| 0.2.0   | 2026-11-12 | Mohamed Amine Boufares | 1.0.0            | Fiche remplie : formules, curseurs, vue 3D, quiz |
 
-## Objectif (obligatoire)
+## Objectif
 
-L'idée principale que l'élève doit retenir, en une ou deux phrases.
+Un excitateur impose une force sinusoïdale de fréquence N au pendule élastique. Le solide oscille à la
+fréquence N, et l'amplitude de sa vitesse est maximale quand N égale la fréquence propre N₀ (résonance de
+vitesse). Le frottement fixe la hauteur et la largeur de la résonance.
 
-## Ce que l'élève règle (obligatoire)
+## Ce que l'élève règle
 
-Un curseur par grandeur.
-
-| Symbole | Grandeur | Unité | Min | Max | Pas | Valeur initiale |
-| ------- | -------- | ----- | --- | --- | --- | --------------- |
-|         |          |       |     |     |     |                 |
+| Symbole | Grandeur                         | Unité | Min  | Max | Pas  | Valeur initiale |
+| ------- | -------------------------------- | ----- | ---- | --- | ---- | --------------- |
+| N       | Fréquence de l'excitateur        | Hz    | 0,2  | 4   | 0,01 | 1               |
+| F_m     | Amplitude de la force            | N     | 0,1  | 1   | 0,05 | 0,5             |
+| h       | Coefficient de frottement fluide | kg/s  | 0,1  | 2   | 0,05 | 0,5             |
+| k       | Raideur du ressort               | N/m   | 5    | 50  | 1    | 20              |
+| m       | Masse du solide                  | kg    | 0,05 | 1   | 0,05 | 0,2             |
 
 ## Ce que l'élève voit
 
-Les courbes, l'animation ou le schéma, et ce qui change quand on bouge un curseur.
+- La courbe x(t) en régime permanent (trait plein) et la force F(t) (pointillés), avec le déphasage écrit.
+- Deux courbes de résonance en fonction de N : amplitude X_m (trait plein) et amplitude de la vitesse V_m
+  (tirets), un point qui suit N, N₀ marquée par un trait vertical.
+- La puissance moyenne reçue de l'excitateur P = ½F_mV_m cos φ, maximale à N₀.
 
 ## Vue 3D
 
-Facultatif. Le montage en 3D que l'élève peut faire tourner, à côté de la formule, et le même montage vu
-de dessus en schéma, où chaque objet se remplit avec sa grandeur. Un objet par ligne, son nom sert d'étiquette :
-sa forme, ce qui le fait changer (un curseur ou le temps) et ce que l'élève doit comprendre en le voyant.
-Ne comptez pas sur la couleur seule : forme, taille ou mouvement doivent suffire.
+Le pendule élastique relié à un excitateur (moteur avec une came) et plongé dans un liquide. Vu de dessus,
+le solide se remplit avec V_m / V_m,max.
 
-| Objet | Forme | Change avec | Ce que ça montre |
-| ----- | ----- | ----------- | ---------------- |
-|       |       |             |                  |
+| Objet      | Forme                                          | Change avec               | Ce que ça montre                                   |
+| ---------- | ---------------------------------------------- | ------------------------- | -------------------------------------------------- |
+| Excitateur | Disque qui tourne avec une bielle              | N : rotation plus rapide  | Il impose la fréquence                             |
+| Ressort    | Hélice entre la bielle et le solide            | x(t) ; k : fil plus épais | Il transmet la force                               |
+| Solide     | Cube                                           | x(t) ; m : cube plus gros | Il oscille à N, avec une amplitude qui dépend de N |
+| Cuve       | Cuve de liquide sous le cube, avec une palette | h : liquide plus opaque   | Le frottement limite l'amplitude                   |
+| Trace      | Ruban laissé derrière le cube                  | Défile dans le temps      | La sinusoïde x(t) se dessine                       |
 
 Pendant l'animation :
 
--
+- Au début, un court régime transitoire, puis le cube oscille au rythme du disque.
+- En approchant N₀, le cube oscille de plus en plus fort ; avec h petit, très fort.
 
-## Formules (obligatoire)
-
-En TeX, entre `$$`. Indiquez quels termes dépendent d'un curseur.
+## Formules
 
 $$
+m\frac{d^2x}{dt^2} + h\frac{dx}{dt} + kx = F_m\sin(2\pi N t) \qquad x(t) = X_m\sin(2\pi N t + \varphi)
 $$
 
-## Valeurs de référence (obligatoire)
+$$
+X_m = \frac{F_m}{\sqrt{(k - m\omega^2)^2 + (h\omega)^2}} \qquad V_m = \omega X_m \qquad \omega = 2\pi N
+$$
 
-Des résultats exacts et vérifiables : ils deviennent des tests automatiques de la simulation.
+$$
+N_0 = \frac{1}{2\pi}\sqrt{\frac{k}{m}} \qquad V_{m,\max} = \frac{F_m}{h}\ \text{(à N = N₀)}
+$$
 
-| Situation | Résultat attendu |
-| --------- | ---------------- |
-|           |                  |
+La résonance d'amplitude (X_m maximale) a lieu à $N_r = N_0\sqrt{1 - \frac{h^2}{2km}}$, un peu avant N₀, et
+n'existe que si h < √(2km). Analogie : m ↔ L, h ↔ R, k ↔ 1/C, F ↔ u, v ↔ i. Termes liés aux curseurs : N,
+F_m, h, k, m.
+
+## Valeurs de référence
+
+Avec F_m = 0,5 N, h = 0,5 kg/s, k = 20 N/m, m = 0,2 kg :
+
+| Situation             | Résultat attendu                    |
+| --------------------- | ----------------------------------- |
+| Fréquence propre      | N₀ = 5/π ≈ 1,592 Hz (ω₀ = 10 rad/s) |
+| N = N₀                | V_m = F_m/h = 1 m/s, X_m = 0,1 m    |
+| N → 0                 | X_m → F_m/k = 2,5 cm                |
+| Résonance d'amplitude | N_r ≈ 1,567 Hz, X_m ≈ 10,08 cm      |
+| N = N₀, puissance     | P = ½F_mV_m = 0,25 W                |
 
 ## Étapes commentées
 
-Les moments importants de l'évolution, avec l'explication à afficher à l'élève à chaque étape.
+L'élève fait varier N ; les étapes dépendent de N/N₀.
 
-1. **Titre** : explication.
+1. **Excitation lente** (N/N₀ < 0,5) : le solide suit l'excitateur, X_m ≈ F_m/k.
+2. **On approche N₀** (0,5 à 0,95) : l'amplitude grandit.
+3. **Résonance** (0,95 à 1,05) : la vitesse est en phase avec la force, l'excitateur transmet le plus
+   d'énergie.
+4. **Au-delà** (1,05 à 2) : le solide n'arrive plus à suivre, l'amplitude diminue.
+5. **Excitation rapide** (N/N₀ > 2) : le solide bouge à peine. Diminuer h rend la résonance plus aiguë.
 
 ## Erreurs fréquentes des élèves
 
--
+- Croire que le solide oscille à N₀ (il oscille à N).
+- Confondre résonance d'amplitude (un peu avant N₀) et résonance de vitesse (exactement à N₀).
+- Penser que le frottement déplace N₀ (il change la hauteur et la largeur, presque pas la position).
 
 ## Quiz
 
-3 à 5 questions. Marquez la bonne réponse par **(bonne réponse)**.
-
-1. Question ?
-   - Réponse A
-   - Réponse B **(bonne réponse)**
-   - Réponse C
-   - _Explication :_ …
+1. À quelle fréquence oscille le solide en régime permanent ?
+   - À N₀
+   - À N, la fréquence de l'excitateur **(bonne réponse)**
+   - À 2N
+   - _Explication :_ En régime forcé, l'oscillateur suit l'excitateur.
+2. À la résonance de vitesse, que vaut V_m ?
+   - F_m/k
+   - F_m/h **(bonne réponse)**
+   - F_m/m
+   - _Explication :_ À N₀, k − mω² = 0, il reste hω·X_m = F_m, donc V_m = F_m/h.
+3. Si on augmente h, la résonance devient :
+   - Plus aiguë
+   - Plus floue (pic plus bas et plus large) **(bonne réponse)**
+   - Décalée vers les hautes fréquences
+   - _Explication :_ V_m,max = F_m/h diminue et la courbe s'élargit.
 
 ## Remarques
 
-Tout ce qui aide : niveau de détail, ordre dans le programme, liens vers des ressources libres.
+Même structure que `rlc-forced`. Exemples du quotidien : balançoire poussée au bon rythme, amortisseurs
+de voiture, pont qui vibre sous des pas cadencés.
