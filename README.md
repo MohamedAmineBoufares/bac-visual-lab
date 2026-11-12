@@ -35,7 +35,7 @@ Move a slider, watch the curve change, and see which term of the formula did it.
 
 ## Getting started
 
-Requires Node 22.12+ (developed on Node 26) and [pnpm](https://pnpm.io) 12 (`corepack enable` installs the pinned version).
+Requires Node 22.12+ (`nvm use` reads `.nvmrc`; developed on Node 26) and [pnpm](https://pnpm.io) 12 (`corepack enable` installs the pinned version).
 pnpm refuses packages published less than a day ago (`minimumReleaseAge`); if an install fails on a brand-new release, wait a day rather than turning the check off.
 
 ```bash
