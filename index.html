@@ -4,8 +4,20 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Interactive math and physics simulations for the Tunisian baccalauréat." />
-    <title>Bac Visual Lab</title>
+    <meta name="theme-color" content="#ffffff" />
+    <!-- Title, description, canonical and hreflang tags are added per page (scripts/prerender.ts, src/main.tsx). -->
+    <script>
+      // Saved display settings before the first paint, so a prerendered page never flashes the light theme.
+      // Mirrors the defaults in src/settings/settings.tsx.
+      try {
+        const s = JSON.parse(localStorage.getItem("bvl.settings") || "{}");
+        const d = document.documentElement.dataset;
+        d.theme = s.theme || "light";
+        d.cb = s.colorBlind ? "on" : "off";
+        d.font = s.font || "default";
+        d.size = s.size || "m";
+      } catch {}
+    </script>
   </head>
   <body>
     <div id="root"></div>

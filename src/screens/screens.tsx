@@ -53,7 +53,7 @@ export function Home() {
           {sections.map(({ slug, key, icon: Icon }) => (
             <Link
               key={slug}
-              to="/app/sections/$section"
+              to="/{-$locale}/app/sections/$section"
               params={{ section: slug }}
               className={`${cardLink} items-center gap-4 p-5`}
             >
@@ -120,7 +120,7 @@ function LessonCard({ lesson }: { lesson: LessonData }) {
 
   const total = lesson.ready.quiz.length;
   return (
-    <Link to="/app/lessons/$lessonId" params={{ lessonId: lesson.id }} className={`${cardLink} flex-col`}>
+    <Link to="/{-$locale}/app/lessons/$lessonId" params={{ lessonId: lesson.id }} className={`${cardLink} flex-col`}>
       <svg viewBox="-10 -6 220 90" className="h-28 w-full border-b-2 border-edge bg-sim-canvas" aria-hidden="true">
         <path d={lesson.ready.thumb} fill="none" stroke="var(--sim-curve-1)" strokeWidth="3.5" />
       </svg>
@@ -143,7 +143,7 @@ function BackButton() {
   const { t } = useSettings();
   return (
     <Button variant="outline" size="icon" asChild>
-      <Link to="/app" aria-label={t("back")}>
+      <Link to="/{-$locale}/app" aria-label={t("back")}>
         <ArrowLeft className="rtl:rotate-180" />
       </Link>
     </Button>

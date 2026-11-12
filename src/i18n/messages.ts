@@ -188,6 +188,8 @@ const fr = {
   f5b: "Français, anglais et arabe de droite à gauche, formules toujours lisibles.",
   f6t: "À ton rythme, sans compte",
   f6b: "Rien à installer, rien à créer. Ta progression reste sur ton appareil.",
+  metaSection: "{section} : les chapitres de maths, physique et chimie du Bac, avec simulations interactives.",
+  metaLesson: "{lesson} ({chapter}) : simulation interactive, formules en direct et quiz pour réviser le Bac.",
 } as const;
 
 export type MessageKey = keyof typeof fr;
@@ -377,6 +379,8 @@ const en: Messages = {
   f5b: "French, English and right-to-left Arabic, formulas always readable.",
   f6t: "Your pace, no account",
   f6b: "Nothing to install, nothing to sign up for. Your progress stays on your device.",
+  metaSection: "{section}: the Bac maths, physics and chemistry chapters, with interactive simulations.",
+  metaLesson: "{lesson} ({chapter}): an interactive simulation, live formulas and a quiz to revise for the Bac.",
 };
 
 // shortcut: Arabic strings are a first draft, upgrade after review by a native-speaking teacher.
@@ -562,6 +566,8 @@ const ar: Messages = {
   f5b: "الفرنسية والإنجليزية والعربية من اليمين إلى اليسار، والصيغ دائماً واضحة.",
   f6t: "على راحتك وبدون حساب",
   f6b: "لا شيء للتثبيت ولا حساب للإنشاء. تقدمك يبقى على جهازك.",
+  metaSection: "{section}: فصول الرياضيات والفيزياء والكيمياء للباكالوريا مع محاكاة تفاعلية.",
+  metaLesson: "{lesson} ({chapter}): محاكاة تفاعلية وصيغ حيّة واختبار قصير لمراجعة الباكالوريا.",
 };
 
 export const messages: Record<Locale, Messages> = { fr, en, ar };

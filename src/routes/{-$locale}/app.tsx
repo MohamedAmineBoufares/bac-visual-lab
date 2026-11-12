@@ -3,7 +3,7 @@ import { AppBar } from "@/components/app-bar";
 import { localeDir } from "@/i18n/messages";
 import { useSettings } from "@/settings/settings";
 
-export const Route = createFileRoute("/app")({ component: AppLayout });
+export const Route = createFileRoute("/{-$locale}/app")({ component: AppLayout });
 
 /** App shell. Layout responds to its own width (container queries). */
 function AppLayout() {

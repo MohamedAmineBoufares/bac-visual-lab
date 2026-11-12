@@ -27,6 +27,7 @@ export const withCorrect = (progress: Progress, lessonId: string, index: number)
 };
 
 const readStorage = () => {
+  if (typeof window === "undefined") return null; // prerendering in Node, see settings.tsx
   try {
     return localStorage.getItem(storageKey);
   } catch {
@@ -64,4 +65,11 @@ export const recordCorrect = (lessonId: string, index: number) => {
   listeners.forEach((l) => l());
 };
 
-export const useProgress = (): Progress => useSyncExternalStore(subscribe, () => state);
+// The prerendered page (and the hydration pass over it) shows no progress; the stored one follows at once.
+const none: Progress = {};
+export const useProgress = (): Progress =>
+  useSyncExternalStore(
+    subscribe,
+    () => state,
+    () => none,
+  );
