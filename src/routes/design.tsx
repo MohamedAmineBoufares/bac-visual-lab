@@ -1,5 +1,6 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
 import { useState } from "react";
+import { isReady, lessons } from "@/lessons/lessons";
 
 // Dev-only review board. In production builds the route 404s and its component is dropped from the bundle.
 export const Route = createFileRoute("/design")({
@@ -13,7 +14,7 @@ const pages = [
   { label: "landing", path: "/" },
   { label: "home", path: "/app" },
   { label: "section", path: "/app/sections/sciences-experimentales" },
-  { label: "lesson", path: "/app/lessons/rc-charging" },
+  ...lessons.filter(isReady).map((l) => ({ label: l.id, path: `/app/lessons/${l.id}` })),
 ];
 
 const devices = [
@@ -24,7 +25,7 @@ const devices = [
 
 /** The same page at phone, tablet and projector widths. Each frame is a real iframe, so media queries apply. */
 function DesignBoard() {
-  const [path, setPath] = useState("/app/lessons/rc-charging");
+  const [path, setPath] = useState(pages.at(-1)?.path ?? "/");
   return (
     <div className="min-h-screen bg-secondary" dir="ltr">
       <div className="sticky top-0 z-20 flex flex-wrap items-center gap-2 border-b-2 border-edge bg-card px-4 py-3">

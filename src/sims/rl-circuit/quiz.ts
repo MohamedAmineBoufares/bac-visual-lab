@@ -1,6 +1,7 @@
+import type { RlKey } from "./messages";
 import type { Question } from "@/lessons/lessons";
 
-export const rlQuiz: Question[] = [
+export const rlQuiz: Question<RlKey>[] = [
   { prompt: "rlQ1", options: ["rlQ1a", "rlQ1b", "rlQ1c"], answer: "rlQ1b", explain: "rlQ1x" },
   { prompt: "rlQ2", options: ["rlQ2a", "rlQ2b", "rlQ2c"], answer: "rlQ2b", explain: "rlQ2x" },
   { prompt: "rlQ3", options: ["rlQ3a", "rlQ3b", "rlQ3c"], answer: "rlQ3b", explain: "rlQ3x" },

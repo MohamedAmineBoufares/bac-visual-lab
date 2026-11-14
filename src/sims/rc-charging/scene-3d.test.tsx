@@ -3,6 +3,7 @@ import { act } from "react";
 import { describe, expect, it, vi } from "vitest";
 import { useTokenColors } from "@/components/scene-3d";
 import { fr, render } from "@/test/render";
+import { rcText } from "./messages";
 import { RcScene3D } from "./scene-3d";
 
 // jsdom has no WebGL: the canvas and its meshes are skipped, everything a student can read is real.
@@ -14,7 +15,7 @@ describe("RcScene3D text alternative", () => {
   it("describes the circuit with the live values", async () => {
     const root = await render(<RcScene3D p={{ E: 5, R: 2.2, C: 1 }} t={2.2} />);
     const summary = scene(root)?.getAttribute("aria-label") ?? "";
-    expect(summary.startsWith(fr.rc3dLabel)).toBe(true);
+    expect(summary.startsWith(rcText.fr.rc3dLabel)).toBe(true);
     // At t = τ, u_C = 63,2 % of E.
     expect(summary).toContain("E = 5,0 V, R = 2,2 kΩ, C = 1,0 µF · t = 2,20 ms: u_C = 3,16 V, u_R = 1,84 V");
     expect(root.querySelector("figcaption")?.textContent).toBe(fr.view3dHint);
@@ -28,7 +29,13 @@ describe("RcScene3D text alternative", () => {
   it("names every part, hidden from screen readers since the summary already says it", async () => {
     const root = await render(<RcScene3D p={{ E: 5, R: 2.2, C: 1 }} t={0} />);
     const tags = root.querySelector('[aria-hidden="true"]');
-    for (const part of [fr.lblGenerator, fr.lblResistor, fr.lblCapacitor, fr.lblPlatePlus, fr.lblPlateMinus])
+    for (const part of [
+      fr.lblGenerator,
+      fr.lblResistor,
+      rcText.fr.lblCapacitor,
+      rcText.fr.lblPlatePlus,
+      rcText.fr.lblPlateMinus,
+    ])
       expect(tags?.textContent).toContain(part);
   });
 });

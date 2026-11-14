@@ -1,6 +1,7 @@
 import { type SceneLabel, Scene3D, useTokenColors } from "@/components/scene-3d";
 import { useFormat } from "@/components/sim";
 import { useSettings } from "@/settings/settings";
+import { rlText } from "./messages";
 import { i, type RlParams, uL, uR } from "./model";
 import { LOOP, PATH_LENGTH, coilTurns, dotShift, fieldRings, pointAt } from "./scene-layout";
 
@@ -22,7 +23,8 @@ function Wire({ a, b, color }: { a: [number, number]; b: [number, number]; color
 
 /** Generator, resistor and coil in series; every size and glow follows E, R, L and t. */
 export function RlScene3D({ p, t }: { p: RlParams; t: number }) {
-  const { t: tr } = useSettings();
+  const { settings, t: tr } = useSettings();
+  const s = rlText[settings.locale];
   const format = useFormat();
   const color = useTokenColors();
   const wire = color("sim-axis");
@@ -36,11 +38,11 @@ export function RlScene3D({ p, t }: { p: RlParams; t: number }) {
   const labels: SceneLabel[] = [
     { text: `${tr("lblGenerator")} · E`, at: [-LOOP.x, genH / 2 + 0.25, 0] },
     { text: `${tr("lblResistor")} · R`, at: [0, LOOP.y + 0.3, 0] },
-    { text: `${tr("lblCoil")} · L`, at: [LOOP.x + COIL_R + 0.5, COIL_H / 2 + 0.2, 0] },
-    { text: tr("lblField"), at: [LOOP.x, -COIL_H / 2 - 0.35, 0] },
+    { text: `${s.lblCoil} · L`, at: [LOOP.x + COIL_R + 0.5, COIL_H / 2 + 0.2, 0] },
+    { text: s.lblField, at: [LOOP.x, -COIL_H / 2 - 0.35, 0] },
   ];
 
-  const summary = `${tr("rl3dLabel")} · E = ${format(p.E, 1)} V, R = ${format(p.R, 0)} Ω, L = ${format(p.L, 2)} H · t = ${format(t)} ms: i = ${format(i(p, t), 1)} mA, u_L = ${format(uL(p, t))} V, u_R = ${format(uR(p, t))} V`;
+  const summary = `${s.rl3dLabel} · E = ${format(p.E, 1)} V, R = ${format(p.R, 0)} Ω, L = ${format(p.L, 2)} H · t = ${format(t)} ms: i = ${format(i(p, t), 1)} mA, u_L = ${format(uL(p, t))} V, u_R = ${format(uR(p, t))} V`;
 
   return (
     <Scene3D summary={summary} labels={labels}>

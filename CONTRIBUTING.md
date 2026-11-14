@@ -68,9 +68,10 @@ A pull request is merged only after the maintainer approves it and `pnpm check` 
 
 ## Adding a lesson
 
-1. Create `src/sims/<name>/` with `model.ts` (+ tests), the view component and `quiz.ts`.
-2. Add the strings (title, chapter, questions, explanations) to all three locales in
-   `src/i18n/messages.ts`.
+1. Create `src/sims/<name>/` with `model.ts` (+ tests), the view component (built on `SimShell`, like the
+   RC lesson) and `quiz.ts`.
+2. Add the title and chapter to all three locales in `src/i18n/messages.ts`, and the lesson's own text
+   (notes, questions, explanations, labels) to all three in `src/sims/<name>/messages.ts`.
 3. In `src/lessons/lessons.ts`, turn the chapter's `soon(...)` entry into a full entry with `ready`
    (card thumbnail, view, quiz). Load the view with `lazy()` like the RC lesson, so it stays out of the
    first download. It then opens from the home and section pages.

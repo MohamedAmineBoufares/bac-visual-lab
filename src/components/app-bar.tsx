@@ -5,8 +5,8 @@ import { Button } from "@/components/ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Switch } from "@/components/ui/switch";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-import { type Locale, localeLabel, locales } from "@/i18n/messages";
-import { type Settings, useSettings } from "@/settings/settings";
+import { localeLabel, locales } from "@/i18n/messages";
+import { fonts, oneOf, sizes, themes, useSettings } from "@/settings/settings";
 
 export function Logo() {
   return (
@@ -35,7 +35,7 @@ export function DisplaySettings() {
             variant="outline"
             size="sm"
             value={settings.theme}
-            onValueChange={(v) => v && update({ theme: v as Settings["theme"] })}
+            onValueChange={(v) => update({ theme: oneOf(themes, v) ?? settings.theme })}
           >
             <ToggleGroupItem value="light">{t("light")}</ToggleGroupItem>
             <ToggleGroupItem value="dark">{t("dark")}</ToggleGroupItem>
@@ -47,7 +47,7 @@ export function DisplaySettings() {
             variant="outline"
             size="sm"
             value={settings.font}
-            onValueChange={(v) => v && update({ font: v as Settings["font"] })}
+            onValueChange={(v) => update({ font: oneOf(fonts, v) ?? settings.font })}
           >
             <ToggleGroupItem value="default">{t("fontDefault")}</ToggleGroupItem>
             <ToggleGroupItem value="readable">{t("fontReadable")}</ToggleGroupItem>
@@ -59,9 +59,9 @@ export function DisplaySettings() {
             variant="outline"
             size="sm"
             value={settings.size}
-            onValueChange={(v) => v && update({ size: v as Settings["size"] })}
+            onValueChange={(v) => update({ size: oneOf(sizes, v) ?? settings.size })}
           >
-            {(["s", "m", "l", "xl"] as const).map((s) => (
+            {sizes.map((s) => (
               <ToggleGroupItem key={s} value={s} aria-label={`${t("textSize")} ${s.toUpperCase()}`}>
                 {s.toUpperCase()}
               </ToggleGroupItem>
@@ -114,8 +114,8 @@ export function AppBar({
           variant="outline"
           size="sm"
           value={settings.locale}
-          onValueChange={(v) => v && update({ locale: v as Locale })}
-          aria-label="Language"
+          onValueChange={(v) => update({ locale: oneOf(locales, v) ?? settings.locale })}
+          aria-label={t("language")}
         >
           {locales.map((l) => (
             <ToggleGroupItem key={l} value={l} lang={l}>

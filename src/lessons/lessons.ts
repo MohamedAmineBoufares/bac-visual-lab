@@ -4,7 +4,8 @@ import type { Section } from "@/screens/sections";
 import { rcQuiz } from "@/sims/rc-charging/quiz";
 import { rlQuiz } from "@/sims/rl-circuit/quiz";
 
-export type Question = { prompt: MessageKey; options: MessageKey[]; answer: MessageKey; explain: MessageKey };
+/** `K` is the key type of the lesson's own text (`src/sims/<name>/messages.ts`). */
+export type Question<K extends string = string> = { prompt: K; options: K[]; answer: K; explain: K };
 
 export type Lesson = {
   id: string;
@@ -19,7 +20,7 @@ export type Lesson = {
   ready?: {
     /** SVG path (viewBox -10 -6 220 90) drawn on the lesson card. */
     thumb: string;
-    Sim: ComponentType;
+    Sim: ComponentType<{ lessonId: string }>;
     quiz: Question[];
   };
 };

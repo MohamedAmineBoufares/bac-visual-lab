@@ -1,5 +1,6 @@
 import { useFormat } from "@/components/sim";
 import { useSettings } from "@/settings/settings";
+import { rcText } from "./messages";
 import { type RcParams, uC, uR } from "./model";
 
 // Loop corners in viewBox units.
@@ -16,7 +17,8 @@ const PLATE = 15; // half the gap between capacitor plates
  * them so the fill is never the only cue.
  */
 export function RcSchematic({ p, t }: { p: RcParams; t: number }) {
-  const { t: tr } = useSettings();
+  const { settings, t: tr } = useSettings();
+  const s = rcText[settings.locale];
   const format = useFormat();
   const charge = uC(p, t) / p.E;
   const drop = uR(p, t) / p.E;
@@ -31,7 +33,7 @@ export function RcSchematic({ p, t }: { p: RcParams; t: number }) {
         className="block h-auto w-full"
         direction="ltr"
         role="img"
-        aria-label={`${tr("schematic")}: u_C = ${format(uC(p, t))} V (${pct(charge)}), u_R = ${format(uR(p, t))} V, i = ${format(current)} mA`}
+        aria-label={`${s.schematic}: u_C = ${format(uC(p, t))} V (${pct(charge)}), u_R = ${format(uR(p, t))} V, i = ${format(current)} mA`}
         fontSize="12"
         fill="var(--foreground)"
       >
@@ -103,7 +105,7 @@ export function RcSchematic({ p, t }: { p: RcParams; t: number }) {
           −q
         </text>
         <text x={RIGHT - 36} y={MID - 4} textAnchor="end" fontWeight="600">
-          {tr("lblCapacitor")} · C = {format(p.C, 1)} µF
+          {s.lblCapacitor} · C = {format(p.C, 1)} µF
         </text>
         <text x={RIGHT - 36} y={MID + 12} textAnchor="end">
           u_C = {format(uC(p, t))} V ({pct(charge)})

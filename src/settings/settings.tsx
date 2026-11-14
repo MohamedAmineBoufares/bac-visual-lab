@@ -1,23 +1,49 @@
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
-import { type Locale, type MessageKey, localeDir, messages } from "@/i18n/messages";
+import { type Locale, type MessageKey, localeDir, locales, messages } from "@/i18n/messages";
+
+export const themes = ["light", "dark"] as const;
+export const fonts = ["default", "readable"] as const;
+export const sizes = ["s", "m", "l", "xl"] as const;
 
 export type Settings = {
   locale: Locale;
-  theme: "light" | "dark";
+  theme: (typeof themes)[number];
   colorBlind: boolean;
-  font: "default" | "readable";
-  size: "s" | "m" | "l" | "xl";
+  font: (typeof fonts)[number];
+  size: (typeof sizes)[number];
 };
 
 const defaults: Settings = { locale: "fr", theme: "light", colorBlind: false, font: "default", size: "m" };
 const storageKey = "bvl.settings";
 
+/** `value` if it is one of `options`: storage and toggle groups hand back plain strings. */
+export const oneOf = <T extends string>(options: readonly T[], value: unknown): T | undefined =>
+  options.find((o) => o === value);
+
+/** Storage is user-editable, so any field that is not a known value falls back to its default. */
+export const parseSettings = (raw: string | null): Settings => {
+  let data: unknown;
+  try {
+    data = JSON.parse(raw ?? "{}");
+  } catch {
+    return defaults;
+  }
+  if (typeof data !== "object" || data === null) return defaults;
+  const saved: Record<string, unknown> = { ...data };
+  return {
+    locale: oneOf(locales, saved.locale) ?? defaults.locale,
+    theme: oneOf(themes, saved.theme) ?? defaults.theme,
+    colorBlind: typeof saved.colorBlind === "boolean" ? saved.colorBlind : defaults.colorBlind,
+    font: oneOf(fonts, saved.font) ?? defaults.font,
+    size: oneOf(sizes, saved.size) ?? defaults.size,
+  };
+};
+
 function load(): Settings {
   // Prerendering in Node: no saved settings (and Node 26+ warns on any touch of its global localStorage).
   if (typeof window === "undefined") return defaults;
   try {
-    const raw = localStorage.getItem(storageKey);
-    return raw ? { ...defaults, ...(JSON.parse(raw) as Partial<Settings>) } : defaults;
+    return parseSettings(localStorage.getItem(storageKey));
   } catch {
     return defaults;
   }

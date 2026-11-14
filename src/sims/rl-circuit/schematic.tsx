@@ -1,5 +1,6 @@
 import { useFormat } from "@/components/sim";
 import { useSettings } from "@/settings/settings";
+import { rlText } from "./messages";
 import { i, iFinal, type RlParams, uL, uR } from "./model";
 
 // Loop corners in viewBox units.
@@ -16,7 +17,8 @@ const TURNS = 5;
  * grows with i / I₀. Values and percentages are written beside each part so the fill is never the only cue.
  */
 export function RlSchematic({ p, t }: { p: RlParams; t: number }) {
-  const { t: tr } = useSettings();
+  const { settings, t: tr } = useSettings();
+  const s = rlText[settings.locale];
   const format = useFormat();
   const drop = uR(p, t) / p.E;
   const back = uL(p, t) / p.E;
@@ -34,7 +36,7 @@ export function RlSchematic({ p, t }: { p: RlParams; t: number }) {
         className="block h-auto w-full"
         direction="ltr"
         role="img"
-        aria-label={`${tr("rlSchematic")}: i = ${format(i(p, t), 1)} mA (${pct(share)}), u_L = ${format(uL(p, t))} V, u_R = ${format(uR(p, t))} V`}
+        aria-label={`${s.rlSchematic}: i = ${format(i(p, t), 1)} mA (${pct(share)}), u_L = ${format(uL(p, t))} V, u_R = ${format(uR(p, t))} V`}
         fontSize="12"
         fill="var(--foreground)"
       >
@@ -84,7 +86,7 @@ export function RlSchematic({ p, t }: { p: RlParams; t: number }) {
         />
         <path d={`M${RIGHT} ${MID - COIL} ${coil}`} stroke="var(--foreground)" strokeWidth={3} fill="none" />
         <text x={RIGHT - 12} y={MID - 4} textAnchor="end" fontWeight="600">
-          {tr("lblCoil")} · L = {format(p.L, 2)} H
+          {s.lblCoil} · L = {format(p.L, 2)} H
         </text>
         <text x={RIGHT - 12} y={MID + 12} textAnchor="end">
           u_L = {format(uL(p, t))} V ({pct(back)})

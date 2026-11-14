@@ -43,6 +43,7 @@ describe("head tags", () => {
     expect(tags).toContain(`hreflang="ar" href="${site.url}/ar/app"`);
     expect(tags).toContain(`hreflang="x-default" href="${site.url}/app"`);
     expect(tags).toContain(`<meta data-seo property="og:locale" content="en_US">`);
+    expect(tags).toContain(`<meta data-seo property="og:image" content="${site.url}/pwa-512x512.png">`);
     expect(tags).not.toContain("noindex");
   });
 

@@ -43,6 +43,15 @@ describe("display settings", () => {
     expect(html.lang).toBe("fr");
   });
 
+  it("falls back to the default for a saved value it does not know", async () => {
+    localStorage.setItem(
+      "bvl.settings",
+      JSON.stringify({ theme: "neon", size: 7, font: "readable", colorBlind: "yes" }),
+    );
+    await render(<DisplaySettings />);
+    expect(html.dataset).toMatchObject({ theme: "light", size: "m", font: "readable", cb: "off" });
+  });
+
   it("follows a change made in another tab", async () => {
     await render(<DisplaySettings />);
     localStorage.setItem("bvl.settings", JSON.stringify({ theme: "dark" }));
