@@ -57,7 +57,9 @@ describe("prerendered page", () => {
     expect(document.title).toBe(`${en.rcTitle} · ${site.name}`);
 
     await press([...root.querySelectorAll('[role="radio"]')].find((b) => b.textContent === "ع"));
-    await act(() => new Promise((r) => setTimeout(r, 50)));
+    // The Arabic page renders in a transition, which takes longer than one pause on a slow CI machine.
+    for (let i = 0; i < 40 && root.querySelector("h1")?.textContent !== ar.rcTitle; i++)
+      await act(() => new Promise((r) => setTimeout(r, 50)));
     expect(location.pathname).toBe("/ar/app/lessons/rc-charging");
     expect(root.querySelector("h1")?.textContent).toBe(ar.rcTitle);
     expect(document.documentElement).toMatchObject({ lang: "ar", dir: "rtl" });
