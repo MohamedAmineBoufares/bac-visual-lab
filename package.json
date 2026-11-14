@@ -47,7 +47,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "katex": "^0.19.1",
-    "lucide-react": "^1.71.0",
+    "lucide-react": "^1.72.0",
     "radix-ui": "^1.8.1",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
@@ -56,7 +56,7 @@
     "three": "^0.187.0"
   },
   "devDependencies": {
-    "@babel/core": "^8.1.0",
+    "@babel/core": "^8.1.2",
     "@rolldown/plugin-babel": "^0.3.1",
     "@tanstack/router-plugin": "^1.169.0",
     "@types/node": "^26.6.6",
@@ -67,11 +67,11 @@
     "@vitest/coverage-v8": "^5.1.0",
     "axe-core": "^4.14.0",
     "babel-plugin-react-compiler": "^1.0.0",
-    "jsdom": "^31.0.0",
+    "jsdom": "^31.0.1",
     "oxfmt": "^0.78.0",
     "oxlint": "^1.93.0",
     "typescript": "~7.0.2",
-    "vite": "^8.3.7",
+    "vite": "^8.3.8",
     "vite-plugin-pwa": "^2.0.0",
     "vitest": "^5.1.0"
   },
