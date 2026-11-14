@@ -57,6 +57,7 @@ export const headTags = ({ path, title, description, noindex }: Page) => {
     tag("meta", { property: "og:title", content: title }),
     tag("meta", { property: "og:description", content: description }),
     tag("meta", { property: "og:locale", content: ogLocale[locale] }),
+    tag("meta", { property: "og:image", content: url("/pwa-512x512.png") }),
     tag("meta", { name: "twitter:card", content: "summary" }),
   ];
   if (noindex) return [...tags, tag("meta", { name: "robots", content: "noindex" })].join("\n");

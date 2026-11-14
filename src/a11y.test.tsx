@@ -4,6 +4,7 @@ import axe from "axe-core";
 import { act } from "react";
 import { createRoot } from "react-dom/client";
 import { afterEach, beforeAll, describe, expect, it } from "vitest";
+import { isReady, lessons } from "./lessons/lessons";
 import { routeTree } from "./routeTree.gen";
 import { SettingsProvider } from "./settings/settings";
 
@@ -42,8 +43,7 @@ describe("accessibility (axe)", () => {
     "/",
     "/app",
     "/app/sections/mathematiques",
-    "/app/lessons/rc-charging",
-    "/ar/app/lessons/rc-charging",
+    ...lessons.filter(isReady).flatMap((l) => [`/app/lessons/${l.id}`, `/ar/app/lessons/${l.id}`]),
   ]) {
     it(`has no violations on ${path}`, async () => {
       await render(path);

@@ -306,7 +306,9 @@ export function Chapters({ section }: { section: Section }) {
 /** Where the lesson's content comes from: its doc's version and newest History row. */
 function DocInfo({ doc: { latest, meta, url } }: { doc: LessonDoc }) {
   const { settings, t } = useSettings();
-  const date = new Intl.DateTimeFormat(settings.locale, { dateStyle: "medium" }).format(new Date(latest.date));
+  const date = new Intl.DateTimeFormat(settings.locale, { dateStyle: "medium", timeZone: "UTC" }).format(
+    new Date(latest.date),
+  );
   return (
     <aside
       aria-labelledby="doc-title"
@@ -349,7 +351,7 @@ export function Lesson({ lesson, doc }: { lesson: ReadyLesson; doc?: LessonDoc |
         </div>
       </div>
       <Suspense fallback={<div aria-busy="true" className="min-h-96 border-2 border-dashed border-edge/30" />}>
-        <lesson.ready.Sim />
+        <lesson.ready.Sim lessonId={lesson.id} />
       </Suspense>
       {doc && <DocInfo doc={doc} />}
     </Page>

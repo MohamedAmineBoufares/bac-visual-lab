@@ -55,7 +55,8 @@ and code-split per route. Progress and settings are a few KB in `localStorage`. 
 
 ```
 model.ts      pure functions, unit-tested against known solutions
-<Sim>.tsx     state (sliders, time, play/pause), composes:
+messages.ts   the lesson's own text in fr / en / ar, loaded with the simulation
+<Sim>.tsx     sliders, formula and model, inside SimShell (clock, transport bar, guided notes, layout):
   SimStage      SVG plot, always LTR, transport bar (play, reset, speed, time)
   ParamSlider   symbol, label, value badge, min/max; keyboard-operable (Radix Slider)
   FormulaPanel  KaTeX formula with live terms, substituted numbers, legend readout
@@ -69,7 +70,5 @@ equal. Circuit switches between a top-view SVG schematic (default) and the 3D vi
 
 ## Open decisions
 
-- License (code and content may need different licenses, e.g. MIT + CC BY-SA).
 - The other five simulations for the first vertical slice (verify chapters against the official CNP programme).
 - Primary language default (currently French).
-- PWA/offline setup (planned, not built yet).

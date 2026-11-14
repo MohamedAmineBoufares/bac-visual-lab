@@ -37,6 +37,9 @@ Read [README.md](README.md) and [docs/design.md](docs/design.md) before larger c
   `content/BUILD.md`. Keep its sections in step with `lessons.ts`; `src/lessons/docs.test.ts` checks it.
 - Lessons are listed in `src/lessons/lessons.ts`; home, section and lesson pages are built from it. Never
   hard-code lesson cards or fake progress. Quiz progress is stored by `src/lessons/progress.ts`.
+- Component tests start with `// @vitest-environment jsdom` and use the helpers in `src/test/render.tsx`
+  (`render`, `press`, `key`, `byText`, `byLabel`, and `fr` for the expected French text). Tests that list
+  lessons read them from `lessons.ts`, never a hard-coded id.
 - Simulation physics/maths live in `src/sims/<name>/model.ts` as pure functions with unit tests against a
   known solution (e.g. RC: u_C(τ) = 63.2 % of E). No React in models.
 - 3D views use three.js through `@react-three/fiber`, wrapped in `<Scene3D>` (`src/components/scene-3d.tsx`:
@@ -46,7 +49,13 @@ Read [README.md](README.md) and [docs/design.md](docs/design.md) before larger c
 - Formulas are TeX rendered by `<Formula>` (KaTeX). Mark slider-bound terms with `\htmlClass{live}{…}`.
   Formulas and plots are always LTR, even in Arabic.
 - All UI text goes through `t(key)` from `useSettings()`; add the key to **all three** locales in
-  `src/i18n/messages.ts`. Arabic strings need review by a native speaker; mark new ones in the PR.
+  `src/i18n/messages.ts`. Text only one lesson uses (notes, quiz, its labels) goes in
+  `src/sims/<name>/messages.ts` instead, so it loads with the simulation; the lesson's title and chapter
+  stay in the shared file because the catalogue shows them. Arabic strings need review by a native
+  speaker; mark new ones in the PR.
+- A simulation view is its model, sliders and formula inside `<SimShell>` with `useSimClock()`
+  (`src/components/sim-shell.tsx`), which own the clock, transport bar, guided notes and layout. Don't
+  copy those into a lesson; it gets its `lessonId` as a prop from the catalogue.
 - Use logical CSS (`ms-*`, `me-*`, `start`, `end`, `rtl:` variants), never `left/right` for layout.
 - Colours only via tokens (`bg-primary`, `text-muted-foreground`, `stroke-sim-curve-1`, …) defined in
   `src/index.css`. Never raw hex in components, except `text-[#072841]` on the always-light highlight.

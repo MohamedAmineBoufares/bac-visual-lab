@@ -2,6 +2,7 @@ import { BoxGeometry } from "three";
 import { type SceneLabel, Scene3D, useTokenColors } from "@/components/scene-3d";
 import { useFormat } from "@/components/sim";
 import { useSettings } from "@/settings/settings";
+import { rcText } from "./messages";
 import { type RcParams, uC, uR } from "./model";
 import { GAP, LOOP, MAX_PLATE_CHARGES, PATH_LENGTH, dotShift, plateCharges, pointAt } from "./scene-layout";
 
@@ -22,7 +23,8 @@ function Wire({ a, b, color }: { a: [number, number]; b: [number, number]; color
 
 /** Generator, resistor and capacitor in series; every size and glow follows E, R, C and t. */
 export function RcScene3D({ p, t }: { p: RcParams; t: number }) {
-  const { t: tr } = useSettings();
+  const { settings, t: tr } = useSettings();
+  const s = rcText[settings.locale];
   const format = useFormat();
   const color = useTokenColors();
   const wire = color("sim-axis");
@@ -44,12 +46,12 @@ export function RcScene3D({ p, t }: { p: RcParams; t: number }) {
   const labels: SceneLabel[] = [
     { text: `${tr("lblGenerator")} · E`, at: [-LOOP.x, genH / 2 + 0.25, 0] },
     { text: `${tr("lblResistor")} · R`, at: [0, LOOP.y + 0.3, 0] },
-    { text: `${tr("lblCapacitor")} · C`, at: [LOOP.x, -LOOP.y - 0.15, 0] },
-    { text: tr("lblPlatePlus"), at: [LOOP.x + PLATE_W / 2, GAP + 0.25, depth / 2] },
-    { text: tr("lblPlateMinus"), at: [LOOP.x + PLATE_W / 2, -GAP + 0.1, depth / 2] },
+    { text: `${s.lblCapacitor} · C`, at: [LOOP.x, -LOOP.y - 0.15, 0] },
+    { text: s.lblPlatePlus, at: [LOOP.x + PLATE_W / 2, GAP + 0.25, depth / 2] },
+    { text: s.lblPlateMinus, at: [LOOP.x + PLATE_W / 2, -GAP + 0.1, depth / 2] },
   ];
 
-  const summary = `${tr("rc3dLabel")} · E = ${format(p.E, 1)} V, R = ${format(p.R, 1)} kΩ, C = ${format(p.C, 1)} µF · t = ${format(t)} ms: u_C = ${format(uC(p, t))} V, u_R = ${format(uR(p, t))} V`;
+  const summary = `${s.rc3dLabel} · E = ${format(p.E, 1)} V, R = ${format(p.R, 1)} kΩ, C = ${format(p.C, 1)} µF · t = ${format(t)} ms: u_C = ${format(uC(p, t))} V, u_R = ${format(uR(p, t))} V`;
 
   return (
     <Scene3D summary={summary} labels={labels}>

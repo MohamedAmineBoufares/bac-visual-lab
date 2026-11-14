@@ -1,5 +1,4 @@
 import { renderToString } from "katex";
-import { useMemo } from "react";
 import { cn } from "@/lib/utils";
 
 /**
@@ -7,16 +6,12 @@ import { cn } from "@/lib/utils";
  * to give them the --sim-highlight background. Input is trusted, authored TeX only.
  */
 export function Formula({ tex, display = false, className }: { tex: string; display?: boolean; className?: string }) {
-  const html = useMemo(
-    () =>
-      renderToString(tex, {
-        displayMode: display,
-        throwOnError: false,
-        trust: (ctx) => ctx.command === "\\htmlClass",
-        strict: false,
-      }),
-    [tex, display],
-  );
+  const html = renderToString(tex, {
+    displayMode: display,
+    throwOnError: false,
+    trust: (ctx) => ctx.command === "\\htmlClass",
+    strict: false,
+  });
   return (
     <span
       className={cn("[&_.live]:bg-sim-highlight [&_.live]:px-0.5 [&_.live]:text-[#072841]", className)}

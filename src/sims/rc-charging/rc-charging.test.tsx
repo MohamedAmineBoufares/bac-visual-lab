@@ -2,6 +2,7 @@
 import { act } from "react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { byLabel, byText, fr, key, press, render } from "@/test/render";
+import { rcText } from "./messages";
 import { RcCharging } from "./rc-charging";
 
 // jsdom has no WebGL: only the canvas is faked, the 3D scene and its text alternative are real.
@@ -32,14 +33,14 @@ const button = (root: ParentNode, text: string) =>
 
 describe("RcCharging", () => {
   it("starts at t = 2,2 ms with the formula and τ = RC", async () => {
-    const root = await render(<RcCharging />);
+    const root = await render(<RcCharging lessonId="rc-charging" />);
     expect(clock(root)).toBe("t = 2,2 ms");
     expect(root.textContent).toContain("2,20 ms"); // τ = 2,2 kΩ × 1 µF
     expect(byText(root, "τ")).not.toEqual([]); // τ marker on the time axis
   });
 
   it("plays at the chosen speed and pauses", async () => {
-    const root = await render(<RcCharging />);
+    const root = await render(<RcCharging lessonId="rc-charging" />);
     await press(button(root, fr.play));
     expect(button(root, fr.pause)).toBeDefined();
     for (let i = 0; i < 4; i++) await frame(); // 4 × 50 ms at ×1 = 1 ms of circuit time
@@ -54,7 +55,7 @@ describe("RcCharging", () => {
   });
 
   it("stops at the end of the axis, then plays again from 0", async () => {
-    const root = await render(<RcCharging />);
+    const root = await render(<RcCharging lessonId="rc-charging" />);
     await press(byText(root, "×4")[0]);
     await press(button(root, fr.play));
     // oxlint-disable-next-line no-unmodified-loop-condition -- frame() runs the queued callback, which clears `pending`
@@ -67,13 +68,13 @@ describe("RcCharging", () => {
   });
 
   it("reset goes back to 0", async () => {
-    const root = await render(<RcCharging />);
+    const root = await render(<RcCharging lessonId="rc-charging" />);
     await press(byLabel(root, fr.reset)[0]);
     expect(clock(root)).toBe("t = 0,0 ms");
   });
 
   it("guided mode explains each phase and halts when the next one starts", async () => {
-    const root = await render(<RcCharging />);
+    const root = await render(<RcCharging lessonId="rc-charging" />);
     await press(root.querySelector('[role="switch"]'));
     const status = () => root.querySelector('figure [role="status"]')?.textContent ?? "";
     const before = status();
@@ -88,14 +89,14 @@ describe("RcCharging", () => {
   });
 
   it("a slider changes E in the readout and on the graph", async () => {
-    const root = await render(<RcCharging />);
+    const root = await render(<RcCharging lessonId="rc-charging" />);
     const [thumbE] = root.querySelectorAll('[role="slider"]');
     await key(thumbE, "ArrowRight");
     expect(byText(root, "E = 5,5 V")).not.toEqual([]);
   });
 
   it("long time constants move τ off the axis", async () => {
-    const root = await render(<RcCharging />);
+    const root = await render(<RcCharging lessonId="rc-charging" />);
     const [, thumbR, thumbC] = root.querySelectorAll('[role="slider"]');
     await key(thumbR, "End"); // 5 kΩ
     await key(thumbC, "End"); // 2 µF → τ = 10 ms, still on the axis
@@ -103,13 +104,13 @@ describe("RcCharging", () => {
   });
 
   it("switches the circuit to 3D and back", async () => {
-    const root = await render(<RcCharging />);
+    const root = await render(<RcCharging lessonId="rc-charging" />);
     await press(byText(root, fr.circuit).find((el) => el.getAttribute("role") === "tab"));
     const schematics = [...root.querySelectorAll('svg[role="img"]')];
-    expect(schematics.some((s) => s.getAttribute("aria-label")?.startsWith(fr.schematic))).toBe(true);
+    expect(schematics.some((s) => s.getAttribute("aria-label")?.startsWith(rcText.fr.schematic))).toBe(true);
     await press(byText(root, fr.view3d)[0]);
     expect(byText(root, fr.loading)).not.toEqual([]);
-    const scene3d = () => root.querySelector(`[aria-label^="${fr.rc3dLabel}"]`);
+    const scene3d = () => root.querySelector(`[aria-label^="${rcText.fr.rc3dLabel}"]`);
     // Wait for the lazy chunk; slow CI runners need more than a fixed delay.
     for (let i = 0; i < 100 && !scene3d(); i++) await act(() => new Promise((r) => setTimeout(r, 50)));
     expect(scene3d()?.getAttribute("aria-label")).toContain("t = 2,20 ms");
@@ -118,7 +119,7 @@ describe("RcCharging", () => {
   });
 
   it("the wide layout can give the side panel half the width", async () => {
-    const root = await render(<RcCharging />);
+    const root = await render(<RcCharging lessonId="rc-charging" />);
     const toggle = byLabel(root, fr.viewExpand)[0];
     expect(toggle?.getAttribute("aria-pressed")).toBe("false");
     await press(toggle);

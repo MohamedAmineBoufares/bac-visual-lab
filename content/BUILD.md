@@ -13,8 +13,8 @@ instead of guessing.
    Steps in "Étapes commentées" become a phase function like `phase()` in the RC model.
 2. **Tests** (`src/sims/<id>/model.test.ts`): one test per row of "Valeurs de référence", using the doc's
    numbers.
-3. **Strings** (`src/i18n/messages.ts`): titles, slider labels, step explanations and quiz text in all three
-   locales. The French text comes from the doc; translate to English and Arabic, and list the Arabic strings
+3. **Strings**: the title and chapter in `src/i18n/messages.ts`; slider labels, step explanations and quiz
+   text in `src/sims/<id>/messages.ts`. All three locales in both. The French text comes from the doc; translate to English and Arabic, and list the Arabic strings
    in the pull request for native review.
 4. **Quiz** (`src/sims/<id>/quiz.ts`): the doc's questions, keyed by message keys.
 5. **Simulation** (`src/sims/<id>/<id>.tsx`): one `ParamSlider` per row of "Ce que l'élève règle" (same

@@ -2,14 +2,22 @@ import { Check, X } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import type { Locale } from "@/i18n/messages";
 import type { Question } from "@/lessons/lessons";
 import { recordCorrect } from "@/lessons/progress";
 import { cn } from "@/lib/utils";
 import { useSettings } from "@/settings/settings";
 
 /** One question at a time; a correct answer is saved to the lesson's progress. */
-export function Quiz({ lessonId, questions }: { lessonId: string; questions: Question[] }) {
-  const { t } = useSettings();
+export function Quiz<K extends string>(props: {
+  lessonId: string;
+  questions: Question<K>[];
+  /** The lesson's own text, which the questions' keys point into. */
+  text: Record<Locale, Record<K, string>>;
+}) {
+  const { lessonId, questions } = props;
+  const { settings, t } = useSettings();
+  const text = props.text[settings.locale];
   const [index, setIndex] = useState(0);
   const [choice, setChoice] = useState("");
   const [checked, setChecked] = useState(false);
@@ -37,12 +45,12 @@ export function Quiz({ lessonId, questions }: { lessonId: string; questions: Que
           </span>
         </h2>
       </header>
-      <p>{t(question.prompt)}</p>
+      <p>{text[question.prompt]}</p>
       <RadioGroup
         value={choice}
         onValueChange={(v) => (setChoice(v), setChecked(false))}
         className="gap-2"
-        aria-label={t(question.prompt)}
+        aria-label={text[question.prompt]}
       >
         {question.options.map((key) => {
           const state = !checked
@@ -66,7 +74,7 @@ export function Quiz({ lessonId, questions }: { lessonId: string; questions: Que
               )}
             >
               <RadioGroupItem value={key} />
-              <span className="flex-1">{t(key)}</span>
+              <span className="flex-1">{text[key]}</span>
               {state === "correct" && (
                 <span className="flex items-center gap-1 text-sm font-semibold text-success">
                   <Check className="size-4" />
@@ -84,7 +92,7 @@ export function Quiz({ lessonId, questions }: { lessonId: string; questions: Que
         })}
       </RadioGroup>
       <p role="status" className="text-sm text-muted-foreground empty:hidden">
-        {checked && t(question.explain)}
+        {checked && text[question.explain]}
       </p>
       {checked ? (
         <Button className="self-start" onClick={() => goTo(last ? 0 : index + 1)}>
